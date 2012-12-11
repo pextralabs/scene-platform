@@ -30,8 +30,12 @@ public class SituationCast extends HashMap<String, Object> {
 		for(Field field: situationRoleFields) {
 			Role role = field.getAnnotation(Role.class);
 			if (role != null) {
-				if (role.label() != "") roleLabel = new String(role.label());
-				else roleLabel = new String(field.getName());
+				
+				if (role.label() != "") {
+					roleLabel = new String(role.label());
+				} else {
+					roleLabel = new String(field.getName());
+				}
 			
 				if (field.getType().equals(java.util.Set.class)) {
 					Set<Object> set = new HashSet<Object>();

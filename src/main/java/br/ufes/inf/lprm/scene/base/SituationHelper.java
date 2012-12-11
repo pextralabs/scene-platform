@@ -5,6 +5,7 @@ import java.lang.reflect.Field;
 import java.util.Collection;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.NoSuchElementException;
 
 import org.drools.definition.KnowledgePackage;
 import org.drools.definitions.rule.impl.RuleImpl;
@@ -64,7 +65,7 @@ public class SituationHelper {
 					
 					if (rule.getMetaData().get("role").equals("situation")) {
 						
-						String type = (String) rule.getMetaData().get("type");
+						String type = (String) rule.getPackageName() + "." + rule.getMetaData().get("type");
 						conf = spm.getConfigurationHash().get(type);
 						
 						if (conf == null) {
@@ -72,12 +73,37 @@ public class SituationHelper {
 							spm.getConfigurationHash().put(type, conf);
 						}
 						
-						conf.setType(Class.forName(rule.getPackageName() +"." + type));
+						conf.setType(Class.forName(type));
 						
 						if (rule.getMetaData().containsKey("snapshot")) {
 							
 							if (rule.getMetaData().get("snapshot").equals("on")) {
 								conf.setSnapshot(true);
+								
+								if (rule.getMetaData().containsKey("restore")) {
+									
+									if (rule.getMetaData().get("restore").equals("first")) {
+										conf.setRestoreType(CastRestoreType.FIRST);
+									}
+									else {
+										if (rule.getMetaData().get("restore").equals("last")) {
+											conf.setRestoreType(CastRestoreType.LAST);
+										}
+										else {
+											if (rule.getMetaData().get("restore").equals("stable")) {
+												conf.setRestoreType(CastRestoreType.STABLE);
+											}
+											else {
+												throw new Exception();
+											}
+										}
+									}
+									
+								} else {
+									conf.setRestoreType(CastRestoreType.FIRST);
+								}								
+								
+								
 							}
 							else {
 								if (rule.getMetaData().get("snapshot").equals("off")) {
@@ -90,35 +116,13 @@ public class SituationHelper {
 							
 						} else {
 							conf.setSnapshot(false);
-						}
-						
-						if (rule.getMetaData().containsKey("restore")) {
-							
-							if (rule.getMetaData().get("restore").equals("first")) {
-								conf.setRestoreType(CastRestoreType.FIRST);
-							}
-							else {
-								if (rule.getMetaData().get("restore").equals("last")) {
-									conf.setRestoreType(CastRestoreType.LAST);
-								}
-								else {
-									if (rule.getMetaData().get("restore").equals("stable")) {
-										conf.setRestoreType(CastRestoreType.STABLE);
-									}
-									else {
-										throw new Exception();
-									}
-								}
-							}
-							
-						} else {
-							conf.setRestoreType(CastRestoreType.FIRST);
 						}						
 					}				
 				}
 			}
 		}
 		khelper.getKnowledgeRuntime().setGlobal("SPM", spm);
+		System.out.print(spm.toString());
 	}
 	
 	public static void refactorSaliences(KnowledgeBuilder kbuilder) {
@@ -240,10 +244,11 @@ public class SituationHelper {
 			Role role = field.getAnnotation(Role.class);
 			if (role != null) {
 				if (role.label() != "") {
-					participant = cast.get(field.getName());
+					participant = cast.get(role.label());
+
 				}
 				else {
-					participant = cast.get(role.label());
+					participant = cast.get(field.getName());					
 				}
 				if (participant != null) {
 					try {
@@ -313,13 +318,14 @@ public class SituationHelper {
 		ActivateSituationEvent ase = new ActivateSituationEvent(evn_timestamp);
 		
 		SituationType sit = null;
-		
+
 		try {
 			
 			sit = (SituationType) type.newInstance();
 			
-			//
-			sit.getSnapshots().add(new CastSnapshot(cast, evn_timestamp));
+			if (toSnapshot(khelper, type)) {
+				sit.getSnapshots().add(new CastSnapshot(cast, evn_timestamp));
+			}
 			
 			SetFieldsFromMatchedObjects(sit, cast);
 			ase.setSituation(sit);
@@ -332,10 +338,9 @@ public class SituationHelper {
 		} catch (IllegalAccessException e) {
 			e.printStackTrace();
 		} catch (IOException e) {
-			
 			e.printStackTrace();
 		}
-				
+		
 		return sit;
 	}
 	
@@ -343,9 +348,20 @@ public class SituationHelper {
 		long evn_timestamp = khelper.getKnowledgeRuntime().getSessionClock().getCurrentTime();
 		DeactivateSituationEvent dse = new DeactivateSituationEvent(evn_timestamp);
 		dse.setSituation((SituationType) sit);
-		if (toSnapshot(khelper, sit.getClass())) {
+		
+		SituationProfile prof = getSPM(khelper).getProfile(sit.getClass().getName());
+			
+		if (prof.getSnapshot()) {
 			try {
-				SetFieldsFromMatchedObjects(sit, ((SituationType) sit).getSnapshots().getFirst().getSituationCast());
+				CastSnapshot snap = null;
+				try {
+					if (prof.getRestoretype() == CastRestoreType.FIRST) snap 	= ((SituationType) sit).getSnapshots().getFirst(); 
+					if (prof.getRestoretype() == CastRestoreType.STABLE) snap 	= ((SituationType) sit).getSnapshots().getStable(); 
+					if (prof.getRestoretype() == CastRestoreType.LAST) snap 	= ((SituationType) sit).getSnapshots().getLast();	
+				} catch(NoSuchElementException nsee) {
+					snap = null;
+				}
+				if (snap != null) SetFieldsFromMatchedObjects(sit, snap.getSituationCast());
 			} catch (IOException e) {
 				e.printStackTrace();
 			} catch (ClassNotFoundException e) {

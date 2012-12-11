@@ -21,7 +21,23 @@ public class SituationProfileManager {
 	}
 
 	public SituationProfile getProfile(Rule rule) {
-		String situation = SituationUtils.getSituationMetaDataValue(rule, "type");
+		String situation =  rule.getPackageName() + "." + SituationUtils.getSituationMetaDataValue(rule, "type");
 		return profiles.get(situation);
-	}	
+	}
+	
+	@Override
+	public String toString() {
+		SituationProfile profile;
+		String result = new String();
+		for (String situation: this.profiles.keySet()) {
+			profile = profiles.get(situation);
+			
+			if (profile.getSnapshot()) {
+				result = result.concat(situation + " - " + "type: " + profile.getType().getName() + "\t" + "snapshot: "  + profile.getSnapshot() + "\t" + "restore:" + profile.getRestoretype().name()+"\n");
+			} else {
+				result = result.concat(situation + " - " + "type: " + profile.getType().getName() + "\t" + "snapshot: "  + profile.getSnapshot()+"\n");				
+			}
+		}
+		return result;
+	}
 }

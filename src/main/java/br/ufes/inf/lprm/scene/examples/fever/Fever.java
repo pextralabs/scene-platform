@@ -4,7 +4,7 @@ import br.ufes.inf.lprm.scene.base.*;
 
 public class Fever extends SituationType {
 	
-	@Role(label = "febrile")
+	@Role(label = "f1")
 	private Person febrile;
 
 	public void setFebrile(Person febrile) {

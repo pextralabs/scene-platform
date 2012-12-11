@@ -11,13 +11,13 @@ public class SituationType implements Serializable {
 
 	private ActivateSituationEvent activation;
 	private DeactivateSituationEvent deactivation;
-	private LinkedList<CastSnapshot> snapshots;
+	private CastSnapshotSet snapshots;
 	private boolean active;
 	//tests
 	private long detectionTimestamp;
 	
 	public SituationType() {
-		snapshots = new LinkedList<CastSnapshot>();
+		snapshots = new CastSnapshotSet();
 	}
 	
 	public void setActivation(ActivateSituationEvent activation) {
@@ -37,9 +37,11 @@ public class SituationType implements Serializable {
 	public void setActive() {
 		this.active = true;
 	}
+	
 	public void setInactive() {
 		this.active = false;
 	}
+	
 	public boolean isActive() {
 		return active;
 	}
@@ -56,7 +58,7 @@ public class SituationType implements Serializable {
 		return detectionTimestamp;
 	}
 
-	public LinkedList<CastSnapshot> getSnapshots() {
+	public CastSnapshotSet getSnapshots() {
 		return snapshots;
 	}
 
