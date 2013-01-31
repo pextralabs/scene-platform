@@ -3,7 +3,7 @@
     <modelVersion>4.0.0</modelVersion>
   <groupId>br.ufes.inf.lprm</groupId>
   <artifactId>scene</artifactId>
-  <version>0.6.0</version>
+  <version>0.7.0</version>
   <packaging>jar</packaging>
   <name>SCENE</name>
   <properties>
@@ -32,6 +32,9 @@
 	  		<include>br/ufes/inf/lprm/scene/base/evaluators/*</include>
 			<include>br/ufes/inf/lprm/scene/base/events/*</include>
 	  		<include>br/ufes/inf/lprm/scene/base/*</include>
+	  		<include>br/ufes/inf/lprm/scene/*</include>
+	  		<include>br/ufes/inf/lprm/scene/situation/publishing/*</include>
+	  		<include>br/ufes/inf/lprm/scene/situation/publishing/sinos/*</include>
 	  	</includes>
 	  </configuration>
 	</plugin>

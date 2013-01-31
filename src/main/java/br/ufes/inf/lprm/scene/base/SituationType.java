@@ -1,10 +1,10 @@
 package br.ufes.inf.lprm.scene.base;
 
 import java.io.Serializable;
-import java.util.LinkedList;
 
 import br.ufes.inf.lprm.scene.base.events.ActivateSituationEvent;
 import br.ufes.inf.lprm.scene.base.events.DeactivateSituationEvent;
+import br.ufes.inf.lprm.scene.situation.publishing.SituationPublisher;
 
 @SuppressWarnings("serial")
 public class SituationType implements Serializable {
@@ -24,6 +24,7 @@ public class SituationType implements Serializable {
 		this.activation = activation;
 		this.setActive();
 	}
+	
 	public ActivateSituationEvent getActivation() {
 		return activation;
 	}
@@ -38,9 +39,19 @@ public class SituationType implements Serializable {
 		this.active = true;
 	}
 	
+	public void setActive(SituationPublisher pub) {
+		this.active = true;
+		pub.publishActivation(this);
+	}	
+	
 	public void setInactive() {
 		this.active = false;
 	}
+	
+	public void setInactive(SituationPublisher pub) {
+		this.active = false;
+		pub.publishDeactivation(this);
+	}	
 	
 	public boolean isActive() {
 		return active;

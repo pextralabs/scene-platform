@@ -3,18 +3,20 @@ package br.ufes.inf.lprm.scene.examples.fever;
 import java.util.Random;
 
 import org.drools.KnowledgeBase;
-import org.drools.KnowledgeBaseFactory;
+
 import org.drools.builder.KnowledgeBuilder;
-import org.drools.builder.KnowledgeBuilderConfiguration;
+
 import org.drools.builder.KnowledgeBuilderError;
 import org.drools.builder.KnowledgeBuilderErrors;
-import org.drools.builder.KnowledgeBuilderFactory;
+
 import org.drools.builder.ResourceType;
 
 import org.drools.io.ResourceFactory;
 import org.drools.runtime.StatefulKnowledgeSession;
 import org.drools.runtime.rule.FactHandle;
-import br.ufes.inf.lprm.scene.base.SituationHelper;
+
+import br.ufes.inf.lprm.scene.SituationKnowledgeBaseFactory;
+import br.ufes.inf.lprm.scene.SituationKnowledgeBuilderFactory;
 
 /**
  * This is a sample class to launch a rule.
@@ -123,12 +125,15 @@ public class FeverExampleMain {
 
     public static final void main(String[] args) {
         try {
+        	
             // load up the knowledge base
             KnowledgeBase kbase = readKnowledgeBase();
             StatefulKnowledgeSession ksession = kbase.newStatefulKnowledgeSession();
             //KnowledgeRuntimeLoggerFactory.newConsoleLogger(ksession);
             // go !
-
+            
+            
+            
             final RuleEngineThread eng = new RuleEngineThread(ksession);
 			eng.start();			
 			
@@ -164,7 +169,7 @@ public class FeverExampleMain {
 				p1.setTemperature(38);			
 				ksession.update(fh1,  p1);
 	
-				Thread.sleep(3000);				
+				Thread.sleep(3000);
 				
 				p1.setTemperature(37);			
 				ksession.update(fh1,  p1);			
@@ -188,21 +193,20 @@ public class FeverExampleMain {
 
     private static KnowledgeBase readKnowledgeBase() throws Exception {
     	
-    	KnowledgeBuilderConfiguration builderConf = KnowledgeBuilderFactory.newKnowledgeBuilderConfiguration();
-        SituationHelper.setBuilderConfSituationAwareness(builderConf);
-    	KnowledgeBuilder kbuilder = KnowledgeBuilderFactory.newKnowledgeBuilder(builderConf);
-    	SituationHelper.setKnowledgeBuilderSituationAwareness(kbuilder);
+    	KnowledgeBuilder kbuilder = SituationKnowledgeBuilderFactory.newKnowledgeBuilder();
+    	System.out.println("aaaaa");
+ 	
         kbuilder.add(ResourceFactory.newClassPathResource("br/ufes/inf/lprm/scene/examples/fever/FeverSituation.drl"), ResourceType.DRL);
-        SituationHelper.refactorSaliences(kbuilder);
+        
         KnowledgeBuilderErrors errors = kbuilder.getErrors();
         if (errors.size() > 0) {
             for (KnowledgeBuilderError error: errors) {
                 System.err.println(error);
             }
             throw new IllegalArgumentException("Could not parse knowledge.");
-        }        
-        KnowledgeBase kbase = KnowledgeBaseFactory.newKnowledgeBase();
-        kbase.addKnowledgePackages(kbuilder.getKnowledgePackages());        
+        }
+        
+        KnowledgeBase kbase = SituationKnowledgeBaseFactory.newKnowledgeBase(kbuilder);
         return kbase;
     }
 

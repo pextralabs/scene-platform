@@ -1,7 +1,9 @@
 package br.ufes.inf.lprm.scene.examples.fever;
 
 import br.ufes.inf.lprm.scene.base.*;
+import br.ufes.inf.lprm.scene.situation.publishing.Publish;
 
+@Publish(host="host", port=4040)
 public class Fever extends SituationType {
 	
 	@Role(label = "f1")
