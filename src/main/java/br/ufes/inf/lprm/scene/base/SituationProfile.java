@@ -1,10 +1,13 @@
 package br.ufes.inf.lprm.scene.base;
 
+import br.ufes.inf.lprm.scene.situation.publishing.SituationPublisher;
+
 class SituationProfile {
 	
-	private Class<?>		type;
-	private Boolean 		snapshot;
-	private CastRestoreType	restoretype;
+	private Class<?> 				type;
+	private Boolean 				snapshot;
+	private CastRestoreType			restoretype;
+	private SituationPublisher 		publisher;
 	
 	public Boolean getSnapshot() {
 		return snapshot;
@@ -23,6 +26,12 @@ class SituationProfile {
 	}
 	public void setType(Class<?> type) {
 		this.type = type;
+	}
+	public SituationPublisher getPublisher() {
+		return publisher;
+	}
+	public void setPublisher(SituationPublisher publisher) {
+		this.publisher = publisher;
 	}
 	
 }

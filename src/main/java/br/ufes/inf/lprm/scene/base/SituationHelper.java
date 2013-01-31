@@ -2,8 +2,6 @@ package br.ufes.inf.lprm.scene.base;
 
 import java.io.IOException;
 import java.lang.reflect.Field;
-import java.util.Collection;
-import java.util.LinkedList;
 import java.util.List;
 import java.util.NoSuchElementException;
 
@@ -34,32 +32,30 @@ import br.ufes.inf.lprm.scene.base.evaluators.StartedByEvaluatorDefinition;
 import br.ufes.inf.lprm.scene.base.evaluators.StartsEvaluatorDefinition;
 import br.ufes.inf.lprm.scene.base.events.ActivateSituationEvent;
 import br.ufes.inf.lprm.scene.base.events.DeactivateSituationEvent;
+import br.ufes.inf.lprm.scene.situation.publishing.SituationPublisher;
 
 //@SuppressWarnings("restriction")
 public class SituationHelper {
 	
 	private static boolean toSnapshot(KnowledgeHelper khelper, Class<?> type) {
 		
-		if (getSPM(khelper).getConfigurationHash().containsKey(type.getSimpleName())) {
-			return getSPM(khelper).getConfigurationHash().get(type.getSimpleName()).getSnapshot();
+		if (SituationProfileManager.getInstance().getConfigurationHash().containsKey(type.getSimpleName())) {
+			return SituationProfileManager.getInstance().getConfigurationHash().get(type.getSimpleName()).getSnapshot();
 		}
 		return false;
 	}
-	
-	public static SituationProfileManager getSPM(KnowledgeHelper khelper) {
-		return (SituationProfileManager) khelper.getKnowledgeRuntime().getGlobal("SPM");		
-	}
-	
+
 	public static void SetupSituationProfileManager(KnowledgeHelper khelper) throws Exception {
 		
 		SituationProfileManager spm;
 		SituationProfile conf;
 		
-		spm = new SituationProfileManager();
-	
+		spm = SituationProfileManager.getInstance();
+		
 		for (KnowledgePackage pkg: khelper.getKnowledgeRuntime().getKnowledgeBase().getKnowledgePackages()) {
+			 
 			
-			for (Rule rule:  getRulesFromPackage(pkg)) {
+			for (Rule rule:  SituationUtils.getRulesFromPackage(pkg)) {
 				
 				if (rule.getMetaData().containsKey("role")) {
 					
@@ -72,9 +68,9 @@ public class SituationHelper {
 							conf = new SituationProfile();
 							spm.getConfigurationHash().put(type, conf);
 						}
-						
+											
 						conf.setType(Class.forName(type));
-						
+												
 						if (rule.getMetaData().containsKey("snapshot")) {
 							
 							if (rule.getMetaData().get("snapshot").equals("on")) {
@@ -130,11 +126,11 @@ public class SituationHelper {
 		KnowledgePackage situationBasePkg = null;
 		Integer maxSalience = null;
 		
-		for (KnowledgePackage pkg: kbuilder. getKnowledgePackages()) {
+		for (KnowledgePackage pkg: kbuilder.getKnowledgePackages()) {
 			
 			if (pkg.getName().equals("br.ufes.inf.lprm.base")) situationBasePkg = pkg;
 			
-			for (Rule rule:  getRulesFromPackage(pkg)) {
+			for (Rule rule:  SituationUtils.getRulesFromPackage(pkg)) {
 				
         		if (maxSalience != null) {
             		if (rule.getSalience().getValue(null, null, null) > maxSalience) {
@@ -148,40 +144,9 @@ public class SituationHelper {
 			getRuleFromPackage(situationBasePkg, "SituationActivation").setSalience(new SalienceInteger(maxSalience + 1));			
 			getRuleFromPackage(situationBasePkg, "SituationDeactivation").setSalience(new SalienceInteger(maxSalience + 2));
 		}
-		//System.out.println(maxSalience);
+
 	}
-	
-	private static Collection<Rule> getRulesFromPackage(KnowledgePackage pkg) {
 		
-		LinkedList<Rule> collection = new LinkedList<Rule>();
-		
-		for (Object obj: pkg.getRules()) {
-			
-    		RuleImpl ruleImpl = (RuleImpl) obj;
-    		
-    		Field ruleField;
-			try {
-				ruleField = ruleImpl.getClass().getDeclaredField("rule");
-				
-	    		ruleField.setAccessible(true);
-	    		Rule rule = (Rule) ruleField.get(ruleImpl);
-	    		ruleField.setAccessible(false);			
-				collection.add(rule);
-				
-			} catch (SecurityException e) {
-				e.printStackTrace();
-			} catch (NoSuchFieldException e) {
-				e.printStackTrace();
-			} catch (IllegalArgumentException e) {
-				e.printStackTrace();
-			} catch (IllegalAccessException e) {
-				e.printStackTrace();
-			}
-		}
-		
-		return collection;
-	}
-	
 	private static Rule getRuleFromPackage(KnowledgePackage pkg, String rulename) {
 		
 		Field ruleField;
@@ -231,7 +196,6 @@ public class SituationHelper {
 	
 	public static void setKnowledgeBuilderSituationAwareness(KnowledgeBuilder kbuilder) {
 	  kbuilder.add(ResourceFactory.newClassPathResource("br/ufes/inf/lprm/scene/base/SituationBaseRules.drl"), ResourceType.DRL);
-	  kbuilder.add(ResourceFactory.newClassPathResource("br/ufes/inf/lprm/scene/base/SituationProfileRules.drl"), ResourceType.DRL);
 	}
 	
 	public static void SetFieldsFromMatchedObjects(Object situation, SituationCast cast) {
@@ -267,7 +231,7 @@ public class SituationHelper {
 
 	public static void situationDetected(KnowledgeHelper khelper) throws Exception {	
 		
-		SituationProfile prof = getSPM(khelper).getProfile(khelper.getRule());
+		SituationProfile prof = SituationProfileManager.getInstance().getProfile(khelper.getRule());
 		
 		CurrentSituation asf = new CurrentSituation(prof.getType());	
 		asf.setTimestamp(khelper.getKnowledgeRuntime().getSessionClock().getCurrentTime());
@@ -329,7 +293,13 @@ public class SituationHelper {
 			
 			SetFieldsFromMatchedObjects(sit, cast);
 			ase.setSituation(sit);
-			sit.setActivation(ase);
+			
+			sit.setActivation(ase);	
+			
+			SituationPublisher pub = SituationProfileManager.getInstance().getConfigurationHash().get(type.getName()).getPublisher();
+			
+			if (pub!=null) pub.publishActivation(sit);
+
 			khelper.getKnowledgeRuntime().insert(ase);
 			khelper.getKnowledgeRuntime().insert(sit);
 			
@@ -349,7 +319,7 @@ public class SituationHelper {
 		DeactivateSituationEvent dse = new DeactivateSituationEvent(evn_timestamp);
 		dse.setSituation((SituationType) sit);
 		
-		SituationProfile prof = getSPM(khelper).getProfile(sit.getClass().getName());
+		SituationProfile prof = SituationProfileManager.getInstance().getProfile(sit.getClass().getName());
 			
 		if (prof.getSnapshot()) {
 			try {
@@ -368,7 +338,12 @@ public class SituationHelper {
 				e.printStackTrace();
 			}			
 		}
-		((SituationType) sit).setDeactivation(dse);	
+		((SituationType) sit).setDeactivation(dse);
+		
+		SituationPublisher pub = SituationProfileManager.getInstance().getConfigurationHash().get(sit.getClass().getName()).getPublisher();
+		
+		if (pub!=null) pub.publishDeactivation((SituationType) sit);		
+		
 		khelper.getKnowledgeRuntime().insert(dse);		
 		khelper.getKnowledgeRuntime().update(khelper.getKnowledgeRuntime().getFactHandle(sit), sit);
 	}

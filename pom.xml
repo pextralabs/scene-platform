@@ -3,7 +3,7 @@
     <modelVersion>4.0.0</modelVersion>
   <groupId>br.ufes.inf.lprm</groupId>
   <artifactId>scene</artifactId>
-  <version>0.6.0</version>
+  <version>0.7.0</version>
   <packaging>jar</packaging>
   <name>SCENE</name>
   <properties>
@@ -16,8 +16,8 @@
 	    <artifactId>maven-compiler-plugin</artifactId>
 	    <version>2.0.2</version>
 	    <configuration>
-		<source>1.6</source>
-		<target>1.6</target>
+		<source>1.7</source>
+		<target>1.7</target>
 		<additionalBuildcommands>
 		  <buildcommand>org.drools.eclipse.droolsbuilder</buildcommand>
 		</additionalBuildcommands>
@@ -32,6 +32,9 @@
 	  		<include>br/ufes/inf/lprm/scene/base/evaluators/*</include>
 			<include>br/ufes/inf/lprm/scene/base/events/*</include>
 	  		<include>br/ufes/inf/lprm/scene/base/*</include>
+	  		<include>br/ufes/inf/lprm/scene/*</include>
+	  		<include>br/ufes/inf/lprm/scene/situation/publishing/*</include>
+	  		<include>br/ufes/inf/lprm/scene/situation/publishing/sinos/*</include>
 	  	</includes>
 	  </configuration>
 	</plugin>
@@ -58,11 +61,18 @@
 	  <type>jar</type>
       </dependency>
       <dependency>
-	  <groupId>junit</groupId>
-	  <artifactId>junit</artifactId>
-	  <version>4.8.1</version>
-	  <scope>test</scope>
+	  	<groupId>junit</groupId>
+	  	<artifactId>junit</artifactId>
+	  	<version>4.8.1</version>
+	  	<scope>test</scope>
       </dependency>
+	  <dependency>
+    	<groupId>br.ufes.inf.lprm</groupId>
+    	<artifactId>sinos</artifactId>
+    	<version>0.1.0</version>
+    	<scope>system</scope>
+    	<systemPath>${project.basedir}/lib/sinos-0.1.0.jar</systemPath>
+	  </dependency>      
   </dependencies>
   <repositories>
     <repository>
