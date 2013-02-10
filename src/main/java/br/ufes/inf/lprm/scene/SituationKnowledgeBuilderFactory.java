@@ -16,6 +16,15 @@ public class SituationKnowledgeBuilderFactory {
         SituationHelper.setKnowledgeBuilderSituationAwareness(kbuilder);
         return kbuilder;
         
-    }	
+    }
+    
+    public static KnowledgeBuilder newKnowledgeBuilder(KnowledgeBuilderConfiguration conf) {
+
+        SituationHelper.setBuilderConfSituationAwareness(conf);     
+        KnowledgeBuilder kbuilder = KnowledgeBuilderFactory.newKnowledgeBuilder(conf);
+        SituationHelper.setKnowledgeBuilderSituationAwareness(kbuilder);
+        return kbuilder;
+        
+    }    
 
 }

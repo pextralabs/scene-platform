@@ -1,6 +1,7 @@
 package br.ufes.inf.lprm.scene;
 
 import org.drools.KnowledgeBase;
+import org.drools.KnowledgeBaseConfiguration;
 import org.drools.KnowledgeBaseFactory;
 import org.drools.builder.KnowledgeBuilder;
 
@@ -18,4 +19,13 @@ public class SituationKnowledgeBaseFactory {
     	return kbase;
     }	
 
+    public static KnowledgeBase newKnowledgeBase(KnowledgeBuilder kbuilder, KnowledgeBaseConfiguration conf) throws Exception {
+    	SituationHelper.refactorSaliences(kbuilder);
+    	SituationProfileManager spm = SituationProfileManager.getInstance();
+    	spm.BuildProfileFromPackages(kbuilder.getKnowledgePackages());
+    	KnowledgeBase kbase = KnowledgeBaseFactory.newKnowledgeBase(conf);
+    	kbase.addKnowledgePackages(kbuilder.getKnowledgePackages()); 
+    	return kbase;
+    }	    
+    
 }
