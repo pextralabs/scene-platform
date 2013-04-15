@@ -99,4 +99,10 @@
       <url>http://situation-api.juplo.com/maven2/</url>
     </repository>
   </repositories>
+  <distributionManagement>
+    <repository>
+      <id>situation-api-repo</id>
+      <url>ftp://situation-api.juplo.com/public_html/maven2/</url>
+    </repository>
+  </distributionManagement>    
 </project>

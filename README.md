@@ -50,20 +50,10 @@
 
 * *Situation-Aware KnowledgeSession*
 
-        //create new builder configuration
-        KnowledgeBuilderConfiguration builderConf = KnowledgeBuilderFactory.newKnowledgeBuilderConfiguration();         
-         
-        //set the configuration with situation awareness
-        SituationHelper.setBuilderConfSituationAwareness(builderConf);
-         
-        //create new KnowledgeBuilder based on the configuration 
-        KnowledgeBuilder kbuilder = KnowledgeBuilderFactory.newKnowledgeBuilder(builderConf);
-         
-        //set the builder with situation awareness
-        SituationHelper.setKnowledgeBuilderSituationAwareness(kbuilder);
-         
+        //create new SituationKnowledgeBuilder
+        KnowledgeBuilder kbuilder = SituationKnowledgeBuilderFactory.newKnowledgeBuilder();
+    
         // ADD YOUR DRL RESOURCES
-
-        //refactoring situation management rule's priorities
-        SituationHelper.refactorSalience(kbuilder);
-
+		
+		//create new Situation-Aware Knowledge Base
+        KnowledgeBase kbase = SituationKnowledgeBaseFactory.newKnowledgeBase(kbuilder);		
