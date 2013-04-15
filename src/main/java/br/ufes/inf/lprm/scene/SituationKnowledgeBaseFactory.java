@@ -6,7 +6,7 @@ import org.drools.KnowledgeBaseFactory;
 import org.drools.builder.KnowledgeBuilder;
 
 import br.ufes.inf.lprm.scene.base.SituationHelper;
-import br.ufes.inf.lprm.scene.base.SituationProfileManager;
+import br.ufes.inf.lprm.scene.spm.SituationProfileManager;
 
 public class SituationKnowledgeBaseFactory {
 	

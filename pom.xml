@@ -3,7 +3,7 @@
     <modelVersion>4.0.0</modelVersion>
   <groupId>br.ufes.inf.lprm</groupId>
   <artifactId>scene</artifactId>
-  <version>0.7.0</version>
+  <version>0.8.0</version>
   <packaging>jar</packaging>
   <name>SCENE</name>
   <properties>
@@ -29,16 +29,24 @@
 	  <version>2.3.2</version>
 	  <configuration>
 	  	<includes>
-	  		<include>br/ufes/inf/lprm/scene/base/evaluators/*</include>
-			<include>br/ufes/inf/lprm/scene/base/events/*</include>
-	  		<include>br/ufes/inf/lprm/scene/base/*</include>
 	  		<include>br/ufes/inf/lprm/scene/*</include>
-	  		<include>br/ufes/inf/lprm/scene/situation/publishing/*</include>
-	  		<include>br/ufes/inf/lprm/scene/situation/publishing/sinos/*</include>
+	  		<include>br/ufes/inf/lprm/scene/spm/*</include>
+	  		<include>br/ufes/inf/lprm/scene/base/evaluators/*</include>
+	  		<include>br/ufes/inf/lprm/scene/base/*</include>
+	  		<include>br/ufes/inf/lprm/scene/publishing/*</include>
+	  		<include>br/ufes/inf/lprm/scene/publishing/sinos/*</include>
+	  		<include>br/ufes/inf/lprm/scene/publishing/sinos/publisher/*</include>
 	  	</includes>
 	  </configuration>
 	</plugin>
-      </plugins>
+    </plugins>
+    <extensions>
+      <extension>
+        <groupId>org.apache.maven.wagon</groupId>
+        <artifactId>wagon-ftp</artifactId>
+        <version>1.0-beta-6</version>
+      </extension>
+    </extensions>    
   </build>
   <dependencies>
       <!--drools-->
@@ -67,11 +75,16 @@
 	  	<scope>test</scope>
       </dependency>
 	  <dependency>
+       <groupId>br.ufes.inf.lprm</groupId>
+       <artifactId>situation-api</artifactId>
+       <version>0.7.0</version>
+      </dependency>
+	  <dependency>
     	<groupId>br.ufes.inf.lprm</groupId>
-    	<artifactId>sinos</artifactId>
-    	<version>0.1.0</version>
+    	<artifactId>sinos.publisher</artifactId>
+    	<version>0.4.3</version>
     	<scope>system</scope>
-    	<systemPath>${project.basedir}/lib/sinos-0.1.0.jar</systemPath>
+    	<systemPath>${project.basedir}/lib/sinos.publisher.0.4.3.jar</systemPath>
 	  </dependency>      
   </dependencies>
   <repositories>
@@ -79,7 +92,11 @@
 	<id>jboss</id>
 	<name>jboss</name>
 	<url>https://repository.jboss.org/nexus/content/groups/public/</url>
-    </repository>  
+    </repository>
+    <repository>
+      <id>situation-api-repo</id>
+      <name>situation-api-repo</name>
+      <url>http://situation-api.juplo.com/maven2/</url>
+    </repository>
   </repositories>
-
 </project>

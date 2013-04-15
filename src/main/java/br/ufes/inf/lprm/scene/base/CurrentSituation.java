@@ -1,5 +1,8 @@
 package br.ufes.inf.lprm.scene.base;
 
+import br.ufes.inf.lprm.situation.SituationCast;
+import br.ufes.inf.lprm.situation.SituationType;
+
 public class CurrentSituation {
 	
 	private int currentId;

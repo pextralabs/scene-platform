@@ -1,14 +1,15 @@
-package br.ufes.inf.lprm.scene.base;
+package br.ufes.inf.lprm.scene.spm;
 
 import java.lang.reflect.Constructor;
 import java.util.Collection;
 import java.util.HashMap;
 
-import org.drools.rule.Rule;
 import org.drools.definition.KnowledgePackage;
+import org.drools.rule.Rule;
 
-import br.ufes.inf.lprm.scene.situation.publishing.Publish;
-import br.ufes.inf.lprm.scene.situation.publishing.SituationPublisher;
+import br.ufes.inf.lprm.scene.publishing.Publish;
+import br.ufes.inf.lprm.scene.publishing.SituationPublisher;
+import br.ufes.inf.lprm.situation.SituationUtils;
 
 public final class SituationProfileManager {
 	
@@ -55,7 +56,7 @@ public final class SituationProfileManager {
 							
 							Constructor<SituationPublisher> ctor = (Constructor<SituationPublisher>) pub.publisher().getDeclaredConstructors()[0];
 							ctor.setAccessible(true);
-							conf.setPublisher((SituationPublisher) ctor.newInstance(conf.getType(), pub.host(), pub.port()));
+							conf.setPublisher((SituationPublisher) ctor.newInstance(conf.getType(), pub.host(), pub.port(), pub.delay(), pub.attempts(), pub.timeout()));
 							ctor.setAccessible(false);
 						}
 					
@@ -105,7 +106,7 @@ public final class SituationProfileManager {
 				}
 			}
 		}
-		System.out.print(spm.toString());	
+		//System.out.print(spm.toString());	
 	}
 	
 	public HashMap<String, SituationProfile> getConfigurationHash() {

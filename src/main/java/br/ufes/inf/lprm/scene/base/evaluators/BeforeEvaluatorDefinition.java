@@ -42,7 +42,7 @@ import org.drools.spi.FieldValue;
 import org.drools.spi.InternalReadAccessor;
 import org.drools.time.Interval;
 
-import br.ufes.inf.lprm.scene.base.SituationType;
+import br.ufes.inf.lprm.situation.SituationType;
 
 /**
  * <p>The implementation of the 'before' evaluator definition.</p>

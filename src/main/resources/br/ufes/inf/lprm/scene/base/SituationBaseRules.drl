@@ -1,6 +1,7 @@
 package br.ufes.inf.lprm.scene.base;
 
-import br.ufes.inf.lprm.scene.base.events.*;
+import br.ufes.inf.lprm.situation.*;
+import br.ufes.inf.lprm.situation.events.*;
 
 declare SituationEvent
 	@role(event)
@@ -19,7 +20,7 @@ end
 
 rule "SituationDeactivation"
 	when
-		$sit: SituationType(active==true)
+		$sit: SituationType(active==true, local==true)
 		not (exists CurrentSituation(situation == $sit))
 	then
 		SituationHelper.deactivateSituation(drools, (Object) $sit);

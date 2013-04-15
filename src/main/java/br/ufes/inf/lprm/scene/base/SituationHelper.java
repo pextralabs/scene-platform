@@ -18,7 +18,13 @@ import org.drools.runtime.rule.QueryResults;
 import org.drools.runtime.rule.QueryResultsRow;
 import org.drools.spi.KnowledgeHelper;
 
-
+import br.ufes.inf.lprm.situation.CastSnapshot;
+import br.ufes.inf.lprm.situation.Role;
+import br.ufes.inf.lprm.situation.SituationCast;
+import br.ufes.inf.lprm.situation.SituationType;
+import br.ufes.inf.lprm.situation.SituationUtils;
+import br.ufes.inf.lprm.situation.events.ActivateSituationEvent;
+import br.ufes.inf.lprm.situation.events.DeactivateSituationEvent;
 import br.ufes.inf.lprm.scene.base.evaluators.AfterEvaluatorDefinition;
 import br.ufes.inf.lprm.scene.base.evaluators.BeforeEvaluatorDefinition;
 import br.ufes.inf.lprm.scene.base.evaluators.CoincidesEvaluatorDefinition;
@@ -30,9 +36,10 @@ import br.ufes.inf.lprm.scene.base.evaluators.OverlappedByEvaluatorDefinition;
 import br.ufes.inf.lprm.scene.base.evaluators.OverlapsEvaluatorDefinition;
 import br.ufes.inf.lprm.scene.base.evaluators.StartedByEvaluatorDefinition;
 import br.ufes.inf.lprm.scene.base.evaluators.StartsEvaluatorDefinition;
-import br.ufes.inf.lprm.scene.base.events.ActivateSituationEvent;
-import br.ufes.inf.lprm.scene.base.events.DeactivateSituationEvent;
-import br.ufes.inf.lprm.scene.situation.publishing.SituationPublisher;
+import br.ufes.inf.lprm.scene.publishing.SituationPublisher;
+import br.ufes.inf.lprm.scene.spm.CastRestoreType;
+import br.ufes.inf.lprm.scene.spm.SituationProfile;
+import br.ufes.inf.lprm.scene.spm.SituationProfileManager;
 
 //@SuppressWarnings("restriction")
 public class SituationHelper {
@@ -53,7 +60,6 @@ public class SituationHelper {
 		spm = SituationProfileManager.getInstance();
 		
 		for (KnowledgePackage pkg: khelper.getKnowledgeRuntime().getKnowledgeBase().getKnowledgePackages()) {
-			 
 			
 			for (Rule rule:  SituationUtils.getRulesFromPackage(pkg)) {
 				
@@ -202,7 +208,6 @@ public class SituationHelper {
 		
 		List<Field> targetObjFields = SituationUtils.getSituationRoleFields(situation.getClass());
 		Object participant;
-		
 		
 		for(Field field: targetObjFields) {
 			Role role = field.getAnnotation(Role.class);

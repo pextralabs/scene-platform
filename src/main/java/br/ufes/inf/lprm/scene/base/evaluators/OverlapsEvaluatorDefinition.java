@@ -35,13 +35,12 @@ import org.drools.common.InternalFactHandle;
 import org.drools.common.InternalWorkingMemory;
 import org.drools.rule.VariableRestriction.ObjectVariableContextEntry;
 import org.drools.rule.VariableRestriction.VariableContextEntry;
-//import org.drools.runtime.rule.FactHandle;
 import org.drools.spi.Evaluator;
 import org.drools.spi.FieldValue;
 import org.drools.spi.InternalReadAccessor;
 import org.drools.time.Interval;
 
-import br.ufes.inf.lprm.scene.base.SituationType;
+import br.ufes.inf.lprm.situation.SituationType;
 
 /**
  * <p>The implementation of the <code>overlaps</code> evaluator definition.</p>

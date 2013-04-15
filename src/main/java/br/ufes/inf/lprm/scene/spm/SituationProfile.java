@@ -1,8 +1,8 @@
-package br.ufes.inf.lprm.scene.base;
+package br.ufes.inf.lprm.scene.spm;
 
-import br.ufes.inf.lprm.scene.situation.publishing.SituationPublisher;
+import br.ufes.inf.lprm.scene.publishing.SituationPublisher;
 
-class SituationProfile {
+public class SituationProfile {
 	
 	private Class<?> 				type;
 	private Boolean 				snapshot;

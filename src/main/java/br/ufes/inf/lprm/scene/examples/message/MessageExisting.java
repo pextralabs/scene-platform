@@ -1,7 +1,7 @@
 package br.ufes.inf.lprm.scene.examples.message;
 
-import br.ufes.inf.lprm.scene.base.Role;
-import br.ufes.inf.lprm.scene.base.SituationType;
+import br.ufes.inf.lprm.situation.Role;
+import br.ufes.inf.lprm.situation.SituationType;
 
 public class MessageExisting extends SituationType{
 
