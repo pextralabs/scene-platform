@@ -123,8 +123,8 @@ public class SituationHelper {
 				}
 			}
 		}
-		khelper.getKnowledgeRuntime().setGlobal("SPM", spm);
-		System.out.print(spm.toString());
+		//khelper.getKnowledgeRuntime().setGlobal("SPM", spm);
+		//System.out.print(spm.toString());
 	}
 	
 	public static void refactorSaliences(KnowledgeBuilder kbuilder) {
@@ -187,6 +187,7 @@ public class SituationHelper {
 	}
 	
 	public static void setBuilderConfSituationAwareness(KnowledgeBuilderConfiguration builderConf) {
+		
 	  builderConf.setOption(EvaluatorOption.get("after", new AfterEvaluatorDefinition()));
 	  builderConf.setOption(EvaluatorOption.get("before", new BeforeEvaluatorDefinition()));
 	  builderConf.setOption(EvaluatorOption.get("overlaps", new OverlapsEvaluatorDefinition()));
@@ -283,6 +284,8 @@ public class SituationHelper {
 	
 	public static SituationType activateSituation(KnowledgeHelper khelper, SituationCast cast, Class<?> type, long timestamp) {
 
+		SituationProfile prof = SituationProfileManager.getInstance().getProfile(type.getName());		
+		
 		long evn_timestamp = khelper.getKnowledgeRuntime().getSessionClock().getCurrentTime();
 		ActivateSituationEvent ase = new ActivateSituationEvent(evn_timestamp);
 		
@@ -292,7 +295,7 @@ public class SituationHelper {
 			
 			sit = (SituationType) type.newInstance();
 			
-			if (toSnapshot(khelper, type)) {
+			if (prof.getSnapshot()) {
 				sit.getSnapshots().add(new CastSnapshot(cast, evn_timestamp));
 			}
 			

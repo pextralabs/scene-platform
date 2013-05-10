@@ -120,7 +120,7 @@ public final class SituationProfileManager {
 	public SituationProfile getProfile(Rule rule) {
 		String situation =  rule.getPackageName() + "." + SituationUtils.getSituationMetaDataValue(rule, "type");
 		return profiles.get(situation);
-	}
+	}	
 	
 	@Override
 	public String toString() {
