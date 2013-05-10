@@ -11,7 +11,7 @@ public class SituationKnowledgeBuilderFactory {
     public static KnowledgeBuilder newKnowledgeBuilder() {
 
     	KnowledgeBuilderConfiguration builderConf = KnowledgeBuilderFactory.newKnowledgeBuilderConfiguration();
-        SituationHelper.setBuilderConfSituationAwareness(builderConf);     
+        SituationHelper.setBuilderConfSituationAwareness(builderConf);  
         KnowledgeBuilder kbuilder = KnowledgeBuilderFactory.newKnowledgeBuilder(builderConf);
         SituationHelper.setKnowledgeBuilderSituationAwareness(kbuilder);
         return kbuilder;
