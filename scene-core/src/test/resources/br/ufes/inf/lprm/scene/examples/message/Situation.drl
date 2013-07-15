@@ -1,0 +1,13 @@
+package br.ufes.inf.lprm.scene.examples.message;
+
+import br.ufes.inf.lprm.scene.base.*;
+
+rule "MessageExisting"
+@role(situation)
+@type(MessageExisting)
+    when
+        message : Message();
+    then
+    	System.out.println("Mensagem ae");
+        SituationHelper.situationDetected(drools);
+end
