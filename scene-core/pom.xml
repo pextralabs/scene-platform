@@ -1,54 +1,79 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
-    <modelVersion>4.0.0</modelVersion>
-  <groupId>br.ufes.inf.lprm</groupId>
-  <artifactId>scene</artifactId>
-  <version>0.8.0</version>
-  <packaging>jar</packaging>
-  <name>SCENE</name>
-  <properties>
-    <drools.version>5.5.0-SNAPSHOT</drools.version>    
-  </properties>
-  <build>
-      <plugins>
-	<plugin>
-	    <groupId>org.apache.maven.plugins</groupId>
-	    <artifactId>maven-compiler-plugin</artifactId>
-	    <version>2.0.2</version>
-	    <configuration>
-		<source>1.7</source>
-		<target>1.7</target>
-		<additionalBuildcommands>
-		  <buildcommand>org.drools.eclipse.droolsbuilder</buildcommand>
-		</additionalBuildcommands>
-	    </configuration>
-	</plugin>
-	<plugin>
-	  <groupId>org.apache.maven.plugins</groupId>
-	  <artifactId>maven-jar-plugin</artifactId>
-	  <version>2.3.2</version>
-	  <configuration>
-	  	<includes>
-	  		<include>br/ufes/inf/lprm/scene/*</include>
-	  		<include>br/ufes/inf/lprm/scene/spm/*</include>
-	  		<include>br/ufes/inf/lprm/scene/base/evaluators/*</include>
-	  		<include>br/ufes/inf/lprm/scene/base/*</include>
-	  		<include>br/ufes/inf/lprm/scene/publishing/*</include>
-	  		<include>br/ufes/inf/lprm/scene/publishing/sinos/*</include>
-	  		<include>br/ufes/inf/lprm/scene/publishing/sinos/publisher/*</include>
-	  	</includes>
-	  </configuration>
-	</plugin>
-    </plugins>
-    <extensions>
-      <extension>
-        <groupId>org.apache.maven.wagon</groupId>
-        <artifactId>wagon-ftp</artifactId>
-        <version>2.4</version>
-      </extension>
-    </extensions>    
-  </build>
-  <dependencies>
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>br.ufes.inf.lprm</groupId>
+	<artifactId>scene-core</artifactId>
+	<version>0.8.0</version>
+	<packaging>jar</packaging>
+	<name>SCENE</name>
+	<properties>
+		<drools.version>5.5.0-SNAPSHOT</drools.version>
+		<github.global.server>github</github.global.server>
+	</properties>
+	<build>
+		<plugins>
+			<plugin>
+				<artifactId>maven-deploy-plugin</artifactId>
+				<version>2.7</version>
+				<configuration>
+					<altDeploymentRepository>internal.repo::default::file://${project.build.directory}/mvn-repo</altDeploymentRepository>
+				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>com.github.github</groupId>
+				<artifactId>site-maven-plugin</artifactId>
+				<version>0.8</version>
+				<configuration>
+					<message>Maven artifacts for ${project.version}</message>  <!-- git commit message -->
+					<noJekyll>true</noJekyll>                                  <!-- disable webpage processing -->
+					<outputDirectory>${project.build.directory}/mvn-repo</outputDirectory> <!-- matches distribution management repository url above -->
+					<branch>refs/heads/mvn-repo</branch>                       <!-- remote branch name -->
+					<includes><include>**/*</include></includes>
+					<merge>true</merge>
+					<repositoryName>SCENE</repositoryName>      <!-- github repo name -->
+					<repositoryOwner>pereirazc</repositoryOwner>    <!-- github username  -->
+				</configuration>
+				<executions>
+				  <!-- run site-maven-plugin's 'site' target as part of the build's normal 'deploy' phase -->
+				  <execution>
+					<goals>
+					  <goal>site</goal>
+					</goals>
+					<phase>deploy</phase>
+				  </execution>
+				</executions>
+			</plugin>	
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<version>2.0.2</version>
+				<configuration>
+				<source>1.7</source>
+				<target>1.7</target>
+				<additionalBuildcommands>
+				  <buildcommand>org.drools.eclipse.droolsbuilder</buildcommand>
+				</additionalBuildcommands>
+				</configuration>
+			</plugin>
+			<plugin>
+			  <groupId>org.apache.maven.plugins</groupId>
+			  <artifactId>maven-jar-plugin</artifactId>
+			  <version>2.3.2</version>
+			  <configuration>
+				<includes>
+					<include>br/ufes/inf/lprm/scene/*</include>
+					<include>br/ufes/inf/lprm/scene/spm/*</include>
+					<include>br/ufes/inf/lprm/scene/base/evaluators/*</include>
+					<include>br/ufes/inf/lprm/scene/base/*</include>
+					<include>br/ufes/inf/lprm/scene/publishing/*</include>
+					<include>br/ufes/inf/lprm/scene/publishing/sinos/*</include>
+					<include>br/ufes/inf/lprm/scene/publishing/sinos/publisher/*</include>
+				</includes>
+			  </configuration>
+			</plugin>	
+		</plugins> 
+	</build>
+	<dependencies>
       <!--drools-->
       <dependency>
 	  <groupId>org.drools</groupId>
@@ -86,32 +111,33 @@
     	<scope>system</scope>
     	<systemPath>${project.basedir}/lib/sinos.publisher.0.4.3.jar</systemPath>
 	  </dependency>      
-  </dependencies>
-  <repositories>
-<repository>
-      <id>jboss-public-repository-group</id>
-      <name>JBoss Public Repository Group</name>
-      <url>http://repository.jboss.org/nexus/content/groups/public/</url>
-      <layout>default</layout>
-      <releases>
-        <enabled>true</enabled>
-        <updatePolicy>never</updatePolicy>
-      </releases>
-      <snapshots>
-        <enabled>true</enabled>
-        <updatePolicy>daily</updatePolicy>
-      </snapshots>
-    </repository>
-    <repository>
-      <id>situation-api-repo</id>
-      <name>situation-api-repo</name>
-      <url>http://situation-api.juplo.com/maven2/</url>
-    </repository>
-  </repositories>
-  <distributionManagement>
-    <repository>
-      <id>situation-api-repo</id>
-      <url>ftp://situation-api.juplo.com/public_html/maven2/</url>
-    </repository>
-  </distributionManagement>    
+	</dependencies>
+	<repositories>
+		<repository>
+			<id>jboss-public-repository-group</id>
+			<name>JBoss Public Repository Group</name>
+			<url>http://repository.jboss.org/nexus/content/groups/public/</url>
+			<layout>default</layout>
+			<releases>
+				<enabled>true</enabled>
+				<updatePolicy>never</updatePolicy>
+			</releases>
+			<snapshots>
+				<enabled>true</enabled>
+				<updatePolicy>daily</updatePolicy>
+			</snapshots>
+		</repository>
+		<repository>
+			<id>situation-api-repo</id>
+			<name>situation-api-repo</name>
+			<url>https://raw.github.com/pereirazc/SCENE/mvn-repo</url>
+		</repository>
+	</repositories>
+	<distributionManagement>
+		<repository>
+			<id>github</id>
+			<name>GitHub SCENE Repository</name>
+			<url>https://raw.github.com/pereirazc/SCENE/mvn-repo</url>
+		</repository>
+	</distributionManagement>
 </project>
