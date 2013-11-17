@@ -3,13 +3,14 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>br.ufes.inf.lprm</groupId>
 	<artifactId>scene-core</artifactId>
-	<version>0.8.0</version>
+	<version>0.9.1</version>
 	<packaging>jar</packaging>
-	<name>SCENE</name>
-	<properties>
-		<drools.version>5.5.0-SNAPSHOT</drools.version>
-		<github.global.server>github</github.global.server>
-	</properties>
+	<name>scene-core</name>
+    <properties>
+	  <drools.version>5.5.0.Final</drools.version>
+	  <sinos.version>0.4.5</sinos.version>
+	  <github.global.server>github</github.global.server>
+    </properties>	
 	<build>
 		<plugins>
 			<plugin>
@@ -102,14 +103,13 @@
 	  <dependency>
        <groupId>br.ufes.inf.lprm</groupId>
        <artifactId>situation-api</artifactId>
-       <version>0.7.0</version>
+       <version>${project.version}</version>
       </dependency>
 	  <dependency>
     	<groupId>br.ufes.inf.lprm</groupId>
-    	<artifactId>sinos.publisher</artifactId>
-    	<version>0.4.3</version>
-    	<scope>system</scope>
-    	<systemPath>${project.basedir}/lib/sinos.publisher.0.4.3.jar</systemPath>
+    	<artifactId>sinos</artifactId>
+		<version>${sinos.version}</version>
+		<classifier>publisher</classifier>
 	  </dependency>      
 	</dependencies>
 	<repositories>

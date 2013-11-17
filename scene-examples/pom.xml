@@ -2,12 +2,13 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
     <modelVersion>4.0.0</modelVersion>
   <groupId>br.ufes.inf.lprm</groupId>
-  <artifactId>scene-example</artifactId>
-  <version>0.8.0</version>
-  <packaging>jar</packaging>
-  <name>scene-example</name>
+  <artifactId>scene-examples</artifactId>
+  <version>0.9.1</version>
+  <packaging>jar</packaging>  
+  <name>scene-examples</name>
   <properties>
-    <drools.version>5.5.0.Final</drools.version>    
+    <drools.version>5.5.0.Final</drools.version>
+    <github.global.server>github</github.global.server>
   </properties>
   <build>
     <plugins>
@@ -67,12 +68,12 @@
 	  <dependency>
        <groupId>br.ufes.inf.lprm</groupId>
        <artifactId>situation-api</artifactId>
-       <version>0.7.0</version>
+       <version>${version}</version>
       </dependency>
 	  <dependency>
        <groupId>br.ufes.inf.lprm</groupId>
        <artifactId>scene-core</artifactId>
-       <version>0.8.0</version>
+       <version>${version}</version>
       </dependency>      
   </dependencies>
   <repositories>
