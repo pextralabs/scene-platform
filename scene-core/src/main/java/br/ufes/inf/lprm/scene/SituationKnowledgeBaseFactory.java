@@ -17,7 +17,7 @@ public class SituationKnowledgeBaseFactory {
     	KnowledgeBase kbase = KnowledgeBaseFactory.newKnowledgeBase();
     	kbase.addKnowledgePackages(kbuilder.getKnowledgePackages()); 
     	return kbase;
-    }	
+    }
 
     public static KnowledgeBase newKnowledgeBase(KnowledgeBuilder kbuilder, KnowledgeBaseConfiguration conf) throws Exception {
     	SituationHelper.refactorSaliences(kbuilder);

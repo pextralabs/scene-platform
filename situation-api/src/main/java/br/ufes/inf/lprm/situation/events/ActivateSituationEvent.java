@@ -1,6 +1,13 @@
 package br.ufes.inf.lprm.situation.events;
 
 
+import org.joda.time.DateTime;
+import org.joda.time.format.DateTimeFormat;
+import org.joda.time.format.DateTimeFormatter;
+
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 public class ActivateSituationEvent extends SituationEvent {
 
 	/**
@@ -11,5 +18,15 @@ public class ActivateSituationEvent extends SituationEvent {
 	public ActivateSituationEvent(long timestamp) {
 		super(timestamp);
 	}
+
+    public String toString() {
+        DateTimeFormatter fmt = DateTimeFormat.forPattern("yyyy MM dd HH:mm:ss");
+        DateTime activation = new DateTime(this.getTimestamp());
+        StringBuilder str = new StringBuilder();
+        str.append("\tActivation timestamp: ");
+        str.append(activation.toString(fmt));
+        str.append(".");
+        return str.toString();
+    }
 
 }

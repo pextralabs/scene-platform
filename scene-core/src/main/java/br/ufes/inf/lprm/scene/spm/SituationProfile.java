@@ -2,6 +2,13 @@ package br.ufes.inf.lprm.scene.spm;
 
 import br.ufes.inf.lprm.scene.publishing.SituationPublisher;
 
+/*
+    The Situation Profile holds properties
+
+
+    publisher
+ */
+
 public class SituationProfile {
 	
 	private Class<?> 				type;

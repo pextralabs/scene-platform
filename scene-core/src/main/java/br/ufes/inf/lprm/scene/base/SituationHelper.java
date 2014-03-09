@@ -244,6 +244,11 @@ public class SituationHelper {
     	asf.setCast(new SituationCast(khelper.getActivation(), prof.getType()));
 
     	if (prof.getSnapshot()) {
+    		
+    		//SituationProfileManager.LogOn
+    		
+    		//LOG
+    		//System.out.
     	
 	    	QueryResults results = khelper.getKnowledgeRuntime().getQueryResults("CurrentSituation", new Object[] {asf.getTypename(), asf.getHashcode()} );
 	    	

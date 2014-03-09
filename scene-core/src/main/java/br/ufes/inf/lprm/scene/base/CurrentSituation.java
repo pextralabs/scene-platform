@@ -51,7 +51,6 @@ public class CurrentSituation {
 				return false;
 			}			
 			else {
-				//System.out.println("equals called: " + this.castset.equals(((CurrentSituation) obj).getCastset()));
 				return this.type.equals(((CurrentSituation) obj).getType()) && this.cast.equals(((CurrentSituation) obj).getCast());
 				
 			}
@@ -59,7 +58,6 @@ public class CurrentSituation {
 	}
 	@Override	
 	public int hashCode() {
-		//System.out.println("hashCode called: " + this.currentId);
 		return this.currentId;
 	}
 	
@@ -85,4 +83,22 @@ public class CurrentSituation {
 	public void setTypename(String typename) {
 		this.typename = typename;
 	}
+
+    public String toString() {
+
+        StringBuilder str = new StringBuilder();
+        str.append("TYPE: ");
+        str.append(typename);
+        str.append("\t");
+        str.append("ID: ");
+        str.append(currentId);
+        str.append("\t");
+        str.append("CAST: ");
+        str.append(this.cast.toString());
+
+        return str.toString();
+
+    }
+
 }
+

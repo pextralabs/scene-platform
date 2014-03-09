@@ -83,6 +83,21 @@ public class SituationCast extends HashMap<String, Object> {
 	public int hashCode() {
 		return hash;
 	}
+
+    /*public String toString() {
+        StringBuilder str = new StringBuilder();
+        str.append("{");
+        ArrayList<String> keys = (ArrayList) this.keySet();
+        for (String k: keys) {
+            if (str.length() > 1) str.append(", ");
+            str.append(k);
+            str.append(": [");
+            str.append(this.get(k).toString());
+            str.append("]");
+        }
+        str.append("}");
+        return str.toString();
+    } */
 	
 	//public int getHash() {
 	//	return hash;

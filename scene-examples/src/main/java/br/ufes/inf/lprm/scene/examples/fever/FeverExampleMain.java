@@ -2,6 +2,7 @@ package br.ufes.inf.lprm.scene.examples.fever;
 
 import java.util.Random;
 
+import br.ufes.inf.lprm.scene.base.listeners.SCENESessionListener;
 import org.drools.KnowledgeBase;
 
 import org.drools.builder.KnowledgeBuilder;
@@ -41,6 +42,7 @@ public class FeverExampleMain {
             // load up the knowledge base
             KnowledgeBase kbase = readKnowledgeBase();
             StatefulKnowledgeSession ksession = kbase.newStatefulKnowledgeSession();
+            ksession.addEventListener(new SCENESessionListener());
             
             final RuleEngineThread eng = new RuleEngineThread(ksession);
 			eng.start();			

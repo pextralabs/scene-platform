@@ -3,10 +3,11 @@
     <modelVersion>4.0.0</modelVersion>
   <groupId>br.ufes.inf.lprm</groupId>
   <artifactId>scene-examples</artifactId>
-  <version>0.9.1</version>
+  <version>0.9.2</version>
   <packaging>jar</packaging>  
   <name>scene-examples</name>
   <properties>
+    <scene.version>0.9.2</scene.version>
     <drools.version>5.5.0.Final</drools.version>
     <github.global.server>github</github.global.server>
   </properties>
@@ -67,14 +68,19 @@
       </dependency>
 	  <dependency>
        <groupId>br.ufes.inf.lprm</groupId>
-       <artifactId>situation-api</artifactId>
-       <version>${version}</version>
-      </dependency>
-	  <dependency>
-       <groupId>br.ufes.inf.lprm</groupId>
        <artifactId>scene-core</artifactId>
-       <version>${version}</version>
-      </dependency>      
+       <version>${scene.version}</version>
+      </dependency>
+      <dependency>
+          <groupId>org.slf4j</groupId>
+          <artifactId>slf4j-api</artifactId>
+          <version>1.7.5</version>
+      </dependency>
+      <dependency>
+          <groupId>org.slf4j</groupId>
+          <artifactId>slf4j-log4j12</artifactId>
+          <version>1.7.5</version>
+      </dependency>
   </dependencies>
   <repositories>
     <repository>

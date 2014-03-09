@@ -11,6 +11,12 @@ import br.ufes.inf.lprm.scene.publishing.Publish;
 import br.ufes.inf.lprm.scene.publishing.SituationPublisher;
 import br.ufes.inf.lprm.situation.SituationUtils;
 
+/*
+    The Situation Profile Manager (SPM) is a Singleton which keeps
+    the particular configurations (situation's name, snapshot policy, etc)
+    for each situation type published in runtime.
+ */
+
 public final class SituationProfileManager {
 	
 	private static final SituationProfileManager INSTANCE = new SituationProfileManager();
