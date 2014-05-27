@@ -4,6 +4,7 @@ import java.lang.reflect.Constructor;
 import java.util.Collection;
 import java.util.HashMap;
 
+import br.ufes.inf.lprm.scene.exceptions.AlreadyInstantiatedException;
 import org.drools.definition.KnowledgePackage;
 import org.drools.rule.Rule;
 
@@ -19,16 +20,35 @@ import br.ufes.inf.lprm.situation.SituationUtils;
 
 public final class SituationProfileManager {
 	
-	private static final SituationProfileManager INSTANCE = new SituationProfileManager();
-		
+	private static SituationProfileManager INSTANCE;
+
+    private ClassLoader classLoader;
 	private HashMap<String, SituationProfile> profiles;
 
-	private SituationProfileManager() {
+    private SituationProfileManager(ClassLoader classLoader) {
 
-		this.profiles = new HashMap<String, SituationProfile>();
-	}
-	
+        this.classLoader = classLoader;
+        this.profiles = new HashMap<String, SituationProfile>();
+    }
+
+    public static synchronized SituationProfileManager initInstance() throws AlreadyInstantiatedException {
+        if (INSTANCE!=null) throw new AlreadyInstantiatedException("SPM already instatiated");
+        INSTANCE = new SituationProfileManager(Thread.currentThread().getContextClassLoader());
+        return INSTANCE;
+    }
+
+    public static synchronized SituationProfileManager initInstance(ClassLoader classLoader) throws AlreadyInstantiatedException {
+        if (INSTANCE!=null) throw new AlreadyInstantiatedException("SPM already instatiated");
+        INSTANCE = new SituationProfileManager(classLoader);
+        return INSTANCE;
+    }
+
 	public static synchronized SituationProfileManager getInstance() {
+        if (INSTANCE==null) try {
+            return initInstance();
+        } catch (AlreadyInstantiatedException e) {
+            e.printStackTrace();
+        }
         return INSTANCE;
 	}	
 	
@@ -54,10 +74,11 @@ public final class SituationProfileManager {
 							conf = new SituationProfile();
 							spm.getConfigurationHash().put(type, conf);
 						}
-											
-						conf.setType(Class.forName(type));
-						
-						Publish pub = Class.forName(type).getAnnotation(Publish.class);
+
+                        Publish pub;
+                        conf.setType(Class.forName(type, true, this.classLoader));
+                        pub = Class.forName(type, true, this.classLoader).getAnnotation(Publish.class);
+
 						if (pub!=null) {
 							
 							Constructor<SituationPublisher> ctor = (Constructor<SituationPublisher>) pub.publisher().getDeclaredConstructors()[0];
@@ -143,4 +164,9 @@ public final class SituationProfileManager {
 		}
 		return result;
 	}
+
+    public ClassLoader getClassLoader() {
+        return classLoader;
+    }
+
 }

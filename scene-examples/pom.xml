@@ -3,11 +3,11 @@
     <modelVersion>4.0.0</modelVersion>
   <groupId>br.ufes.inf.lprm</groupId>
   <artifactId>scene-examples</artifactId>
-  <version>0.9.2</version>
+  <version>0.9.1</version>
   <packaging>jar</packaging>  
   <name>scene-examples</name>
   <properties>
-    <scene.version>0.9.2</scene.version>
+    <scene.version>0.9.1</scene.version>
     <drools.version>5.5.0.Final</drools.version>
     <github.global.server>github</github.global.server>
   </properties>

@@ -52,7 +52,7 @@ public class SituationHelper {
 		return false;
 	}
 
-	public static void SetupSituationProfileManager(KnowledgeHelper khelper) throws Exception {
+	/*public static void SetupSituationProfileManager(KnowledgeHelper khelper) throws Exception {
 		
 		SituationProfileManager spm;
 		SituationProfile conf;
@@ -75,7 +75,7 @@ public class SituationHelper {
 							spm.getConfigurationHash().put(type, conf);
 						}
 											
-						conf.setType(Class.forName(type));
+						conf.setType(Class.forName(type, true, ));
 												
 						if (rule.getMetaData().containsKey("snapshot")) {
 							
@@ -125,7 +125,7 @@ public class SituationHelper {
 		}
 		//khelper.getKnowledgeRuntime().setGlobal("SPM", spm);
 		//System.out.print(spm.toString());
-	}
+	}*/
 	
 	public static void refactorSaliences(KnowledgeBuilder kbuilder) {
 		
@@ -331,7 +331,7 @@ public class SituationHelper {
 		long evn_timestamp = khelper.getKnowledgeRuntime().getSessionClock().getCurrentTime();
 		DeactivateSituationEvent dse = new DeactivateSituationEvent(evn_timestamp);
 		dse.setSituation((SituationType) sit);
-		
+
 		SituationProfile prof = SituationProfileManager.getInstance().getProfile(sit.getClass().getName());
 			
 		if (prof.getSnapshot()) {
@@ -340,11 +340,11 @@ public class SituationHelper {
 				try {
 					if (prof.getRestoretype() == CastRestoreType.FIRST) snap 	= ((SituationType) sit).getSnapshots().getFirst(); 
 					if (prof.getRestoretype() == CastRestoreType.STABLE) snap 	= ((SituationType) sit).getSnapshots().getStable(); 
-					if (prof.getRestoretype() == CastRestoreType.LAST) snap 	= ((SituationType) sit).getSnapshots().getLast();	
+					if (prof.getRestoretype() == CastRestoreType.LAST) snap 	= ((SituationType) sit).getSnapshots().getLast();
 				} catch(NoSuchElementException nsee) {
 					snap = null;
 				}
-				if (snap != null) SetFieldsFromMatchedObjects(sit, snap.getSituationCast());
+				if (snap != null) SetFieldsFromMatchedObjects(sit, snap.getSituationCast(SituationProfileManager.getInstance().getClassLoader()));
 			} catch (IOException e) {
 				e.printStackTrace();
 			} catch (ClassNotFoundException e) {

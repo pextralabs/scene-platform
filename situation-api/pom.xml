@@ -3,7 +3,7 @@
     <modelVersion>4.0.0</modelVersion>
   <groupId>br.ufes.inf.lprm</groupId>
   <artifactId>situation-api</artifactId>
-  <version>0.9.2</version>
+  <version>0.9.1</version>
   <packaging>jar</packaging>
   <name>situation-api</name>
   <properties>

@@ -3,11 +3,11 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>br.ufes.inf.lprm</groupId>
 	<artifactId>scene-core</artifactId>
-	<version>0.9.2</version>
+	<version>0.9.1</version>
 	<packaging>jar</packaging>
 	<name>scene-core</name>
     <properties>
-      <situation.version>0.9.2</situation.version>
+      <situation.version>0.9.1</situation.version>
 	  <drools.version>5.5.0.Final</drools.version>
 	  <sinos.version>1.0.0</sinos.version>
 	  <github.global.server>github</github.global.server>
@@ -69,7 +69,8 @@
                     <include>br/ufes/inf/lprm/scene/base/listeners/*</include>
                     <include>br/ufes/inf/lprm/scene/base/logging/*</include>
 					<include>br/ufes/inf/lprm/scene/base/*</include>
-					<include>br/ufes/inf/lprm/scene/publishing/*</include>
+                    <include>br/ufes/inf/lprm/scene/exceptions/*</include>
+                    <include>br/ufes/inf/lprm/scene/publishing/*</include>
 					<include>br/ufes/inf/lprm/scene/publishing/sinos/*</include>
 					<include>br/ufes/inf/lprm/scene/publishing/sinos/publisher/*</include>
 				</includes>

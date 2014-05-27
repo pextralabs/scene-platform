@@ -12,16 +12,16 @@ public class SituationKnowledgeBaseFactory {
 	
     public static KnowledgeBase newKnowledgeBase(KnowledgeBuilder kbuilder) throws Exception {
     	SituationHelper.refactorSaliences(kbuilder);
-    	SituationProfileManager spm = SituationProfileManager.getInstance();
+    	SituationProfileManager spm = SituationProfileManager.initInstance();
     	spm.BuildProfileFromPackages(kbuilder.getKnowledgePackages());
     	KnowledgeBase kbase = KnowledgeBaseFactory.newKnowledgeBase();
     	kbase.addKnowledgePackages(kbuilder.getKnowledgePackages()); 
     	return kbase;
     }
 
-    public static KnowledgeBase newKnowledgeBase(KnowledgeBuilder kbuilder, KnowledgeBaseConfiguration conf) throws Exception {
+    public static KnowledgeBase newKnowledgeBase(KnowledgeBuilder kbuilder, KnowledgeBaseConfiguration conf, ClassLoader loader) throws Exception {
     	SituationHelper.refactorSaliences(kbuilder);
-    	SituationProfileManager spm = SituationProfileManager.getInstance();
+    	SituationProfileManager spm = SituationProfileManager.initInstance(loader);
     	spm.BuildProfileFromPackages(kbuilder.getKnowledgePackages());
     	KnowledgeBase kbase = KnowledgeBaseFactory.newKnowledgeBase(conf);
     	kbase.addKnowledgePackages(kbuilder.getKnowledgePackages()); 

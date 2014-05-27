@@ -31,10 +31,10 @@ public class CastSnapshot implements Serializable {
 		return serializedCast;
 	}
 	
-	public SituationCast getSituationCast() throws IOException, ClassNotFoundException {
+	public SituationCast getSituationCast(ClassLoader classLoader) throws IOException, ClassNotFoundException {
 		ByteArrayInputStream baInput = new ByteArrayInputStream(serializedCast);
-		ObjectInputStream in = new ObjectInputStream(baInput);		
-		return (SituationCast) in.readObject();
+		ObjectInputStream in = new CustomObjectInputStream(baInput, classLoader);
+		return (SituationCast) in.readObject( );
 	}
 
 }
