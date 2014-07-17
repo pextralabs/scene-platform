@@ -76,11 +76,11 @@ public final class SituationProfileManager {
 						}
 
                         Publish pub;
-                        conf.setType(Class.forName(type, true, this.classLoader));
-                        pub = Class.forName(type, true, this.classLoader).getAnnotation(Publish.class);
+                        conf.setType(Class.forName(type, true, this.getClass().getClassLoader()));
+
+                        pub = Class.forName(type, true, this.getClass().getClassLoader()).getAnnotation(Publish.class);
 
 						if (pub!=null) {
-							
 							Constructor<SituationPublisher> ctor = (Constructor<SituationPublisher>) pub.publisher().getDeclaredConstructors()[0];
 							ctor.setAccessible(true);
 							conf.setPublisher((SituationPublisher) ctor.newInstance(conf.getType(), pub.host(), pub.port(), pub.delay(), pub.attempts(), pub.timeout()));
