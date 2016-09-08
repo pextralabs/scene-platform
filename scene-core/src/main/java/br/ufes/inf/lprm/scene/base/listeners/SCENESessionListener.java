@@ -1,9 +1,10 @@
 package br.ufes.inf.lprm.scene.base.listeners;
 
 import br.ufes.inf.lprm.scene.base.CurrentSituation;
-import br.ufes.inf.lprm.scene.base.logging.*;
+import br.ufes.inf.lprm.scene.base.logging.SCENELogger;
 import br.ufes.inf.lprm.situation.events.SituationEvent;
-import org.drools.event.rule.*;
+import org.kie.api.event.rule.ObjectInsertedEvent;
+import org.kie.api.event.rule.ObjectUpdatedEvent;
 
 public class SCENESessionListener extends DefaultWorkingMemoryEventListener {
 

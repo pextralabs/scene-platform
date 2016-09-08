@@ -1,16 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
-    <modelVersion>4.0.0</modelVersion>
-  <groupId>br.ufes.inf.lprm</groupId>
-  <artifactId>situation-api</artifactId>
-  <version>0.9.1</version>
-  <packaging>jar</packaging>
-  <name>situation-api</name>
-  <properties>
-    <drools.version>5.5.0.Final</drools.version>
-    <github.global.server>github</github.global.server>
-  </properties>
-  <build>
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>br.ufes.inf.lprm</groupId>
+	<artifactId>situation-api</artifactId>
+	<version>0.9.1</version>
+	<packaging>jar</packaging>
+	<name>situation-api</name>
+
+	<properties>
+		<drools.version>6.4.0.Final</drools.version>
+	</properties>
+
+	<build>
 		<plugins>
 			<plugin>
 				<artifactId>maven-deploy-plugin</artifactId>
@@ -18,72 +19,45 @@
 				<configuration>
 					<altDeploymentRepository>internal.repo::default::file://${project.build.directory}/mvn-repo</altDeploymentRepository>
 				</configuration>
-			</plugin>			
-			<plugin>
-				<groupId>com.github.github</groupId>
-				<artifactId>site-maven-plugin</artifactId>
-				<version>0.8</version>
-				<configuration>
-					<message>Maven artifacts for ${project.version}</message>  <!-- git commit message -->
-					<noJekyll>true</noJekyll>                                  <!-- disable webpage processing -->
-					<outputDirectory>${project.build.directory}/mvn-repo</outputDirectory> <!-- matches distribution management repository url above -->
-					<branch>refs/heads/mvn-repo</branch>                       <!-- remote branch name -->
-					<includes><include>**/*</include></includes>
-					<merge>true</merge>
-					<repositoryName>SCENE</repositoryName>      <!-- github repo name -->
-					<repositoryOwner>pereirazc</repositoryOwner>    <!-- github username  -->
-				</configuration>
-				<executions>
-				  <!-- run site-maven-plugin's 'site' target as part of the build's normal 'deploy' phase -->
-				  <execution>
-					<goals>
-					  <goal>site</goal>
-					</goals>
-					<phase>deploy</phase>
-				  </execution>
-				</executions>
-			</plugin>					
-		</plugins>	
-  </build>
-  <dependencies>
-      <!--drools-->
-      <dependency>
-	  <groupId>org.drools</groupId>
-	  <artifactId>knowledge-api</artifactId>
-	  <version>${drools.version}</version>
-	  <type>jar</type>
-      </dependency>
-      <dependency>
-	  <groupId>org.drools</groupId>
-	  <artifactId>drools-core</artifactId>
-	  <version>${drools.version}</version>
-	  <type>jar</type>
-      </dependency>
-      <dependency>
-	  	<groupId>junit</groupId>
-	  	<artifactId>junit</artifactId>
-	  	<version>4.8.1</version>
-	  	<scope>test</scope>
-      </dependency>
-      <dependency>
-          <groupId>joda-time</groupId>
-          <artifactId>joda-time</artifactId>
-          <version>2.3</version>
-      </dependency>
+			</plugin>
+		</plugins>
+	</build>
 
-  </dependencies>
 	<repositories>
 		<repository>
-		<id>jboss</id>
-		<name>jboss</name>
-		<url>https://repository.jboss.org/nexus/content/groups/public/</url>
+			<id>jboss-public-repository-group</id>
+			<name>JBoss Public Repository Group</name>
+			<url>http://repository.jboss.org/nexus/content/groups/public/</url>
+			<releases>
+				<enabled>true</enabled>
+				<updatePolicy>never</updatePolicy>
+			</releases>
+			<snapshots>
+				<enabled>true</enabled>
+				<updatePolicy>daily</updatePolicy>
+			</snapshots>
 		</repository>
 	</repositories>
-	<distributionManagement>
-		<repository>
-			<id>github</id>
-			<name>GitHub SCENE Repository</name>
-			<url>https://raw.github.com/pereirazc/SCENE/mvn-repo</url>
-		</repository>
-	</distributionManagement>
+
+	<dependencies>
+		<!-- Internal dependencies -->
+		<dependency>
+			<groupId>org.kie</groupId>
+			<artifactId>kie-api</artifactId>
+			<version>${drools.version}</version>
+			<type>jar</type>
+		</dependency>
+		<dependency>
+			<groupId>org.drools</groupId>
+			<artifactId>drools-core</artifactId>
+			<version>${drools.version}</version>
+			<type>jar</type>
+		</dependency>
+		<dependency>
+			<groupId>joda-time</groupId>
+			<artifactId>joda-time</artifactId>
+			<version>2.3</version>
+		</dependency>
+
+	</dependencies>
 </project>

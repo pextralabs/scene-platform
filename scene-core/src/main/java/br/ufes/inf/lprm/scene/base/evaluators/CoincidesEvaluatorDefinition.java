@@ -16,6 +16,11 @@
 
 package br.ufes.inf.lprm.scene.base.evaluators;
 
+import org.drools.core.base.ValueType;
+import org.drools.core.base.evaluators.EvaluatorDefinition;
+import org.drools.core.base.evaluators.Operator;
+import org.drools.core.spi.Evaluator;
+
 import java.io.IOException;
 import java.io.ObjectInput;
 import java.io.ObjectOutput;

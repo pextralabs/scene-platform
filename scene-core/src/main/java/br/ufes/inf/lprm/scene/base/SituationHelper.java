@@ -26,7 +26,6 @@ import br.ufes.inf.lprm.situation.SituationUtils;
 import br.ufes.inf.lprm.situation.events.ActivateSituationEvent;
 import br.ufes.inf.lprm.situation.events.DeactivateSituationEvent;
 import br.ufes.inf.lprm.scene.base.evaluators.AfterEvaluatorDefinition;
-import br.ufes.inf.lprm.scene.base.evaluators.BeforeEvaluatorDefinition;
 import br.ufes.inf.lprm.scene.base.evaluators.CoincidesEvaluatorDefinition;
 import br.ufes.inf.lprm.scene.base.evaluators.DuringEvaluatorDefinition;
 import br.ufes.inf.lprm.scene.base.evaluators.FinishedByEvaluatorDefinition;

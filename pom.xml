@@ -3,26 +3,27 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>br.ufes.inf.lprm</groupId>
 	<artifactId>scene</artifactId>
-	<version>0.9.1</version>
+	<version>2.0.0</version>
 	<packaging>pom</packaging>
 	<name>SCENE</name>
+
     <properties>
-	  <drools.version>5.5.0.Final</drools.version>
-	  <sinos.version>0.4.5</sinos.version>
-	  <github.global.server>github</github.global.server>
+		<drools.version>6.4.0.Final</drools.version>
     </properties>
+
 	<build>
-    <plugins>
-		<plugin>
-		  <groupId>org.apache.maven.plugins</groupId>
-		  <artifactId>maven-deploy-plugin</artifactId>
-		  <version>2.7</version>
-		  <configuration>
-			<skip>true</skip>
-		  </configuration>
-		</plugin>
-    </plugins>   
+		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-deploy-plugin</artifactId>
+				<version>2.7</version>
+				<configuration>
+					<skip>true</skip>
+				</configuration>
+			</plugin>
+		</plugins>
 	</build>
+
 	<modules>
 		<module>scene-core</module>
 		<module>situation-api</module>
