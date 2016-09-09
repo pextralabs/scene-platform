@@ -1,29 +1,21 @@
 package br.ufes.inf.lprm.scene.base.evaluators;
 
-import java.io.Serializable;
-
-import org.drools.KnowledgeBase;
-import org.drools.builder.KnowledgeBuilder;
-import org.drools.builder.KnowledgeBuilderError;
-import org.drools.builder.KnowledgeBuilderErrors;
-import org.drools.builder.ResourceType;
-import org.drools.event.rule.AfterActivationFiredEvent;
-import org.drools.event.rule.DefaultAgendaEventListener;
-import org.drools.io.ResourceFactory;
-import org.drools.runtime.StatefulKnowledgeSession;
-import org.drools.runtime.rule.FactHandle;
-
-import br.ufes.inf.lprm.scene.SituationKnowledgeBaseFactory;
-import br.ufes.inf.lprm.scene.SituationKnowledgeBuilderFactory;
+import br.ufes.inf.lprm.scene.SituationKieBase;
+import br.ufes.inf.lprm.scene.base.listeners.SCENESessionListener;
 import br.ufes.inf.lprm.situation.Role;
 import br.ufes.inf.lprm.situation.SituationType;
+import org.kie.api.KieServices;
+import org.kie.api.runtime.KieContainer;
+import org.kie.api.runtime.KieSession;
+import org.kie.api.runtime.rule.FactHandle;
 
-import org.junit.Test;
-import static org.junit.Assert.*;
+import java.io.Serializable;
+
+import static org.junit.Assert.assertEquals;
 
 class RuleEngineThread extends Thread {
-	private StatefulKnowledgeSession ksession;	
-	public RuleEngineThread(StatefulKnowledgeSession ksession) {
+	private KieSession ksession;
+	public RuleEngineThread(KieSession ksession) {
 		this.ksession = ksession;
 	}
     public void run() {	
@@ -111,32 +103,15 @@ class FeverAfterFever extends SituationType {
 public class AfterEvaluatorTest {
 	
 	private int detection_counter = 0;
-
-	public class AfterEvaluatorListener extends DefaultAgendaEventListener {
-
-		@Override
-		public void afterActivationFired(final AfterActivationFiredEvent event) {
-			
-			if (event.getActivation().getRule().getName() == "FeverAfterFever") {
-				detection_counter++;
-				
-				Fever f1 = (Fever) event.getActivation().getDeclarationValue("previous");
-				Fever f2 = (Fever) event.getActivation().getDeclarationValue("latter");
-								
-				assertTrue("f2 after f1", f2.getActivation().getTimestamp() < f1.getDeactivation().getTimestamp());
-				
-			}
-			
-		}
-	}	
 	
-	@Test
+	@org.junit.Test
 	public void Test() {
 		
 		try {
-			KnowledgeBase kbase = readKnowledgeBase();
-			StatefulKnowledgeSession ksession = kbase.newStatefulKnowledgeSession();
-            ksession.addEventListener(new AfterEvaluatorListener());
+			KieServices ks = KieServices.Factory.get();
+			KieContainer kContainer = ks.getKieClasspathContainer();
+			KieSession ksession = SituationKieBase.newKieSession(kContainer, "br.ufes.inf.lprm.scene.examples.fever.session");
+			ksession.addEventListener(new SCENESessionListener());
 			final RuleEngineThread eng = new RuleEngineThread(ksession);
             eng.start();
             
@@ -180,23 +155,5 @@ public class AfterEvaluatorTest {
 		}
         
 	}
-	
-	private static KnowledgeBase readKnowledgeBase() throws Exception {
-				
-		KnowledgeBuilder kbuilder = SituationKnowledgeBuilderFactory.newKnowledgeBuilder();
-
-	    kbuilder.add(ResourceFactory.newClassPathResource("br/ufes/inf/lprm/scene/base/evaluators/AfterEvaluatorTestRules.drl"), ResourceType.DRL);
-	    
-	    KnowledgeBuilderErrors errors = kbuilder.getErrors();
-	    if (errors.size() > 0) {
-	        for (KnowledgeBuilderError error: errors) {
-	            System.err.println(error);
-	        }
-	        throw new IllegalArgumentException("Could not parse knowledge.");
-	    }
-	    
-	    KnowledgeBase kbase = SituationKnowledgeBaseFactory.newKnowledgeBase(kbuilder);
-	    return kbase;
-	}	
 
 }

@@ -1,0 +1,12 @@
+package br.ufes.inf.lprm.scene.examples.fever;
+
+import br.ufes.inf.lprm.scene.base.*;
+
+rule "FeverSituation"
+@role(situation)
+@type(Fever)
+    when
+    	f1: Person(this.temperature > 37)
+    then
+    	SituationHelper.situationDetected(drools);
+end

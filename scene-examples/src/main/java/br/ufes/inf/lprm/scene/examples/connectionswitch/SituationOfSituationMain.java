@@ -1,26 +1,13 @@
 package br.ufes.inf.lprm.scene.examples.connectionswitch;
 
-import org.drools.KnowledgeBase;
-import org.drools.KnowledgeBaseFactory;
-import org.drools.builder.KnowledgeBuilder;
-import org.drools.builder.KnowledgeBuilderConfiguration;
-import org.drools.builder.KnowledgeBuilderError;
-import org.drools.builder.KnowledgeBuilderErrors;
-import org.drools.builder.KnowledgeBuilderFactory;
-import org.drools.builder.ResourceType;
-//import org.drools.definition.KnowledgePackage;
-
-import org.drools.io.ResourceFactory;
-import org.drools.runtime.StatefulKnowledgeSession;
-import org.drools.runtime.rule.FactHandle;
-
-import br.ufes.inf.lprm.scene.SituationKnowledgeBaseFactory;
-import br.ufes.inf.lprm.scene.SituationKnowledgeBuilderFactory;
-import br.ufes.inf.lprm.scene.base.SituationHelper;
-//import org.drools.situation.example.model.Person;
+import br.ufes.inf.lprm.scene.SituationKieBase;
 import br.ufes.inf.lprm.scene.examples.shared.Device;
 import br.ufes.inf.lprm.scene.examples.shared.Network;
 import br.ufes.inf.lprm.scene.examples.shared.NetworkType;
+import org.kie.api.KieServices;
+import org.kie.api.runtime.KieContainer;
+import org.kie.api.runtime.KieSession;
+import org.kie.api.runtime.rule.FactHandle;
 
 /**
  * This is a sample class to launch a rule.
@@ -28,9 +15,9 @@ import br.ufes.inf.lprm.scene.examples.shared.NetworkType;
 
 class RuleEngineThread extends Thread {
 	
-	private StatefulKnowledgeSession ksession;
+	private KieSession ksession;
 	
-	public RuleEngineThread(StatefulKnowledgeSession ksession) {
+	public RuleEngineThread(KieSession ksession) {
 		this.ksession = ksession;
 	}
 
@@ -47,8 +34,9 @@ public class SituationOfSituationMain {
     public static final void main(String[] args) {
         try {
             // load up the knowledge base
-            KnowledgeBase kbase = readKnowledgeBase();
-            StatefulKnowledgeSession ksession = kbase.newStatefulKnowledgeSession();
+            KieServices ks = KieServices.Factory.get();
+            KieContainer kContainer = ks.getKieClasspathContainer();
+            KieSession ksession = SituationKieBase.newKieSession(kContainer, "br.ufes.inf.lprm.scene.examples.fever.session");
 
             //KnowledgeRuntimeLoggerFactory.newConsoleLogger(ksession);
             // go !
@@ -85,24 +73,6 @@ public class SituationOfSituationMain {
         } catch (Throwable t) {
             t.printStackTrace();
         }
-    }
-
-    private static KnowledgeBase readKnowledgeBase() throws Exception {
- 
-    	KnowledgeBuilder kbuilder = SituationKnowledgeBuilderFactory.newKnowledgeBuilder();
-    	
-        kbuilder.add(ResourceFactory.newClassPathResource("br/ufes/inf/lprm/scene/examples/connectionswitch/SituationRules.drl"), ResourceType.DRL);
-        
-        KnowledgeBuilderErrors errors = kbuilder.getErrors();
-        if (errors.size() > 0) {
-            for (KnowledgeBuilderError error: errors) {
-                System.err.println(error);
-            }
-            throw new IllegalArgumentException("Could not parse knowledge.");
-        }
-        
-        KnowledgeBase kbase = SituationKnowledgeBaseFactory.newKnowledgeBase(kbuilder);
-        return kbase;
     }
 
 }

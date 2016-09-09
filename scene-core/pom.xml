@@ -9,9 +9,8 @@
 	<name>scene-core</name>
 
 	<properties>
-      <situation.version>0.9.1</situation.version>
+      <situation.version>2.0.0</situation.version>
 	  <drools.version>6.4.0.Final</drools.version>
-	  <github.global.server>github</github.global.server>
     </properties>	
 
 	<build>
@@ -103,11 +102,24 @@
 			<version>1.7.21</version>
 		</dependency>
 
-		<!-- Situation API -->
+		<!-- Situation API
 		<dependency>
 			<groupId>br.ufes.inf.lprm</groupId>
 			<artifactId>situation-api</artifactId>
 			<version>${situation.version}</version>
+		</dependency> -->
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+			<version>4.8.1</version>
+			<scope>test</scope>
 		</dependency>
 	</dependencies>
+
+	<parent>
+		<groupId>br.ufes.inf.lprm</groupId>
+		<artifactId>situation-api</artifactId>
+		<version>${situation.version}</version>
+		<relativePath>../situation-api/pom.xml</relativePath>
+	</parent>
 </project>

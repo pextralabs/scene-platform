@@ -1,23 +1,25 @@
 package br.ufes.inf.lprm.scene.base.evaluators.implementation;
 
-import br.ufes.inf.lprm.scene.base.evaluators.definition.SCENEBeforeEvaluatorDefinition;
 import br.ufes.inf.lprm.situation.SituationType;
 import org.drools.core.base.ValueType;
-import org.drools.core.base.evaluators.PointInTimeEvaluator;
+import org.drools.core.base.evaluators.BeforeEvaluatorDefinition.BeforeEvaluator;
 import org.drools.core.common.EventFactHandle;
 import org.drools.core.common.InternalFactHandle;
 import org.drools.core.common.InternalWorkingMemory;
-import org.drools.core.rule.VariableRestriction;
+import org.drools.core.rule.VariableRestriction.LongVariableContextEntry;
+import org.drools.core.rule.VariableRestriction.ObjectVariableContextEntry;
+import org.drools.core.rule.VariableRestriction.VariableContextEntry;
 import org.drools.core.spi.FieldValue;
 import org.drools.core.spi.InternalReadAccessor;
 import org.kie.api.runtime.rule.FactHandle;
+
 import java.util.Date;
 
 /**
  * Created by hborjaille on 9/7/16.
  */
 
-public class SCENEBeforeEvaluator extends PointInTimeEvaluator {
+public class SCENEBeforeEvaluator extends BeforeEvaluator {
 
     protected long              initRange;
     protected long              finalRange;
@@ -32,7 +34,7 @@ public class SCENEBeforeEvaluator extends PointInTimeEvaluator {
                                boolean unwrapLeft,
                                boolean unwrapRight) {
         super( type,
-                isNegated ? SCENEBeforeEvaluatorDefinition.NOT_AFTER : SCENEBeforeEvaluatorDefinition.AFTER,
+                isNegated,
                 parameters,
                 paramText,
                 unwrapLeft,
@@ -41,7 +43,7 @@ public class SCENEBeforeEvaluator extends PointInTimeEvaluator {
 
     @Override
     public boolean evaluate(InternalWorkingMemory workingMemory, InternalReadAccessor extractor, InternalFactHandle factHandle, FieldValue value) {
-        throw new IllegalArgumentException("The 'before' operator can only be used to compare one event to another, and never to compare to literal constraints.");
+        throw new RuntimeException("The 'before' operator can only be used to compare one event to another, and never to compare to literal constraints.");
     }
 
     @Override
@@ -94,7 +96,7 @@ public class SCENEBeforeEvaluator extends PointInTimeEvaluator {
     }
 
     @Override
-    public boolean evaluateCachedLeft(InternalWorkingMemory workingMemory, VariableRestriction.VariableContextEntry context, InternalFactHandle right) {
+    public boolean evaluateCachedLeft(InternalWorkingMemory workingMemory, VariableContextEntry context, InternalFactHandle right) {
         if ( context.extractor.isNullValue( workingMemory,
                 right ) ) {
             return false;
@@ -118,18 +120,18 @@ public class SCENEBeforeEvaluator extends PointInTimeEvaluator {
 
         long leftTS;
         if( this.unwrapLeft ) {
-            if( context instanceof VariableRestriction.ObjectVariableContextEntry) {
-                if( ((VariableRestriction.ObjectVariableContextEntry) context).left instanceof Date) {
-                    leftTS = ((Date)((VariableRestriction.ObjectVariableContextEntry) context).left).getTime();
+            if( context instanceof ObjectVariableContextEntry) {
+                if( ((ObjectVariableContextEntry) context).left instanceof Date) {
+                    leftTS = ((Date)((ObjectVariableContextEntry) context).left).getTime();
                 } else {
-                    leftTS = ((Number)((VariableRestriction.ObjectVariableContextEntry) context).left).longValue();
+                    leftTS = ((Number)((ObjectVariableContextEntry) context).left).longValue();
                 }
             } else {
-                leftTS = ((VariableRestriction.LongVariableContextEntry) context).left;
+                leftTS = ((LongVariableContextEntry) context).left;
             }
         } else {
 
-            Object leftFact =  workingMemory.getObject((FactHandle) ((VariableRestriction.ObjectVariableContextEntry) context).left);
+            Object leftFact =  workingMemory.getObject((FactHandle) ((ObjectVariableContextEntry) context).left);
 
             if(leftFact instanceof SituationType )
             {
@@ -140,7 +142,7 @@ public class SCENEBeforeEvaluator extends PointInTimeEvaluator {
                     return false;
                 }
             } else {
-                leftTS = ((EventFactHandle) ((VariableRestriction.ObjectVariableContextEntry) context).left).getEndTimestamp();
+                leftTS = ((EventFactHandle) ((ObjectVariableContextEntry) context).left).getEndTimestamp();
             }
         }
         long dist = rightTS - leftTS;
@@ -149,7 +151,7 @@ public class SCENEBeforeEvaluator extends PointInTimeEvaluator {
     }
 
     @Override
-    public boolean evaluateCachedRight(InternalWorkingMemory workingMemory, VariableRestriction.VariableContextEntry context, InternalFactHandle left) {
+    public boolean evaluateCachedRight(InternalWorkingMemory workingMemory, VariableContextEntry context, InternalFactHandle left) {
 
         if ( context.rightNull ) {
             return false;
@@ -157,24 +159,24 @@ public class SCENEBeforeEvaluator extends PointInTimeEvaluator {
 
         long rightTS;
         if( this.unwrapRight ) {
-            if( context instanceof VariableRestriction.ObjectVariableContextEntry) {
-                if( ((VariableRestriction.ObjectVariableContextEntry) context).right instanceof Date) {
-                    rightTS = ((Date)((VariableRestriction.ObjectVariableContextEntry) context).right).getTime();
+            if( context instanceof ObjectVariableContextEntry) {
+                if( ((ObjectVariableContextEntry) context).right instanceof Date) {
+                    rightTS = ((Date)((ObjectVariableContextEntry) context).right).getTime();
                 } else {
-                    rightTS = ((Number)((VariableRestriction.ObjectVariableContextEntry) context).right).longValue();
+                    rightTS = ((Number)((ObjectVariableContextEntry) context).right).longValue();
                 }
             } else {
-                rightTS = ((VariableRestriction.LongVariableContextEntry) context).right;
+                rightTS = ((LongVariableContextEntry) context).right;
             }
         } else {
 
-            Object rightFact =  workingMemory.getObject((FactHandle) ((VariableRestriction.ObjectVariableContextEntry) context).right);
+            Object rightFact =  workingMemory.getObject((FactHandle) ((ObjectVariableContextEntry) context).right);
 
             if(rightFact instanceof SituationType)
             {
                 rightTS = ((SituationType) rightFact).getActivation().getTimestamp();
             } else {
-                rightTS = ((EventFactHandle) ((VariableRestriction.ObjectVariableContextEntry) context).right).getStartTimestamp();
+                rightTS = ((EventFactHandle) ((ObjectVariableContextEntry) context).right).getStartTimestamp();
             }
         }
 

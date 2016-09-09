@@ -3,7 +3,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>br.ufes.inf.lprm</groupId>
     <artifactId>scene-examples</artifactId>
-    <version>0.9.1</version>
+    <version>2.0.0</version>
     <packaging>jar</packaging>
     <name>scene-examples</name>
 
@@ -54,11 +54,18 @@
         </repository>
     </repositories>
 
+    <parent>
+        <groupId>br.ufes.inf.lprm</groupId>
+        <artifactId>scene-core</artifactId>
+        <version>${scene.version}</version>
+    </parent>
+
+    <!--
     <dependencies>
         <dependency>
             <groupId>br.ufes.inf.lprm</groupId>
             <artifactId>scene-core</artifactId>
             <version>${scene.version}</version>
         </dependency>
-    </dependencies>
+    </dependencies> -->
 </project>

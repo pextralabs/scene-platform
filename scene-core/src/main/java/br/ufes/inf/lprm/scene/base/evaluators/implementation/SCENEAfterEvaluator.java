@@ -1,15 +1,14 @@
 package br.ufes.inf.lprm.scene.base.evaluators.implementation;
 
-import br.ufes.inf.lprm.scene.base.evaluators.definition.SCENEAfterEvaluatorDefinition;
 import br.ufes.inf.lprm.situation.SituationType;
 import org.drools.core.base.ValueType;
-import org.drools.core.base.evaluators.PointInTimeEvaluator;
+import org.drools.core.base.evaluators.AfterEvaluatorDefinition.AfterEvaluator;
 import org.drools.core.common.EventFactHandle;
 import org.drools.core.common.InternalFactHandle;
 import org.drools.core.common.InternalWorkingMemory;
-import org.drools.core.rule.VariableRestriction;
 import org.drools.core.rule.VariableRestriction.LongVariableContextEntry;
 import org.drools.core.rule.VariableRestriction.ObjectVariableContextEntry;
+import org.drools.core.rule.VariableRestriction.VariableContextEntry;
 import org.drools.core.spi.FieldValue;
 import org.drools.core.spi.InternalReadAccessor;
 import org.kie.api.runtime.rule.FactHandle;
@@ -20,7 +19,7 @@ import java.util.Date;
  * Created by hborjaille on 9/7/16.
  */
 
-public class SCENEAfterEvaluator extends PointInTimeEvaluator {
+public class SCENEAfterEvaluator extends AfterEvaluator {
 
     protected long              initRange;
     protected long              finalRange;
@@ -35,7 +34,7 @@ public class SCENEAfterEvaluator extends PointInTimeEvaluator {
                                boolean unwrapLeft,
                                boolean unwrapRight) {
         super( type,
-                isNegated ? SCENEAfterEvaluatorDefinition.NOT_AFTER : SCENEAfterEvaluatorDefinition.AFTER,
+                isNegated,
                 parameters,
                 paramText,
                 unwrapLeft,
@@ -44,7 +43,7 @@ public class SCENEAfterEvaluator extends PointInTimeEvaluator {
 
     @Override
     public boolean evaluate(InternalWorkingMemory workingMemory, InternalReadAccessor extractor, InternalFactHandle factHandle, FieldValue value) {
-        throw new IllegalArgumentException("The 'after' operator can only be used to compare one event to another, and never to compare to literal constraints.");
+        throw new RuntimeException("The 'after' operator can only be used to compare one event to another, and never to compare to literal constraints.");
     }
 
     @Override
@@ -97,7 +96,7 @@ public class SCENEAfterEvaluator extends PointInTimeEvaluator {
     }
 
     @Override
-    public boolean evaluateCachedLeft(InternalWorkingMemory workingMemory, VariableRestriction.VariableContextEntry context, InternalFactHandle right) {
+    public boolean evaluateCachedLeft(InternalWorkingMemory workingMemory, VariableContextEntry context, InternalFactHandle right) {
         if ( context.extractor.isNullValue( workingMemory,
                 right ) ) {
             return false;
@@ -152,7 +151,7 @@ public class SCENEAfterEvaluator extends PointInTimeEvaluator {
     }
 
     @Override
-    public boolean evaluateCachedRight(InternalWorkingMemory workingMemory, VariableRestriction.VariableContextEntry context, InternalFactHandle left) {
+    public boolean evaluateCachedRight(InternalWorkingMemory workingMemory, VariableContextEntry context, InternalFactHandle left) {
 
         if ( context.rightNull ) {
             return false;

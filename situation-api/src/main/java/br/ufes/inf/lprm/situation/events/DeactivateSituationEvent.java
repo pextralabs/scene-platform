@@ -6,9 +6,6 @@ import org.joda.time.Period;
 import org.joda.time.format.DateTimeFormat;
 import org.joda.time.format.DateTimeFormatter;
 
-import java.text.SimpleDateFormat;
-import java.util.Date;
-
 public class DeactivateSituationEvent extends SituationEvent {
 
 	private static final long serialVersionUID = -8350966238810288420L;
