@@ -1,71 +1,23 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
     <modelVersion>4.0.0</modelVersion>
-    <groupId>br.ufes.inf.lprm</groupId>
-    <artifactId>scene-examples</artifactId>
-    <version>2.0.0</version>
-    <packaging>jar</packaging>
-    <name>scene-examples</name>
-
-    <properties>
-        <scene.version>2.0.0</scene.version>
-        <drools.version>6.4.0.Final</drools.version>
-    </properties>
-
-    <build>
-        <plugins>
-		    <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-compiler-plugin</artifactId>
-                <version>2.0.2</version>
-                <configuration>
-                    <source>1.7</source>
-                    <target>1.7</target>
-                </configuration>
-		    </plugin>
-
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-jar-plugin</artifactId>
-                <version>2.3.2</version>
-            </plugin>
-
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-deploy-plugin</artifactId>
-                <version>2.7</version>
-            </plugin>
-        </plugins>
-    </build>
-
-    <repositories>
-        <repository>
-            <id>jboss-public-repository-group</id>
-            <name>JBoss Public Repository Group</name>
-            <url>http://repository.jboss.org/nexus/content/groups/public/</url>
-            <releases>
-                <enabled>true</enabled>
-                <updatePolicy>never</updatePolicy>
-            </releases>
-            <snapshots>
-                <enabled>true</enabled>
-                <updatePolicy>daily</updatePolicy>
-            </snapshots>
-        </repository>
-    </repositories>
-
     <parent>
         <groupId>br.ufes.inf.lprm</groupId>
-        <artifactId>scene-core</artifactId>
-        <version>${scene.version}</version>
+        <artifactId>scene-platform</artifactId>
+        <version>2.0.0</version>
     </parent>
+    <artifactId>scene-examples</artifactId>
+    <name>SCENE Examples</name>
+    <packaging>jar</packaging>
 
-    <!--
+    <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    </properties>
+
     <dependencies>
         <dependency>
             <groupId>br.ufes.inf.lprm</groupId>
             <artifactId>scene-core</artifactId>
-            <version>${scene.version}</version>
         </dependency>
-    </dependencies> -->
+    </dependencies>
 </project>

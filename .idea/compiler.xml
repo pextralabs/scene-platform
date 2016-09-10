@@ -28,8 +28,8 @@
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
-      <module name="scene-core" target="1.7" />
-      <module name="scene-examples" target="1.7" />
+      <module name="scene-core" target="1.5" />
+      <module name="scene-examples" target="1.5" />
       <module name="scene-platform" target="1.5" />
       <module name="situation-api" target="1.5" />
     </bytecodeTargetLevel>

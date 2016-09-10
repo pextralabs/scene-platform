@@ -76,13 +76,12 @@ public class SituationHelper {
 	}
 
 	public static void situationDetected(KnowledgeHelper khelper) throws Exception {
-		System.out.println("ENTROU NESSA BAGACA");
-		SituationProfile prof = SituationProfileManager.getInstance().getProfile(khelper.getRule().getName());
-
-		CurrentSituation asf = new CurrentSituation(prof.getType());
+		RuleImpl rule = khelper.getRule();
+		String type = rule.getPackageName() + "." + rule.getMetaData().get("type");
+		Class clazz = Class.forName(type);
+		CurrentSituation asf = new CurrentSituation(clazz);
 		asf.setTimestamp(khelper.getKieRuntime().getSessionClock().getCurrentTime());
-    	asf.setCast(new SituationCast(khelper.getMatch().getActivationNode().getActivation(), prof.getType()));
-
+    	asf.setCast(new SituationCast(khelper.getMatch(), clazz));
 
     	khelper.insertLogical(asf);
 	}

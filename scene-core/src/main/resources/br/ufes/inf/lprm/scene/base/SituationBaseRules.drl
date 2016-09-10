@@ -17,7 +17,6 @@ rule "SituationActivation"
 		//tests
 		$act.getSituation().setDetectionTimestamp($act.getTimestamp());
 		update($act);
-		System.out.println("ATIVOU");
 end
 
 rule "SituationDeactivation"
@@ -27,7 +26,6 @@ rule "SituationDeactivation"
 		not (exists CurrentSituation(situation == $sit))
 	then
 		SituationHelper.deactivateSituation(drools, (Object) $sit);
-		System.out.println("DESATIVOU");
 end
 
 query "CurrentSituation" (String tp, int hash)

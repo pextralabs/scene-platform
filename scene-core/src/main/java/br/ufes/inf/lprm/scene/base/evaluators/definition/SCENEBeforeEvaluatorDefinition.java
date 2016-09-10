@@ -41,7 +41,7 @@ public class SCENEBeforeEvaluatorDefinition extends BeforeEvaluatorDefinition {
                                   final Target left,
                                   final Target right) {
         if ( this.cache == Collections.EMPTY_MAP ) {
-            this.cache = new HashMap<>();
+            this.cache = new HashMap<String, SCENEBeforeEvaluator>();
         }
         String key = left + ":" + right + ":" + isNegated + ":" + parameterText;
         SCENEBeforeEvaluator eval = this.cache.get( key );

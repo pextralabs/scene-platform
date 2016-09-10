@@ -1,0 +1,72 @@
+09:08:22,211  INFO ClasspathKieProject:131 - Found kmodule: file:/Users/hborjaille/Projects/scene-platform/scene-core/target/test-classes/META-INF/kmodule.xml
+09:08:22,218 DEBUG ClasspathKieProject:398 - KieModule URL type=file url=/Users/hborjaille/Projects/scene-platform/scene-core/target/test-classes
+09:08:22,680  WARN ClasspathKieProject:287 - Unable to find pom.properties in /Users/hborjaille/Projects/scene-platform/scene-core/target/test-classes
+09:08:22,692  INFO ClasspathKieProject:329 - Recursed up folders, found and used pom.xml /Users/hborjaille/Projects/scene-platform/scene-core/pom.xml
+09:08:22,695 DEBUG ClasspathKieProject:118 - Discovered classpath module br.ufes.inf.lprm:scene-core:2.0.0
+09:08:22,702  INFO KieRepositoryImpl:89 - KieModule was added: FileKieModule[releaseId=br.ufes.inf.lprm:scene-core:2.0.0,file=/Users/hborjaille/Projects/scene-platform/scene-core/target/test-classes]
+09:08:22,703  INFO ClasspathKieProject:131 - Found kmodule: file:/Users/hborjaille/Projects/scene-platform/scene-core/target/classes/META-INF/kmodule.xml
+09:08:22,703 DEBUG ClasspathKieProject:398 - KieModule URL type=file url=/Users/hborjaille/Projects/scene-platform/scene-core/target/classes
+09:08:22,705  WARN ClasspathKieProject:287 - Unable to find pom.properties in /Users/hborjaille/Projects/scene-platform/scene-core/target/classes
+09:08:22,710  INFO ClasspathKieProject:329 - Recursed up folders, found and used pom.xml /Users/hborjaille/Projects/scene-platform/scene-core/pom.xml
+09:08:22,711 DEBUG ClasspathKieProject:118 - Discovered classpath module br.ufes.inf.lprm:scene-core:2.0.0
+09:08:22,711  INFO KieRepositoryImpl:89 - KieModule was added: FileKieModule[releaseId=br.ufes.inf.lprm:scene-core:2.0.0,file=/Users/hborjaille/Projects/scene-platform/scene-core/target/classes]
+09:08:42,927  INFO ClasspathKieProject:131 - Found kmodule: file:/Users/hborjaille/Projects/scene-platform/scene-core/target/test-classes/META-INF/kmodule.xml
+09:08:42,931 DEBUG ClasspathKieProject:398 - KieModule URL type=file url=/Users/hborjaille/Projects/scene-platform/scene-core/target/test-classes
+09:08:43,216  WARN ClasspathKieProject:287 - Unable to find pom.properties in /Users/hborjaille/Projects/scene-platform/scene-core/target/test-classes
+09:08:43,225  INFO ClasspathKieProject:329 - Recursed up folders, found and used pom.xml /Users/hborjaille/Projects/scene-platform/scene-core/pom.xml
+09:08:43,226 DEBUG ClasspathKieProject:118 - Discovered classpath module br.ufes.inf.lprm:scene-core:2.0.0
+09:08:43,230  INFO KieRepositoryImpl:89 - KieModule was added: FileKieModule[releaseId=br.ufes.inf.lprm:scene-core:2.0.0,file=/Users/hborjaille/Projects/scene-platform/scene-core/target/test-classes]
+09:08:43,231  INFO ClasspathKieProject:131 - Found kmodule: file:/Users/hborjaille/Projects/scene-platform/scene-core/target/classes/META-INF/kmodule.xml
+09:08:43,231 DEBUG ClasspathKieProject:398 - KieModule URL type=file url=/Users/hborjaille/Projects/scene-platform/scene-core/target/classes
+09:08:43,234  WARN ClasspathKieProject:287 - Unable to find pom.properties in /Users/hborjaille/Projects/scene-platform/scene-core/target/classes
+09:08:43,235  INFO ClasspathKieProject:329 - Recursed up folders, found and used pom.xml /Users/hborjaille/Projects/scene-platform/scene-core/pom.xml
+09:08:43,236 DEBUG ClasspathKieProject:118 - Discovered classpath module br.ufes.inf.lprm:scene-core:2.0.0
+09:08:43,237  INFO KieRepositoryImpl:89 - KieModule was added: FileKieModule[releaseId=br.ufes.inf.lprm:scene-core:2.0.0,file=/Users/hborjaille/Projects/scene-platform/scene-core/target/classes]
+09:12:05,734  INFO ClasspathKieProject:131 - Found kmodule: file:/Users/hborjaille/Projects/scene-platform/scene-core/target/test-classes/META-INF/kmodule.xml
+09:12:05,739 DEBUG ClasspathKieProject:398 - KieModule URL type=file url=/Users/hborjaille/Projects/scene-platform/scene-core/target/test-classes
+09:12:06,067  WARN ClasspathKieProject:287 - Unable to find pom.properties in /Users/hborjaille/Projects/scene-platform/scene-core/target/test-classes
+09:12:06,076  INFO ClasspathKieProject:329 - Recursed up folders, found and used pom.xml /Users/hborjaille/Projects/scene-platform/scene-core/pom.xml
+09:12:06,078 DEBUG ClasspathKieProject:118 - Discovered classpath module br.ufes.inf.lprm:scene-core:2.0.0
+09:12:06,082  INFO KieRepositoryImpl:89 - KieModule was added: FileKieModule[releaseId=br.ufes.inf.lprm:scene-core:2.0.0,file=/Users/hborjaille/Projects/scene-platform/scene-core/target/test-classes]
+09:12:06,083  INFO ClasspathKieProject:131 - Found kmodule: file:/Users/hborjaille/Projects/scene-platform/scene-core/target/classes/META-INF/kmodule.xml
+09:12:06,083 DEBUG ClasspathKieProject:398 - KieModule URL type=file url=/Users/hborjaille/Projects/scene-platform/scene-core/target/classes
+09:12:06,086  WARN ClasspathKieProject:287 - Unable to find pom.properties in /Users/hborjaille/Projects/scene-platform/scene-core/target/classes
+09:12:06,087  INFO ClasspathKieProject:329 - Recursed up folders, found and used pom.xml /Users/hborjaille/Projects/scene-platform/scene-core/pom.xml
+09:12:06,088 DEBUG ClasspathKieProject:118 - Discovered classpath module br.ufes.inf.lprm:scene-core:2.0.0
+09:12:06,089  INFO KieRepositoryImpl:89 - KieModule was added: FileKieModule[releaseId=br.ufes.inf.lprm:scene-core:2.0.0,file=/Users/hborjaille/Projects/scene-platform/scene-core/target/classes]
+09:12:16,090  INFO ClasspathKieProject:131 - Found kmodule: file:/Users/hborjaille/Projects/scene-platform/scene-core/target/test-classes/META-INF/kmodule.xml
+09:12:16,094 DEBUG ClasspathKieProject:398 - KieModule URL type=file url=/Users/hborjaille/Projects/scene-platform/scene-core/target/test-classes
+09:12:16,358  WARN ClasspathKieProject:287 - Unable to find pom.properties in /Users/hborjaille/Projects/scene-platform/scene-core/target/test-classes
+09:12:16,366  INFO ClasspathKieProject:329 - Recursed up folders, found and used pom.xml /Users/hborjaille/Projects/scene-platform/scene-core/pom.xml
+09:12:16,368 DEBUG ClasspathKieProject:118 - Discovered classpath module br.ufes.inf.lprm:scene-core:2.0.0
+09:12:16,372  INFO KieRepositoryImpl:89 - KieModule was added: FileKieModule[releaseId=br.ufes.inf.lprm:scene-core:2.0.0,file=/Users/hborjaille/Projects/scene-platform/scene-core/target/test-classes]
+09:12:16,389  INFO ClasspathKieProject:131 - Found kmodule: file:/Users/hborjaille/Projects/scene-platform/scene-core/target/classes/META-INF/kmodule.xml
+09:12:16,389 DEBUG ClasspathKieProject:398 - KieModule URL type=file url=/Users/hborjaille/Projects/scene-platform/scene-core/target/classes
+09:12:16,393  WARN ClasspathKieProject:287 - Unable to find pom.properties in /Users/hborjaille/Projects/scene-platform/scene-core/target/classes
+09:12:16,395  INFO ClasspathKieProject:329 - Recursed up folders, found and used pom.xml /Users/hborjaille/Projects/scene-platform/scene-core/pom.xml
+09:12:16,395 DEBUG ClasspathKieProject:118 - Discovered classpath module br.ufes.inf.lprm:scene-core:2.0.0
+09:12:16,396  INFO KieRepositoryImpl:89 - KieModule was added: FileKieModule[releaseId=br.ufes.inf.lprm:scene-core:2.0.0,file=/Users/hborjaille/Projects/scene-platform/scene-core/target/classes]
+09:14:24,804  INFO ClasspathKieProject:131 - Found kmodule: file:/Users/hborjaille/Projects/scene-platform/scene-core/target/test-classes/META-INF/kmodule.xml
+09:14:24,811 DEBUG ClasspathKieProject:398 - KieModule URL type=file url=/Users/hborjaille/Projects/scene-platform/scene-core/target/test-classes
+09:14:25,491  WARN ClasspathKieProject:287 - Unable to find pom.properties in /Users/hborjaille/Projects/scene-platform/scene-core/target/test-classes
+09:14:25,500  INFO ClasspathKieProject:329 - Recursed up folders, found and used pom.xml /Users/hborjaille/Projects/scene-platform/scene-core/pom.xml
+09:14:25,506 DEBUG ClasspathKieProject:118 - Discovered classpath module br.ufes.inf.lprm:scene-core:2.0.0
+09:14:25,518  INFO KieRepositoryImpl:89 - KieModule was added: FileKieModule[releaseId=br.ufes.inf.lprm:scene-core:2.0.0,file=/Users/hborjaille/Projects/scene-platform/scene-core/target/test-classes]
+09:14:25,518  INFO ClasspathKieProject:131 - Found kmodule: file:/Users/hborjaille/Projects/scene-platform/scene-core/target/classes/META-INF/kmodule.xml
+09:14:25,520 DEBUG ClasspathKieProject:398 - KieModule URL type=file url=/Users/hborjaille/Projects/scene-platform/scene-core/target/classes
+09:14:25,529  WARN ClasspathKieProject:287 - Unable to find pom.properties in /Users/hborjaille/Projects/scene-platform/scene-core/target/classes
+09:14:25,533  INFO ClasspathKieProject:329 - Recursed up folders, found and used pom.xml /Users/hborjaille/Projects/scene-platform/scene-core/pom.xml
+09:14:25,535 DEBUG ClasspathKieProject:118 - Discovered classpath module br.ufes.inf.lprm:scene-core:2.0.0
+09:14:25,536  INFO KieRepositoryImpl:89 - KieModule was added: FileKieModule[releaseId=br.ufes.inf.lprm:scene-core:2.0.0,file=/Users/hborjaille/Projects/scene-platform/scene-core/target/classes]
+09:27:06,382  INFO ClasspathKieProject:131 - Found kmodule: file:/Users/hborjaille/Projects/scene-platform/scene-core/target/test-classes/META-INF/kmodule.xml
+09:27:06,388 DEBUG ClasspathKieProject:398 - KieModule URL type=file url=/Users/hborjaille/Projects/scene-platform/scene-core/target/test-classes
+09:27:08,383  WARN ClasspathKieProject:287 - Unable to find pom.properties in /Users/hborjaille/Projects/scene-platform/scene-core/target/test-classes
+09:27:08,394  INFO ClasspathKieProject:329 - Recursed up folders, found and used pom.xml /Users/hborjaille/Projects/scene-platform/scene-core/pom.xml
+09:27:08,395 DEBUG ClasspathKieProject:118 - Discovered classpath module br.ufes.inf.lprm:scene-core:2.0.0
+09:27:08,407  INFO KieRepositoryImpl:89 - KieModule was added: FileKieModule[releaseId=br.ufes.inf.lprm:scene-core:2.0.0,file=/Users/hborjaille/Projects/scene-platform/scene-core/target/test-classes]
+09:27:08,407  INFO ClasspathKieProject:131 - Found kmodule: file:/Users/hborjaille/Projects/scene-platform/scene-core/target/classes/META-INF/kmodule.xml
+09:27:08,407 DEBUG ClasspathKieProject:398 - KieModule URL type=file url=/Users/hborjaille/Projects/scene-platform/scene-core/target/classes
+09:27:08,415  WARN ClasspathKieProject:287 - Unable to find pom.properties in /Users/hborjaille/Projects/scene-platform/scene-core/target/classes
+09:27:08,436  INFO ClasspathKieProject:329 - Recursed up folders, found and used pom.xml /Users/hborjaille/Projects/scene-platform/scene-core/pom.xml
+09:27:08,438 DEBUG ClasspathKieProject:118 - Discovered classpath module br.ufes.inf.lprm:scene-core:2.0.0
+09:27:08,443  INFO KieRepositoryImpl:89 - KieModule was added: FileKieModule[releaseId=br.ufes.inf.lprm:scene-core:2.0.0,file=/Users/hborjaille/Projects/scene-platform/scene-core/target/classes]

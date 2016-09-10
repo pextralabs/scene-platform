@@ -2,124 +2,49 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 
 	<modelVersion>4.0.0</modelVersion>
-	<groupId>br.ufes.inf.lprm</groupId>
+	<parent>
+		<groupId>br.ufes.inf.lprm</groupId>
+		<artifactId>scene-platform</artifactId>
+		<version>2.0.0</version>
+	</parent>
+
 	<artifactId>scene-core</artifactId>
-	<version>2.0.0</version>
+	<name>SCENE Core</name>
 	<packaging>jar</packaging>
-	<name>scene-core</name>
 
 	<properties>
-      <situation.version>2.0.0</situation.version>
-	  <drools.version>6.4.0.Final</drools.version>
-    </properties>	
-
-	<build>
-		<plugins>
-			<plugin>
-				<artifactId>maven-deploy-plugin</artifactId>
-				<version>2.7</version>
-				<configuration>
-					<altDeploymentRepository>internal.repo::default::file://${project.build.directory}/mvn-repo</altDeploymentRepository>
-				</configuration>
-			</plugin>
-
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-compiler-plugin</artifactId>
-				<version>2.0.2</version>
-				<configuration>
-					<source>1.7</source>
-					<target>1.7</target>
-				</configuration>
-			</plugin>
-		</plugins> 
-	</build>
-
-	<repositories>
-		<repository>
-			<id>jboss-public-repository-group</id>
-			<name>JBoss Public Repository Group</name>
-			<url>http://repository.jboss.org/nexus/content/groups/public/</url>
-			<releases>
-				<enabled>true</enabled>
-				<updatePolicy>never</updatePolicy>
-			</releases>
-			<snapshots>
-				<enabled>true</enabled>
-				<updatePolicy>daily</updatePolicy>
-			</snapshots>
-		</repository>
-	</repositories>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+	</properties>
 
 	<dependencies>
-		<!-- Internal dependencies -->
+		<!-- Situation API -->
+		<dependency>
+			<groupId>br.ufes.inf.lprm</groupId>
+			<artifactId>situation-api</artifactId>
+		</dependency>
 		<dependency>
 			<groupId>org.kie</groupId>
 			<artifactId>kie-api</artifactId>
-			<version>${drools.version}</version>
-			<type>jar</type>
 		</dependency>
 		<dependency>
 			<groupId>org.drools</groupId>
 			<artifactId>drools-core</artifactId>
-			<version>${drools.version}</version>
-			<type>jar</type>
 		</dependency>
 		<dependency>
 			<groupId>org.drools</groupId>
 			<artifactId>drools-compiler</artifactId>
-			<version>${drools.version}</version>
-			<type>jar</type>
 		</dependency>
 		<dependency>
-			<groupId>org.drools</groupId>
-			<artifactId>drools-decisiontables</artifactId>
-			<version>${drools.version}</version>
-			<type>jar</type>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
 		</dependency>
-		<dependency>
-			<groupId>org.drools</groupId>
-			<artifactId>drools-templates</artifactId>
-			<version>${drools.version}</version>
-			<type>jar</type>
-		</dependency>
-		<dependency>
-			<groupId>org.kie</groupId>
-			<artifactId>kie-internal</artifactId>
-			<version>${drools.version}</version>
-			<type>jar</type>
-		</dependency>
-
-		<!-- Logging -->
 		<dependency>
 			<groupId>org.slf4j</groupId>
 			<artifactId>slf4j-api</artifactId>
-			<version>1.7.21</version>
 		</dependency>
 		<dependency>
 			<groupId>org.slf4j</groupId>
 			<artifactId>slf4j-log4j12</artifactId>
-			<version>1.7.21</version>
-		</dependency>
-
-		<!-- Situation API
-		<dependency>
-			<groupId>br.ufes.inf.lprm</groupId>
-			<artifactId>situation-api</artifactId>
-			<version>${situation.version}</version>
-		</dependency> -->
-		<dependency>
-			<groupId>junit</groupId>
-			<artifactId>junit</artifactId>
-			<version>4.8.1</version>
-			<scope>test</scope>
 		</dependency>
 	</dependencies>
-
-	<parent>
-		<groupId>br.ufes.inf.lprm</groupId>
-		<artifactId>situation-api</artifactId>
-		<version>${situation.version}</version>
-		<relativePath>../situation-api/pom.xml</relativePath>
-	</parent>
 </project>

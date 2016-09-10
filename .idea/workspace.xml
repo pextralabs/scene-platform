@@ -2,67 +2,135 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="a0ae9600-b6df-4528-909b-97ad155cc8fb" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__junit_junit_4_8_1.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/scene-core/src/main/java/br/ufes/inf/lprm/scene/base/evaluators/definition/SCENECoincidesEvaluatorDefinition.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/scene-core/src/main/java/br/ufes/inf/lprm/scene/base/evaluators/definition/SCENEDuringEvaluatorDefinition.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/scene-core/src/main/java/br/ufes/inf/lprm/scene/base/evaluators/definition/SCENEFinishedByEvaluatorDefinition.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/scene-core/src/main/java/br/ufes/inf/lprm/scene/base/evaluators/definition/SCENEFinishesEvaluatorDefinition.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/scene-core/src/main/java/br/ufes/inf/lprm/scene/base/evaluators/definition/SCENEIncludesEvaluatorDefinition.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/scene-core/src/main/java/br/ufes/inf/lprm/scene/base/evaluators/definition/SCENEOverlappedByEvaluatorDefinition.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/scene-core/src/main/java/br/ufes/inf/lprm/scene/base/evaluators/definition/SCENEOverlapsEvaluatorDefinition.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/scene-core/src/main/java/br/ufes/inf/lprm/scene/base/evaluators/definition/SCENEStartedByEvaluatorDefinition.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/scene-core/src/main/java/br/ufes/inf/lprm/scene/base/evaluators/definition/SCENEStartsEvaluatorDefinition.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/scene-core/src/main/java/br/ufes/inf/lprm/scene/base/evaluators/implementation/SCENECoincidesEvaluator.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/scene-core/src/main/java/br/ufes/inf/lprm/scene/base/evaluators/implementation/SCENEDuringEvaluator.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/scene-core/src/main/java/br/ufes/inf/lprm/scene/base/evaluators/implementation/SCENEFinishedByEvaluator.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/scene-core/src/main/java/br/ufes/inf/lprm/scene/base/evaluators/implementation/SCENEFinishesEvaluator.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/scene-core/src/main/java/br/ufes/inf/lprm/scene/base/evaluators/implementation/SCENEIncludesEvaluator.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/scene-core/src/main/java/br/ufes/inf/lprm/scene/base/evaluators/implementation/SCENEOverlappedByEvaluator.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/scene-core/src/main/java/br/ufes/inf/lprm/scene/base/evaluators/implementation/SCENEOverlapsEvaluator.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/scene-core/src/main/java/br/ufes/inf/lprm/scene/base/evaluators/implementation/SCENEStartedByEvaluator.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/scene-core/src/main/java/br/ufes/inf/lprm/scene/base/evaluators/implementation/SCENEStartsEvaluator.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/scene-examples/src/main/resources/META-INF/kmodule.xml" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/scene-core/src/main/java/br/ufes/inf/lprm/scene/SituationKnowledgeBuilderFactory.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/scene-core/src/main/java/br/ufes/inf/lprm/scene/base/evaluators/CoincidesEvaluatorDefinition.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/scene-core/src/main/java/br/ufes/inf/lprm/scene/base/evaluators/DuringEvaluatorDefinition.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/scene-core/src/main/java/br/ufes/inf/lprm/scene/base/evaluators/FinishedByEvaluatorDefinition.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/scene-core/src/main/java/br/ufes/inf/lprm/scene/base/evaluators/FinishesEvaluatorDefinition.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/scene-core/src/main/java/br/ufes/inf/lprm/scene/base/evaluators/IncludesEvaluatorDefinition.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/scene-core/src/main/java/br/ufes/inf/lprm/scene/base/evaluators/OverlappedByEvaluatorDefinition.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/scene-core/src/main/java/br/ufes/inf/lprm/scene/base/evaluators/OverlapsEvaluatorDefinition.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/scene-core/src/main/java/br/ufes/inf/lprm/scene/base/evaluators/StartedByEvaluatorDefinition.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/scene-core/src/main/java/br/ufes/inf/lprm/scene/base/evaluators/StartsEvaluatorDefinition.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/scene-core/src/main/java/br/ufes/inf/lprm/scene/publishing/sinos/SinosSituationPublisher.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/scene-core/src/main/java/br/ufes/inf/lprm/scene/publishing/sinos/publisher/SinosActivePublisher.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/scene-core/src/main/java/br/ufes/inf/lprm/scene/publishing/sinos/publisher/SinosInactivePublisher.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/scene-core/src/main/java/br/ufes/inf/lprm/scene/publishing/sinos/publisher/SinosPublisher.java" afterPath="" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/.idea/libraries/Maven__joda_time_joda_time_2_3.xml" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__joda_time_joda_time_2_9_4.xml" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/scene-core/src/main/java/br/ufes/inf/lprm/scene/SituationKnowledgeBaseFactory.java" afterPath="$PROJECT_DIR$/scene-core/src/main/java/br/ufes/inf/lprm/scene/SituationKieBase.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/scene-core/src/main/resources/log4j.properties" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/scene-core/src/test/resources/META-INF/kmodule.xml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/scene-core/src/test/resources/log4j.properties" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/.idea/libraries/Maven__com_google_protobuf_protobuf_java_2_6_0.xml" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/.idea/libraries/Maven__com_thoughtworks_xstream_xstream_1_4_7.xml" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/.idea/libraries/Maven__commons_codec_commons_codec_1_4.xml" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/.idea/libraries/Maven__joda_time_joda_time_2_9_4.xml" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/.idea/libraries/Maven__junit_junit_4_8_1.xml" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/.idea/libraries/Maven__log4j_log4j_1_2_17.xml" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_antlr_antlr_runtime_3_5.xml" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_apache_poi_poi_3_13.xml" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_apache_poi_poi_ooxml_3_13.xml" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_apache_poi_poi_ooxml_schemas_3_13.xml" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_apache_xmlbeans_xmlbeans_2_6_0.xml" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_drools_drools_compiler_6_4_0_Final.xml" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_drools_drools_core_6_4_0_Final.xml" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_drools_drools_decisiontables_6_4_0_Final.xml" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_drools_drools_templates_6_4_0_Final.xml" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_eclipse_jdt_core_compiler_ecj_4_4_2.xml" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_kie_kie_api_6_4_0_Final.xml" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_kie_kie_internal_6_4_0_Final.xml" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_mvel_mvel2_2_2_8_Final.xml" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_slf4j_slf4j_api_1_7_2.xml" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_slf4j_slf4j_api_1_7_21.xml" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_slf4j_slf4j_log4j12_1_7_21.xml" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/.idea/libraries/Maven__stax_stax_api_1_0_1.xml" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/.idea/libraries/Maven__xmlpull_xmlpull_1_1_3_1.xml" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/.idea/libraries/Maven__xpp3_xpp3_min_1_1_4c.xml" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/session.log" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/session.log.1" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/session.log.2" afterPath="" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/scene-core/target/classes/br/ufes/inf/lprm/scene/SituationKieBase.class" afterPath="$PROJECT_DIR$/scene-core/target/classes/br/ufes/inf/lprm/scene/SituationKieBase.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/scene-core/target/classes/br/ufes/inf/lprm/scene/base/CurrentSituation.class" afterPath="$PROJECT_DIR$/scene-core/target/classes/br/ufes/inf/lprm/scene/base/CurrentSituation.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/scene-core/target/classes/br/ufes/inf/lprm/scene/base/SituationHelper.class" afterPath="$PROJECT_DIR$/scene-core/target/classes/br/ufes/inf/lprm/scene/base/SituationHelper.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/scene-core/target/classes/br/ufes/inf/lprm/scene/base/evaluators/definition/SCENEAfterEvaluatorDefinition.class" afterPath="$PROJECT_DIR$/scene-core/target/classes/br/ufes/inf/lprm/scene/base/evaluators/definition/SCENEAfterEvaluatorDefinition.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/scene-core/target/classes/br/ufes/inf/lprm/scene/base/evaluators/definition/SCENEBeforeEvaluatorDefinition.class" afterPath="$PROJECT_DIR$/scene-core/target/classes/br/ufes/inf/lprm/scene/base/evaluators/definition/SCENEBeforeEvaluatorDefinition.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/scene-core/target/classes/br/ufes/inf/lprm/scene/base/evaluators/definition/SCENECoincidesEvaluatorDefinition.class" afterPath="$PROJECT_DIR$/scene-core/target/classes/br/ufes/inf/lprm/scene/base/evaluators/definition/SCENECoincidesEvaluatorDefinition.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/scene-core/target/classes/br/ufes/inf/lprm/scene/base/evaluators/definition/SCENEDuringEvaluatorDefinition.class" afterPath="$PROJECT_DIR$/scene-core/target/classes/br/ufes/inf/lprm/scene/base/evaluators/definition/SCENEDuringEvaluatorDefinition.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/scene-core/target/classes/br/ufes/inf/lprm/scene/base/evaluators/definition/SCENEFinishedByEvaluatorDefinition.class" afterPath="$PROJECT_DIR$/scene-core/target/classes/br/ufes/inf/lprm/scene/base/evaluators/definition/SCENEFinishedByEvaluatorDefinition.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/scene-core/target/classes/br/ufes/inf/lprm/scene/base/evaluators/definition/SCENEFinishesEvaluatorDefinition.class" afterPath="$PROJECT_DIR$/scene-core/target/classes/br/ufes/inf/lprm/scene/base/evaluators/definition/SCENEFinishesEvaluatorDefinition.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/scene-core/target/classes/br/ufes/inf/lprm/scene/base/evaluators/definition/SCENEIncludesEvaluatorDefinition.class" afterPath="$PROJECT_DIR$/scene-core/target/classes/br/ufes/inf/lprm/scene/base/evaluators/definition/SCENEIncludesEvaluatorDefinition.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/scene-core/target/classes/br/ufes/inf/lprm/scene/base/evaluators/definition/SCENEOverlappedByEvaluatorDefinition.class" afterPath="$PROJECT_DIR$/scene-core/target/classes/br/ufes/inf/lprm/scene/base/evaluators/definition/SCENEOverlappedByEvaluatorDefinition.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/scene-core/target/classes/br/ufes/inf/lprm/scene/base/evaluators/definition/SCENEOverlapsEvaluatorDefinition.class" afterPath="$PROJECT_DIR$/scene-core/target/classes/br/ufes/inf/lprm/scene/base/evaluators/definition/SCENEOverlapsEvaluatorDefinition.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/scene-core/target/classes/br/ufes/inf/lprm/scene/base/evaluators/definition/SCENEStartedByEvaluatorDefinition.class" afterPath="$PROJECT_DIR$/scene-core/target/classes/br/ufes/inf/lprm/scene/base/evaluators/definition/SCENEStartedByEvaluatorDefinition.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/scene-core/target/classes/br/ufes/inf/lprm/scene/base/evaluators/definition/SCENEStartsEvaluatorDefinition.class" afterPath="$PROJECT_DIR$/scene-core/target/classes/br/ufes/inf/lprm/scene/base/evaluators/definition/SCENEStartsEvaluatorDefinition.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/scene-core/target/classes/br/ufes/inf/lprm/scene/base/evaluators/implementation/SCENEAfterEvaluator.class" afterPath="$PROJECT_DIR$/scene-core/target/classes/br/ufes/inf/lprm/scene/base/evaluators/implementation/SCENEAfterEvaluator.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/scene-core/target/classes/br/ufes/inf/lprm/scene/base/evaluators/implementation/SCENEBeforeEvaluator.class" afterPath="$PROJECT_DIR$/scene-core/target/classes/br/ufes/inf/lprm/scene/base/evaluators/implementation/SCENEBeforeEvaluator.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/scene-core/target/classes/br/ufes/inf/lprm/scene/base/evaluators/implementation/SCENECoincidesEvaluator.class" afterPath="$PROJECT_DIR$/scene-core/target/classes/br/ufes/inf/lprm/scene/base/evaluators/implementation/SCENECoincidesEvaluator.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/scene-core/target/classes/br/ufes/inf/lprm/scene/base/evaluators/implementation/SCENEDuringEvaluator.class" afterPath="$PROJECT_DIR$/scene-core/target/classes/br/ufes/inf/lprm/scene/base/evaluators/implementation/SCENEDuringEvaluator.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/scene-core/target/classes/br/ufes/inf/lprm/scene/base/evaluators/implementation/SCENEFinishedByEvaluator.class" afterPath="$PROJECT_DIR$/scene-core/target/classes/br/ufes/inf/lprm/scene/base/evaluators/implementation/SCENEFinishedByEvaluator.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/scene-core/target/classes/br/ufes/inf/lprm/scene/base/evaluators/implementation/SCENEFinishesEvaluator.class" afterPath="$PROJECT_DIR$/scene-core/target/classes/br/ufes/inf/lprm/scene/base/evaluators/implementation/SCENEFinishesEvaluator.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/scene-core/target/classes/br/ufes/inf/lprm/scene/base/evaluators/implementation/SCENEIncludesEvaluator.class" afterPath="$PROJECT_DIR$/scene-core/target/classes/br/ufes/inf/lprm/scene/base/evaluators/implementation/SCENEIncludesEvaluator.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/scene-core/target/classes/br/ufes/inf/lprm/scene/base/evaluators/implementation/SCENEOverlappedByEvaluator.class" afterPath="$PROJECT_DIR$/scene-core/target/classes/br/ufes/inf/lprm/scene/base/evaluators/implementation/SCENEOverlappedByEvaluator.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/scene-core/target/classes/br/ufes/inf/lprm/scene/base/evaluators/implementation/SCENEOverlapsEvaluator.class" afterPath="$PROJECT_DIR$/scene-core/target/classes/br/ufes/inf/lprm/scene/base/evaluators/implementation/SCENEOverlapsEvaluator.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/scene-core/target/classes/br/ufes/inf/lprm/scene/base/evaluators/implementation/SCENEStartedByEvaluator.class" afterPath="$PROJECT_DIR$/scene-core/target/classes/br/ufes/inf/lprm/scene/base/evaluators/implementation/SCENEStartedByEvaluator.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/scene-core/target/classes/br/ufes/inf/lprm/scene/base/evaluators/implementation/SCENEStartsEvaluator.class" afterPath="$PROJECT_DIR$/scene-core/target/classes/br/ufes/inf/lprm/scene/base/evaluators/implementation/SCENEStartsEvaluator.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/scene-core/target/classes/br/ufes/inf/lprm/scene/base/listeners/SCENESessionListener.class" afterPath="$PROJECT_DIR$/scene-core/target/classes/br/ufes/inf/lprm/scene/base/listeners/SCENESessionListener.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/scene-core/target/classes/br/ufes/inf/lprm/scene/base/logging/SCENELogger.class" afterPath="$PROJECT_DIR$/scene-core/target/classes/br/ufes/inf/lprm/scene/base/logging/SCENELogger.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/scene-core/target/classes/br/ufes/inf/lprm/scene/exceptions/AlreadyInstantiatedException.class" afterPath="$PROJECT_DIR$/scene-core/target/classes/br/ufes/inf/lprm/scene/exceptions/AlreadyInstantiatedException.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/scene-core/target/classes/br/ufes/inf/lprm/scene/publishing/Publish.class" afterPath="$PROJECT_DIR$/scene-core/target/classes/br/ufes/inf/lprm/scene/publishing/Publish.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/scene-core/target/classes/br/ufes/inf/lprm/scene/publishing/SituationPublisher.class" afterPath="$PROJECT_DIR$/scene-core/target/classes/br/ufes/inf/lprm/scene/publishing/SituationPublisher.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/scene-core/target/classes/br/ufes/inf/lprm/scene/spm/CastReloadType.class" afterPath="$PROJECT_DIR$/scene-core/target/classes/br/ufes/inf/lprm/scene/spm/CastReloadType.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/scene-core/target/classes/br/ufes/inf/lprm/scene/spm/CastRestoreType.class" afterPath="$PROJECT_DIR$/scene-core/target/classes/br/ufes/inf/lprm/scene/spm/CastRestoreType.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/scene-core/target/classes/br/ufes/inf/lprm/scene/spm/SituationProfile.class" afterPath="$PROJECT_DIR$/scene-core/target/classes/br/ufes/inf/lprm/scene/spm/SituationProfile.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/scene-core/target/classes/br/ufes/inf/lprm/scene/spm/SituationProfileManager.class" afterPath="$PROJECT_DIR$/scene-core/target/classes/br/ufes/inf/lprm/scene/spm/SituationProfileManager.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/scene-core/target/scene-core-2.0.0.jar" afterPath="$PROJECT_DIR$/scene-core/target/scene-core-2.0.0.jar" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/scene-core/target/test-classes/br/ufes/inf/lprm/scene/base/evaluators/AfterEvaluatorTest.class" afterPath="$PROJECT_DIR$/scene-core/target/test-classes/br/ufes/inf/lprm/scene/base/evaluators/AfterEvaluatorTest.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/scene-core/target/test-classes/br/ufes/inf/lprm/scene/base/evaluators/Fever.class" afterPath="$PROJECT_DIR$/scene-core/target/test-classes/br/ufes/inf/lprm/scene/base/evaluators/Fever.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/scene-core/target/test-classes/br/ufes/inf/lprm/scene/base/evaluators/FeverAfterFever.class" afterPath="$PROJECT_DIR$/scene-core/target/test-classes/br/ufes/inf/lprm/scene/base/evaluators/FeverAfterFever.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/scene-core/target/test-classes/br/ufes/inf/lprm/scene/base/evaluators/Person.class" afterPath="$PROJECT_DIR$/scene-core/target/test-classes/br/ufes/inf/lprm/scene/base/evaluators/Person.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/scene-core/target/test-classes/br/ufes/inf/lprm/scene/base/evaluators/RuleEngineThread.class" afterPath="$PROJECT_DIR$/scene-core/target/test-classes/br/ufes/inf/lprm/scene/base/evaluators/RuleEngineThread.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/scene-examples/target/classes/br/ufes/inf/lprm/scene/examples/connectionswitch/RuleEngineThread.class" afterPath="$PROJECT_DIR$/scene-examples/target/classes/br/ufes/inf/lprm/scene/examples/connectionswitch/RuleEngineThread.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/scene-examples/target/classes/br/ufes/inf/lprm/scene/examples/connectionswitch/SituationConnected.class" afterPath="$PROJECT_DIR$/scene-examples/target/classes/br/ufes/inf/lprm/scene/examples/connectionswitch/SituationConnected.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/scene-examples/target/classes/br/ufes/inf/lprm/scene/examples/connectionswitch/SituationOfSituationMain.class" afterPath="$PROJECT_DIR$/scene-examples/target/classes/br/ufes/inf/lprm/scene/examples/connectionswitch/SituationOfSituationMain.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/scene-examples/target/classes/br/ufes/inf/lprm/scene/examples/connectionswitch/SituationSwitch.class" afterPath="$PROJECT_DIR$/scene-examples/target/classes/br/ufes/inf/lprm/scene/examples/connectionswitch/SituationSwitch.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/scene-examples/target/classes/br/ufes/inf/lprm/scene/examples/fever/Fever.class" afterPath="$PROJECT_DIR$/scene-examples/target/classes/br/ufes/inf/lprm/scene/examples/fever/Fever.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/scene-examples/target/classes/br/ufes/inf/lprm/scene/examples/fever/FeverExampleMain.class" afterPath="$PROJECT_DIR$/scene-examples/target/classes/br/ufes/inf/lprm/scene/examples/fever/FeverExampleMain.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/scene-examples/target/classes/br/ufes/inf/lprm/scene/examples/fever/RuleEngineThread.class" afterPath="$PROJECT_DIR$/scene-examples/target/classes/br/ufes/inf/lprm/scene/examples/fever/RuleEngineThread.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/scene-examples/target/classes/br/ufes/inf/lprm/scene/examples/shared/Device.class" afterPath="$PROJECT_DIR$/scene-examples/target/classes/br/ufes/inf/lprm/scene/examples/shared/Device.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/scene-examples/target/classes/br/ufes/inf/lprm/scene/examples/shared/Network.class" afterPath="$PROJECT_DIR$/scene-examples/target/classes/br/ufes/inf/lprm/scene/examples/shared/Network.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/scene-examples/target/classes/br/ufes/inf/lprm/scene/examples/shared/NetworkType.class" afterPath="$PROJECT_DIR$/scene-examples/target/classes/br/ufes/inf/lprm/scene/examples/shared/NetworkType.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/scene-examples/target/classes/br/ufes/inf/lprm/scene/examples/shared/Person.class" afterPath="$PROJECT_DIR$/scene-examples/target/classes/br/ufes/inf/lprm/scene/examples/shared/Person.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/scene-examples/target/scene-examples-2.0.0.jar" afterPath="$PROJECT_DIR$/scene-examples/target/scene-examples-2.0.0.jar" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/situation-api/target/classes/br/ufes/inf/lprm/situation/events/DeactivateSituationEvent.class" afterPath="$PROJECT_DIR$/situation-api/target/classes/br/ufes/inf/lprm/situation/events/DeactivateSituationEvent.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/situation-api/target/situation-api-2.0.0.jar" afterPath="$PROJECT_DIR$/situation-api/target/situation-api-2.0.0.jar" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/compiler.xml" afterPath="$PROJECT_DIR$/.idea/compiler.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/pom.xml" afterPath="$PROJECT_DIR$/pom.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/scene-core/pom.xml" afterPath="$PROJECT_DIR$/scene-core/pom.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/scene-core/scene-core.iml" afterPath="$PROJECT_DIR$/scene-core/scene-core.iml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/scene-core/src/main/java/br/ufes/inf/lprm/scene/base/SituationHelper.java" afterPath="$PROJECT_DIR$/scene-core/src/main/java/br/ufes/inf/lprm/scene/base/SituationHelper.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/scene-core/src/main/java/br/ufes/inf/lprm/scene/base/evaluators/definition/SCENEAfterEvaluatorDefinition.java" afterPath="$PROJECT_DIR$/scene-core/src/main/java/br/ufes/inf/lprm/scene/base/evaluators/definition/SCENEAfterEvaluatorDefinition.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/scene-core/src/main/java/br/ufes/inf/lprm/scene/base/evaluators/implementation/SCENEAfterEvaluator.java" afterPath="$PROJECT_DIR$/scene-core/src/main/java/br/ufes/inf/lprm/scene/base/evaluators/implementation/SCENEAfterEvaluator.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/scene-core/src/main/java/br/ufes/inf/lprm/scene/base/evaluators/implementation/SCENEBeforeEvaluator.java" afterPath="$PROJECT_DIR$/scene-core/src/main/java/br/ufes/inf/lprm/scene/base/evaluators/implementation/SCENEBeforeEvaluator.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/scene-core/src/main/java/br/ufes/inf/lprm/scene/base/listeners/SCENESessionListener.java" afterPath="$PROJECT_DIR$/scene-core/src/main/java/br/ufes/inf/lprm/scene/base/listeners/SCENESessionListener.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/scene-core/src/main/java/br/ufes/inf/lprm/scene/publishing/Publish.java" afterPath="$PROJECT_DIR$/scene-core/src/main/java/br/ufes/inf/lprm/scene/publishing/Publish.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/scene-core/src/main/java/br/ufes/inf/lprm/scene/spm/SituationProfileManager.java" afterPath="$PROJECT_DIR$/scene-core/src/main/java/br/ufes/inf/lprm/scene/spm/SituationProfileManager.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/scene-core/src/main/resources/META-INF/drools.default.packagebuilder.conf" afterPath="$PROJECT_DIR$/scene-core/src/main/resources/META-INF/drools.default.packagebuilder.conf" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/scene-core/src/main/resources/META-INF/kmodule.xml" afterPath="$PROJECT_DIR$/scene-core/src/main/resources/META-INF/kmodule.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/scene-core/src/main/java/br/ufes/inf/lprm/scene/base/evaluators/definition/SCENEBeforeEvaluatorDefinition.java" afterPath="$PROJECT_DIR$/scene-core/src/main/java/br/ufes/inf/lprm/scene/base/evaluators/definition/SCENEBeforeEvaluatorDefinition.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/scene-core/src/main/java/br/ufes/inf/lprm/scene/base/evaluators/definition/SCENECoincidesEvaluatorDefinition.java" afterPath="$PROJECT_DIR$/scene-core/src/main/java/br/ufes/inf/lprm/scene/base/evaluators/definition/SCENECoincidesEvaluatorDefinition.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/scene-core/src/main/java/br/ufes/inf/lprm/scene/base/evaluators/definition/SCENEDuringEvaluatorDefinition.java" afterPath="$PROJECT_DIR$/scene-core/src/main/java/br/ufes/inf/lprm/scene/base/evaluators/definition/SCENEDuringEvaluatorDefinition.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/scene-core/src/main/java/br/ufes/inf/lprm/scene/base/evaluators/definition/SCENEFinishedByEvaluatorDefinition.java" afterPath="$PROJECT_DIR$/scene-core/src/main/java/br/ufes/inf/lprm/scene/base/evaluators/definition/SCENEFinishedByEvaluatorDefinition.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/scene-core/src/main/java/br/ufes/inf/lprm/scene/base/evaluators/definition/SCENEFinishesEvaluatorDefinition.java" afterPath="$PROJECT_DIR$/scene-core/src/main/java/br/ufes/inf/lprm/scene/base/evaluators/definition/SCENEFinishesEvaluatorDefinition.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/scene-core/src/main/java/br/ufes/inf/lprm/scene/base/evaluators/definition/SCENEIncludesEvaluatorDefinition.java" afterPath="$PROJECT_DIR$/scene-core/src/main/java/br/ufes/inf/lprm/scene/base/evaluators/definition/SCENEIncludesEvaluatorDefinition.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/scene-core/src/main/java/br/ufes/inf/lprm/scene/base/evaluators/definition/SCENEOverlappedByEvaluatorDefinition.java" afterPath="$PROJECT_DIR$/scene-core/src/main/java/br/ufes/inf/lprm/scene/base/evaluators/definition/SCENEOverlappedByEvaluatorDefinition.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/scene-core/src/main/java/br/ufes/inf/lprm/scene/base/evaluators/definition/SCENEOverlapsEvaluatorDefinition.java" afterPath="$PROJECT_DIR$/scene-core/src/main/java/br/ufes/inf/lprm/scene/base/evaluators/definition/SCENEOverlapsEvaluatorDefinition.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/scene-core/src/main/java/br/ufes/inf/lprm/scene/base/evaluators/definition/SCENEStartedByEvaluatorDefinition.java" afterPath="$PROJECT_DIR$/scene-core/src/main/java/br/ufes/inf/lprm/scene/base/evaluators/definition/SCENEStartedByEvaluatorDefinition.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/scene-core/src/main/java/br/ufes/inf/lprm/scene/base/evaluators/definition/SCENEStartsEvaluatorDefinition.java" afterPath="$PROJECT_DIR$/scene-core/src/main/java/br/ufes/inf/lprm/scene/base/evaluators/definition/SCENEStartsEvaluatorDefinition.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/scene-core/src/main/java/br/ufes/inf/lprm/scene/base/evaluators/implementation/SCENECoincidesEvaluator.java" afterPath="$PROJECT_DIR$/scene-core/src/main/java/br/ufes/inf/lprm/scene/base/evaluators/implementation/SCENECoincidesEvaluator.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/scene-core/src/main/java/br/ufes/inf/lprm/scene/base/evaluators/implementation/SCENEDuringEvaluator.java" afterPath="$PROJECT_DIR$/scene-core/src/main/java/br/ufes/inf/lprm/scene/base/evaluators/implementation/SCENEDuringEvaluator.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/scene-core/src/main/java/br/ufes/inf/lprm/scene/base/evaluators/implementation/SCENEFinishedByEvaluator.java" afterPath="$PROJECT_DIR$/scene-core/src/main/java/br/ufes/inf/lprm/scene/base/evaluators/implementation/SCENEFinishedByEvaluator.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/scene-core/src/main/java/br/ufes/inf/lprm/scene/base/evaluators/implementation/SCENEFinishesEvaluator.java" afterPath="$PROJECT_DIR$/scene-core/src/main/java/br/ufes/inf/lprm/scene/base/evaluators/implementation/SCENEFinishesEvaluator.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/scene-core/src/main/java/br/ufes/inf/lprm/scene/base/evaluators/implementation/SCENEIncludesEvaluator.java" afterPath="$PROJECT_DIR$/scene-core/src/main/java/br/ufes/inf/lprm/scene/base/evaluators/implementation/SCENEIncludesEvaluator.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/scene-core/src/main/java/br/ufes/inf/lprm/scene/base/evaluators/implementation/SCENEOverlappedByEvaluator.java" afterPath="$PROJECT_DIR$/scene-core/src/main/java/br/ufes/inf/lprm/scene/base/evaluators/implementation/SCENEOverlappedByEvaluator.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/scene-core/src/main/java/br/ufes/inf/lprm/scene/base/evaluators/implementation/SCENEOverlapsEvaluator.java" afterPath="$PROJECT_DIR$/scene-core/src/main/java/br/ufes/inf/lprm/scene/base/evaluators/implementation/SCENEOverlapsEvaluator.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/scene-core/src/main/java/br/ufes/inf/lprm/scene/base/evaluators/implementation/SCENEStartedByEvaluator.java" afterPath="$PROJECT_DIR$/scene-core/src/main/java/br/ufes/inf/lprm/scene/base/evaluators/implementation/SCENEStartedByEvaluator.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/scene-core/src/main/java/br/ufes/inf/lprm/scene/base/evaluators/implementation/SCENEStartsEvaluator.java" afterPath="$PROJECT_DIR$/scene-core/src/main/java/br/ufes/inf/lprm/scene/base/evaluators/implementation/SCENEStartsEvaluator.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/scene-core/src/main/resources/br/ufes/inf/lprm/scene/base/SituationBaseRules.drl" afterPath="$PROJECT_DIR$/scene-core/src/main/resources/br/ufes/inf/lprm/scene/base/SituationBaseRules.drl" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/scene-core/src/test/java/br/ufes/inf/lprm/scene/base/evaluators/AfterEvaluatorTest.java" afterPath="$PROJECT_DIR$/scene-core/src/test/java/br/ufes/inf/lprm/scene/base/evaluators/AfterEvaluatorTest.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/scene-core/src/test/resources/br/ufes/inf/lprm/scene/examples/fever/FeverSituation.drl" afterPath="$PROJECT_DIR$/scene-core/src/test/resources/br/ufes/inf/lprm/scene/examples/fever/FeverSituation.drl" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/scene-core/target/classes/br/ufes/inf/lprm/scene/base/SituationBaseRules.drl" afterPath="$PROJECT_DIR$/scene-core/target/classes/br/ufes/inf/lprm/scene/base/SituationBaseRules.drl" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/scene-core/target/maven-archiver/pom.properties" afterPath="$PROJECT_DIR$/scene-core/target/maven-archiver/pom.properties" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/scene-core/target/surefire-reports/TEST-br.ufes.inf.lprm.scene.base.evaluators.AfterEvaluatorTest.xml" afterPath="$PROJECT_DIR$/scene-core/target/surefire-reports/TEST-br.ufes.inf.lprm.scene.base.evaluators.AfterEvaluatorTest.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/scene-core/target/surefire-reports/br.ufes.inf.lprm.scene.base.evaluators.AfterEvaluatorTest.txt" afterPath="$PROJECT_DIR$/scene-core/target/surefire-reports/br.ufes.inf.lprm.scene.base.evaluators.AfterEvaluatorTest.txt" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/scene-core/target/test-classes/br/ufes/inf/lprm/scene/examples/fever/FeverSituation.drl" afterPath="$PROJECT_DIR$/scene-core/target/test-classes/br/ufes/inf/lprm/scene/examples/fever/FeverSituation.drl" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/scene-examples/pom.xml" afterPath="$PROJECT_DIR$/scene-examples/pom.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/scene-examples/scene-examples.iml" afterPath="$PROJECT_DIR$/scene-examples/scene-examples.iml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/scene-examples/src/main/java/br/ufes/inf/lprm/scene/examples/connectionswitch/SituationOfSituationMain.java" afterPath="$PROJECT_DIR$/scene-examples/src/main/java/br/ufes/inf/lprm/scene/examples/connectionswitch/SituationOfSituationMain.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/scene-examples/src/main/java/br/ufes/inf/lprm/scene/examples/fever/FeverExampleMain.java" afterPath="$PROJECT_DIR$/scene-examples/src/main/java/br/ufes/inf/lprm/scene/examples/fever/FeverExampleMain.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/scene-examples/src/main/resources/META-INF/kmodule.xml" afterPath="$PROJECT_DIR$/scene-examples/src/main/resources/META-INF/kmodule.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/scene-examples/src/main/resources/br/ufes/inf/lprm/scene/examples/fever/FeverSituation.drl" afterPath="$PROJECT_DIR$/scene-examples/src/main/resources/br/ufes/inf/lprm/scene/examples/fever/FeverSituation.drl" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/scene-examples/target/classes/META-INF/kmodule.xml" afterPath="$PROJECT_DIR$/scene-examples/target/classes/META-INF/kmodule.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/scene-examples/target/classes/br/ufes/inf/lprm/scene/examples/fever/FeverSituation.drl" afterPath="$PROJECT_DIR$/scene-examples/target/classes/br/ufes/inf/lprm/scene/examples/fever/FeverSituation.drl" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/scene-examples/target/maven-archiver/pom.properties" afterPath="$PROJECT_DIR$/scene-examples/target/maven-archiver/pom.properties" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/situation-api/pom.xml" afterPath="$PROJECT_DIR$/situation-api/pom.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/situation-api/situation-api.iml" afterPath="$PROJECT_DIR$/situation-api/situation-api.iml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/situation-api/src/main/java/br/ufes/inf/lprm/situation/SituationCast.java" afterPath="$PROJECT_DIR$/situation-api/src/main/java/br/ufes/inf/lprm/situation/SituationCast.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/situation-api/src/main/java/br/ufes/inf/lprm/situation/SituationUtils.java" afterPath="$PROJECT_DIR$/situation-api/src/main/java/br/ufes/inf/lprm/situation/SituationUtils.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/situation-api/src/main/java/br/ufes/inf/lprm/situation/events/ActivateSituationEvent.java" afterPath="$PROJECT_DIR$/situation-api/src/main/java/br/ufes/inf/lprm/situation/events/ActivateSituationEvent.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/situation-api/src/main/java/br/ufes/inf/lprm/situation/events/DeactivateSituationEvent.java" afterPath="$PROJECT_DIR$/situation-api/src/main/java/br/ufes/inf/lprm/situation/events/DeactivateSituationEvent.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/situation-api/target/maven-archiver/pom.properties" afterPath="$PROJECT_DIR$/situation-api/target/maven-archiver/pom.properties" />
     </list>
     <ignored path="scene-platform.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -87,80 +155,31 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="SCENESessionListener.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/scene-core/src/main/java/br/ufes/inf/lprm/scene/base/listeners/SCENESessionListener.java">
+      <file leaf-file-name="SituationKieBase.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/scene-core/src/main/java/br/ufes/inf/lprm/scene/SituationKieBase.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="225">
-              <caret line="21" column="0" selection-start-line="21" selection-start-column="0" selection-end-line="21" selection-end-column="0" />
+            <state relative-caret-position="105">
+              <caret line="9" column="67" selection-start-line="9" selection-start-column="67" selection-end-line="9" selection-end-column="67" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="FeverExampleMain.java" pinned="false" current-in-tab="false">
+      <file leaf-file-name="FeverExampleMain.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/scene-examples/src/main/java/br/ufes/inf/lprm/scene/examples/fever/FeverExampleMain.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="285">
-              <caret line="23" column="21" selection-start-line="23" selection-start-column="21" selection-end-line="23" selection-end-column="21" />
-              <folding>
-                <element signature="imports" expanded="true" />
-              </folding>
+            <state relative-caret-position="248">
+              <caret line="32" column="66" selection-start-line="32" selection-start-column="66" selection-end-line="32" selection-end-column="66" />
+              <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="SituationHelper.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/scene-core/src/main/java/br/ufes/inf/lprm/scene/base/SituationHelper.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="285">
-              <caret line="78" column="50" selection-start-line="78" selection-start-column="50" selection-end-line="78" selection-end-column="50" />
-              <folding>
-                <element signature="imports" expanded="true" />
-                <element signature="method#SetFieldsFromMatchedObjects#0;class#SituationHelper#0" expanded="false" />
-                <element signature="method#activateSituation#0;class#SituationHelper#0" expanded="false" />
-                <element signature="method#deactivateSituation#0;class#SituationHelper#0" expanded="false" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="AfterEvaluatorTest.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/scene-core/src/test/java/br/ufes/inf/lprm/scene/base/evaluators/AfterEvaluatorTest.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="330">
-              <caret line="113" column="53" selection-start-line="113" selection-start-column="53" selection-end-line="113" selection-end-column="53" />
-              <folding>
-                <element signature="imports" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="pom.xml" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/situation-api/pom.xml">
+      <file leaf-file-name="CurrentSituation.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/scene-core/src/main/java/br/ufes/inf/lprm/scene/base/CurrentSituation.java">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="75">
-              <caret line="5" column="18" selection-start-line="5" selection-start-column="18" selection-end-line="5" selection-end-column="18" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="pom.xml" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/scene-examples/pom.xml">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="260">
-              <caret line="56" column="4" selection-start-line="56" selection-start-column="4" selection-end-line="60" selection-end-column="13" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="pom.xml" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/pom.xml">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="120">
-              <caret line="8" column="0" selection-start-line="8" selection-start-column="0" selection-end-line="8" selection-end-column="0" />
+              <caret line="19" column="0" selection-start-line="19" selection-start-column="0" selection-end-line="19" selection-end-column="0" />
               <folding />
             </state>
           </provider>
@@ -169,28 +188,32 @@
       <file leaf-file-name="FeverSituation.drl" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/scene-examples/src/main/resources/br/ufes/inf/lprm/scene/examples/fever/FeverSituation.drl">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="165">
-              <caret line="11" column="46" selection-start-line="11" selection-start-column="46" selection-end-line="11" selection-end-column="46" />
+            <state relative-caret-position="150">
+              <caret line="10" column="8" selection-start-line="10" selection-start-column="8" selection-end-line="10" selection-end-column="8" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="kmodule.xml" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/scene-examples/src/main/resources/META-INF/kmodule.xml">
+      <file leaf-file-name="SituationHelper.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/scene-core/src/main/java/br/ufes/inf/lprm/scene/base/SituationHelper.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="105">
-              <caret line="7" column="0" selection-start-line="7" selection-start-column="0" selection-end-line="7" selection-end-column="0" />
-              <folding />
+            <state relative-caret-position="315">
+              <caret line="37" column="67" selection-start-line="37" selection-start-column="67" selection-end-line="37" selection-end-column="67" />
+              <folding>
+                <element signature="method#SetFieldsFromMatchedObjects#0;class#SituationHelper#0" expanded="false" />
+                <element signature="method#activateSituation#0;class#SituationHelper#0" expanded="false" />
+                <element signature="method#deactivateSituation#0;class#SituationHelper#0" expanded="false" />
+              </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="pom.xml" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/scene-core/pom.xml">
+      <file leaf-file-name="SituationBaseRules.drl" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/scene-core/src/main/resources/br/ufes/inf/lprm/scene/base/SituationBaseRules.drl">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="518">
-              <caret line="122" column="41" selection-start-line="122" selection-start-column="41" selection-end-line="122" selection-end-column="41" />
+            <state relative-caret-position="255">
+              <caret line="27" column="67" selection-start-line="27" selection-start-column="67" selection-end-line="27" selection-end-column="67" />
               <folding />
             </state>
           </provider>
@@ -216,57 +239,57 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/scene-core/src/main/java/br/ufes/inf/lprm/scene/base/evaluators/StartsEvaluatorDefinition.java" />
-        <option value="$PROJECT_DIR$/scene-core/src/main/java/br/ufes/inf/lprm/scene/base/evaluators/AfterEvaluatorDefinition.java" />
-        <option value="$PROJECT_DIR$/scene-core/src/main/java/br/ufes/inf/lprm/scene/base/evaluators/AfterEvaluatorDefinitionSCENE.java" />
         <option value="$PROJECT_DIR$/scene-core/src/main/java/br/ufes/inf/lprm/scene/base/evaluators/implementation/AfterEvaluatorSCENE.java" />
         <option value="$PROJECT_DIR$/scene-core/src/main/java/br/ufes/inf/lprm/scene/base/evaluators/definition/AfterEvaluatorDefinitionSCENE.java" />
-        <option value="$PROJECT_DIR$/scene-core/src/main/java/br/ufes/inf/lprm/scene/base/evaluators/definition/SCENEBeforeEvaluatorDefinition.java" />
         <option value="$PROJECT_DIR$/scene-core/src/main/java/br/ufes/inf/lprm/scene/base/evaluators/CoincidesEvaluatorDefinition.java" />
         <option value="$PROJECT_DIR$/scene-core/src/main/java/br/ufes/inf/lprm/scene/base/evaluators/definition/SCENECoincidesEvaluatorDefinition.java" />
         <option value="$PROJECT_DIR$/scene-core/src/main/java/br/ufes/inf/lprm/scene/base/evaluators/DuringEvaluatorDefinition.java" />
         <option value="$PROJECT_DIR$/scene-core/src/main/resources/META-INF/drools.default.packagebuilder.conf" />
-        <option value="$PROJECT_DIR$/scene-core/src/main/java/br/ufes/inf/lprm/scene/base/evaluators/definition/SCENEDuringEvaluatorDefinition.java" />
-        <option value="$PROJECT_DIR$/scene-core/src/main/java/br/ufes/inf/lprm/scene/base/evaluators/definition/SCENEAfterEvaluatorDefinition.java" />
-        <option value="$PROJECT_DIR$/scene-core/src/main/java/br/ufes/inf/lprm/scene/base/evaluators/definition/SCENEFinishedByEvaluatorDefinition.java" />
         <option value="$PROJECT_DIR$/scene-core/src/main/java/br/ufes/inf/lprm/scene/base/evaluators/implementation/SCENEFinishedByEvaluator.java" />
         <option value="$PROJECT_DIR$/scene-core/src/main/java/br/ufes/inf/lprm/scene/base/evaluators/implementation/SCENECoincidesEvaluator.java" />
         <option value="$PROJECT_DIR$/scene-core/src/main/java/br/ufes/inf/lprm/scene/base/evaluators/implementation/SCENEDuringEvaluator.java" />
         <option value="$PROJECT_DIR$/scene-core/src/main/java/br/ufes/inf/lprm/scene/base/evaluators/implementation/SCENEBeforeEvaluator.java" />
         <option value="$PROJECT_DIR$/scene-core/src/main/java/br/ufes/inf/lprm/scene/base/evaluators/implementation/SCENEAfterEvaluator.java" />
-        <option value="$PROJECT_DIR$/scene-core/src/main/java/br/ufes/inf/lprm/scene/base/evaluators/definition/SCENEFinishesEvaluatorDefinition.java" />
         <option value="$PROJECT_DIR$/scene-core/src/main/java/br/ufes/inf/lprm/scene/base/evaluators/implementation/SCENEFinishesEvaluator.java" />
-        <option value="$PROJECT_DIR$/scene-core/src/main/java/br/ufes/inf/lprm/scene/base/evaluators/definition/SCENEIncludesEvaluatorDefinition.java" />
         <option value="$PROJECT_DIR$/scene-core/src/main/java/br/ufes/inf/lprm/scene/base/evaluators/implementation/SCENEIncludesEvaluator.java" />
-        <option value="$PROJECT_DIR$/scene-core/src/main/java/br/ufes/inf/lprm/scene/base/evaluators/definition/SCENEOverlappedByEvaluatorDefinition.java" />
-        <option value="$PROJECT_DIR$/scene-core/src/main/java/br/ufes/inf/lprm/scene/base/evaluators/definition/SCENEOverlapsEvaluatorDefinition.java" />
         <option value="$PROJECT_DIR$/scene-core/src/main/java/br/ufes/inf/lprm/scene/base/evaluators/implementation/SCENEOverlappedByEvaluator.java" />
         <option value="$PROJECT_DIR$/scene-core/src/main/java/br/ufes/inf/lprm/scene/base/evaluators/implementation/SCENEOverlapsEvaluator.java" />
-        <option value="$PROJECT_DIR$/scene-core/src/main/java/br/ufes/inf/lprm/scene/base/evaluators/definition/SCENEStartedByEvaluatorDefinition.java" />
         <option value="$PROJECT_DIR$/scene-core/src/main/java/br/ufes/inf/lprm/scene/base/evaluators/implementation/SCENEStartedByEvaluator.java" />
-        <option value="$PROJECT_DIR$/scene-core/src/main/java/br/ufes/inf/lprm/scene/base/evaluators/definition/SCENEStartsEvaluatorDefinition.java" />
         <option value="$PROJECT_DIR$/scene-core/src/main/java/br/ufes/inf/lprm/scene/base/evaluators/implementation/SCENEStartsEvaluator.java" />
         <option value="$PROJECT_DIR$/scene-core/src/main/resources/META-INF/kmodule.xml" />
-        <option value="$PROJECT_DIR$/situation-api/src/main/java/br/ufes/inf/lprm/situation/SituationCast.java" />
-        <option value="$PROJECT_DIR$/situation-api/src/main/java/br/ufes/inf/lprm/situation/SituationUtils.java" />
         <option value="$PROJECT_DIR$/scene-core/src/main/java/br/ufes/inf/lprm/scene/SituationKnowledgeBaseFactory.java" />
         <option value="$PROJECT_DIR$/scene-core/src/main/java/br/ufes/inf/lprm/scene/SituationKieBase.java" />
         <option value="$PROJECT_DIR$/situation-api/src/main/java/br/ufes/inf/lprm/situation/events/ActivateSituationEvent.java" />
-        <option value="$PROJECT_DIR$/situation-api/src/main/java/br/ufes/inf/lprm/situation/events/DeactivateSituationEvent.java" />
         <option value="$PROJECT_DIR$/scene-core/src/main/java/br/ufes/inf/lprm/scene/publishing/sinos/SinosSituationPublisher.java" />
         <option value="$PROJECT_DIR$/scene-core/src/main/java/br/ufes/inf/lprm/scene/publishing/Publish.java" />
         <option value="$PROJECT_DIR$/scene-core/src/main/java/br/ufes/inf/lprm/scene/spm/SituationProfileManager.java" />
         <option value="$PROJECT_DIR$/scene-core/src/test/java/br/ufes/inf/lprm/scene/base/evaluators/AfterEvaluatorTest.java" />
         <option value="$PROJECT_DIR$/scene-examples/src/main/java/br/ufes/inf/lprm/scene/examples/connectionswitch/SituationOfSituationMain.java" />
-        <option value="$PROJECT_DIR$/scene-examples/src/main/java/br/ufes/inf/lprm/scene/examples/fever/FeverExampleMain.java" />
-        <option value="$PROJECT_DIR$/scene-core/src/main/resources/br/ufes/inf/lprm/scene/base/SituationBaseRules.drl" />
-        <option value="$PROJECT_DIR$/scene-core/src/main/java/br/ufes/inf/lprm/scene/base/SituationHelper.java" />
         <option value="$PROJECT_DIR$/scene-core/src/main/java/br/ufes/inf/lprm/scene/base/listeners/SCENESessionListener.java" />
-        <option value="$PROJECT_DIR$/scene-examples/src/main/resources/br/ufes/inf/lprm/scene/examples/fever/FeverSituation.drl" />
-        <option value="$PROJECT_DIR$/scene-examples/src/main/resources/META-INF/kmodule.xml" />
-        <option value="$PROJECT_DIR$/situation-api/pom.xml" />
+        <option value="$PROJECT_DIR$/situation-api/src/main/java/br/ufes/inf/lprm/situation/events/DeactivateSituationEvent.java" />
         <option value="$PROJECT_DIR$/scene-examples/pom.xml" />
+        <option value="$PROJECT_DIR$/situation-api/src/main/java/br/ufes/inf/lprm/situation/SituationUtils.java" />
+        <option value="$PROJECT_DIR$/situation-api/pom.xml" />
+        <option value="$PROJECT_DIR$/situation-api/src/main/java/br/ufes/inf/lprm/situation/SituationCast.java" />
+        <option value="$PROJECT_DIR$/scene-core/src/main/java/br/ufes/inf/lprm/scene/base/evaluators/definition/SCENEAfterEvaluatorDefinition.java" />
+        <option value="$PROJECT_DIR$/scene-core/src/main/java/br/ufes/inf/lprm/scene/base/evaluators/definition/SCENEBeforeEvaluatorDefinition.java" />
+        <option value="$PROJECT_DIR$/scene-core/src/main/java/br/ufes/inf/lprm/scene/base/evaluators/definition/SCENEDuringEvaluatorDefinition.java" />
+        <option value="$PROJECT_DIR$/scene-core/src/main/java/br/ufes/inf/lprm/scene/base/evaluators/definition/SCENEFinishedByEvaluatorDefinition.java" />
+        <option value="$PROJECT_DIR$/scene-core/src/main/java/br/ufes/inf/lprm/scene/base/evaluators/definition/SCENEFinishesEvaluatorDefinition.java" />
+        <option value="$PROJECT_DIR$/scene-core/src/main/java/br/ufes/inf/lprm/scene/base/evaluators/definition/SCENEIncludesEvaluatorDefinition.java" />
+        <option value="$PROJECT_DIR$/scene-core/src/main/java/br/ufes/inf/lprm/scene/base/evaluators/definition/SCENEOverlappedByEvaluatorDefinition.java" />
+        <option value="$PROJECT_DIR$/scene-core/src/main/java/br/ufes/inf/lprm/scene/base/evaluators/definition/SCENEOverlapsEvaluatorDefinition.java" />
+        <option value="$PROJECT_DIR$/scene-core/src/main/java/br/ufes/inf/lprm/scene/base/evaluators/definition/SCENEStartedByEvaluatorDefinition.java" />
+        <option value="$PROJECT_DIR$/scene-core/src/main/java/br/ufes/inf/lprm/scene/base/evaluators/definition/SCENEStartsEvaluatorDefinition.java" />
+        <option value="$PROJECT_DIR$/pom.xml" />
         <option value="$PROJECT_DIR$/scene-core/pom.xml" />
+        <option value="$PROJECT_DIR$/scene-core/src/test/resources/br/ufes/inf/lprm/scene/examples/fever/FeverSituation.drl" />
+        <option value="$PROJECT_DIR$/scene-core/src/test/resources/META-INF/kmodule.xml" />
+        <option value="$PROJECT_DIR$/scene-examples/src/main/resources/META-INF/kmodule.xml" />
+        <option value="$PROJECT_DIR$/scene-examples/src/main/resources/br/ufes/inf/lprm/scene/examples/fever/FeverSituation.drl" />
+        <option value="$PROJECT_DIR$/scene-core/src/main/java/br/ufes/inf/lprm/scene/base/SituationHelper.java" />
+        <option value="$PROJECT_DIR$/scene-core/src/main/resources/br/ufes/inf/lprm/scene/base/SituationBaseRules.drl" />
+        <option value="$PROJECT_DIR$/scene-examples/src/main/java/br/ufes/inf/lprm/scene/examples/fever/FeverExampleMain.java" />
       </list>
     </option>
   </component>
@@ -284,95 +307,12 @@
     </option>
   </component>
   <component name="MavenProjectNavigator">
-    <treeState>
-      <PATH>
-        <PATH_ELEMENT>
-          <option name="myItemId" value="" />
-          <option name="myItemType" value="org.jetbrains.idea.maven.navigator.MavenProjectsStructure$RootNode" />
-        </PATH_ELEMENT>
-        <PATH_ELEMENT>
-          <option name="myItemId" value="situation-api" />
-          <option name="myItemType" value="org.jetbrains.idea.maven.navigator.MavenProjectsStructure$ProjectNode" />
-        </PATH_ELEMENT>
-      </PATH>
-      <PATH>
-        <PATH_ELEMENT>
-          <option name="myItemId" value="" />
-          <option name="myItemType" value="org.jetbrains.idea.maven.navigator.MavenProjectsStructure$RootNode" />
-        </PATH_ELEMENT>
-        <PATH_ELEMENT>
-          <option name="myItemId" value="situation-api" />
-          <option name="myItemType" value="org.jetbrains.idea.maven.navigator.MavenProjectsStructure$ProjectNode" />
-        </PATH_ELEMENT>
-        <PATH_ELEMENT>
-          <option name="myItemId" value="Lifecycle" />
-          <option name="myItemType" value="org.jetbrains.idea.maven.navigator.MavenProjectsStructure$LifecycleNode" />
-        </PATH_ELEMENT>
-      </PATH>
-      <PATH>
-        <PATH_ELEMENT>
-          <option name="myItemId" value="" />
-          <option name="myItemType" value="org.jetbrains.idea.maven.navigator.MavenProjectsStructure$RootNode" />
-        </PATH_ELEMENT>
-        <PATH_ELEMENT>
-          <option name="myItemId" value="scene-examples" />
-          <option name="myItemType" value="org.jetbrains.idea.maven.navigator.MavenProjectsStructure$ProjectNode" />
-        </PATH_ELEMENT>
-      </PATH>
-      <PATH>
-        <PATH_ELEMENT>
-          <option name="myItemId" value="" />
-          <option name="myItemType" value="org.jetbrains.idea.maven.navigator.MavenProjectsStructure$RootNode" />
-        </PATH_ELEMENT>
-        <PATH_ELEMENT>
-          <option name="myItemId" value="scene-examples" />
-          <option name="myItemType" value="org.jetbrains.idea.maven.navigator.MavenProjectsStructure$ProjectNode" />
-        </PATH_ELEMENT>
-        <PATH_ELEMENT>
-          <option name="myItemId" value="Lifecycle" />
-          <option name="myItemType" value="org.jetbrains.idea.maven.navigator.MavenProjectsStructure$LifecycleNode" />
-        </PATH_ELEMENT>
-      </PATH>
-      <PATH>
-        <PATH_ELEMENT>
-          <option name="myItemId" value="" />
-          <option name="myItemType" value="org.jetbrains.idea.maven.navigator.MavenProjectsStructure$RootNode" />
-        </PATH_ELEMENT>
-        <PATH_ELEMENT>
-          <option name="myItemId" value="scene-core" />
-          <option name="myItemType" value="org.jetbrains.idea.maven.navigator.MavenProjectsStructure$ProjectNode" />
-        </PATH_ELEMENT>
-      </PATH>
-      <PATH>
-        <PATH_ELEMENT>
-          <option name="myItemId" value="" />
-          <option name="myItemType" value="org.jetbrains.idea.maven.navigator.MavenProjectsStructure$RootNode" />
-        </PATH_ELEMENT>
-        <PATH_ELEMENT>
-          <option name="myItemId" value="scene-core" />
-          <option name="myItemType" value="org.jetbrains.idea.maven.navigator.MavenProjectsStructure$ProjectNode" />
-        </PATH_ELEMENT>
-        <PATH_ELEMENT>
-          <option name="myItemId" value="Lifecycle" />
-          <option name="myItemType" value="org.jetbrains.idea.maven.navigator.MavenProjectsStructure$LifecycleNode" />
-        </PATH_ELEMENT>
-      </PATH>
-      <PATH>
-        <PATH_ELEMENT>
-          <option name="myItemId" value="" />
-          <option name="myItemType" value="org.jetbrains.idea.maven.navigator.MavenProjectsStructure$RootNode" />
-        </PATH_ELEMENT>
-        <PATH_ELEMENT>
-          <option name="myItemId" value="SCENE" />
-          <option name="myItemType" value="org.jetbrains.idea.maven.navigator.MavenProjectsStructure$ProjectNode" />
-        </PATH_ELEMENT>
-      </PATH>
-    </treeState>
+    <treeState />
   </component>
   <component name="ProjectFrameBounds">
     <option name="x" value="4" />
     <option name="y" value="23" />
-    <option name="width" value="1676" />
+    <option name="width" value="1674" />
     <option name="height" value="1027" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="false">
@@ -400,7 +340,6 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="Scratches" />
       <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
@@ -409,15 +348,9 @@
               <option name="myItemId" value="scene-platform" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
             </PATH_ELEMENT>
-          </PATH>
-          <PATH>
             <PATH_ELEMENT>
-              <option name="myItemId" value="scene-platform" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="scene-platform" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+              <option name="myItemId" value="External Libraries" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ExternalLibrariesNode" />
             </PATH_ELEMENT>
           </PATH>
           <PATH>
@@ -427,246 +360,6 @@
             </PATH_ELEMENT>
             <PATH_ELEMENT>
               <option name="myItemId" value="scene-platform" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="situation-api" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="scene-platform" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="scene-platform" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="scene-examples" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="scene-platform" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="scene-platform" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="scene-examples" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="src" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="main" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="resources" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="scene-platform" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="scene-platform" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="scene-examples" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="src" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="main" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="resources" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="META-INF" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="scene-platform" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="scene-platform" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="scene-examples" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="src" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="main" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="resources" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="examples" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="fever" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="scene-platform" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="scene-platform" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="scene-examples" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="src" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="main" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="resources" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="examples" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="scene-platform" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="scene-platform" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="scene-examples" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="src" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="main" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="java" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="examples" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="scene-platform" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="scene-platform" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="scene-examples" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="src" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="main" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="java" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="examples" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="fever" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="FeverExampleMain.java" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.ClassesTreeStructureProvider$PsiClassOwnerTreeNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="scene-platform" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="scene-platform" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="scene-examples" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="src" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="main" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="java" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="examples" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="fever" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -701,44 +394,6 @@
               <option name="myItemId" value="src" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="test" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="scene-platform" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="scene-platform" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="scene-core" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="src" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="test" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="java" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="evaluators" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="AfterEvaluatorTest.java" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.ClassesTreeStructureProvider$PsiClassOwnerTreeNode" />
-            </PATH_ELEMENT>
           </PATH>
           <PATH>
             <PATH_ELEMENT>
@@ -763,10 +418,6 @@
             </PATH_ELEMENT>
             <PATH_ELEMENT>
               <option name="myItemId" value="resources" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="META-INF" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -866,6 +517,7 @@
           </PATH>
         </subPane>
       </pane>
+      <pane id="Scratches" />
       <pane id="PackagesPane" />
     </panes>
   </component>
@@ -875,7 +527,7 @@
     <property name="aspect.path.notification.shown" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="js-jscs-nodeInterpreter" value="$USER_HOME$/.nvm/versions/node/v5.0.0/bin/node" />
-    <property name="project.structure.last.edited" value="Libraries" />
+    <property name="project.structure.last.edited" value="Modules" />
     <property name="project.structure.proportion" value="0.15" />
     <property name="project.structure.side.proportion" value="0.5505747" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$/situation-api/situation-api.iml" />
@@ -883,6 +535,9 @@
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$" />
+      <recent name="$PROJECT_DIR$/scene-core/src/main/resources" />
+      <recent name="$PROJECT_DIR$/scene-core/src/test/resources" />
       <recent name="$PROJECT_DIR$/scene-examples/src/main/resources" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
@@ -908,6 +563,32 @@
       <option name="PASS_PARENT_ENVS" value="true" />
       <module name="scene-examples" />
       <envs />
+      <method />
+    </configuration>
+    <configuration default="false" name="AfterEvaluatorTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea">
+        <pattern>
+          <option name="PATTERN" value="br.ufes.inf.lprm.scene.base.evaluators.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <module name="scene-core" />
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
+      <option name="ALTERNATIVE_JRE_PATH" />
+      <option name="PACKAGE_NAME" value="br.ufes.inf.lprm.scene.base.evaluators" />
+      <option name="MAIN_CLASS_NAME" value="br.ufes.inf.lprm.scene.base.evaluators.AfterEvaluatorTest" />
+      <option name="METHOD_NAME" />
+      <option name="TEST_OBJECT" value="class" />
+      <option name="VM_PARAMETERS" value="-ea" />
+      <option name="PARAMETERS" />
+      <option name="WORKING_DIRECTORY" value="$MODULE_DIR$" />
+      <option name="ENV_VARIABLES" />
+      <option name="PASS_PARENT_ENVS" value="true" />
+      <option name="TEST_SEARCH_SCOPE">
+        <value defaultName="singleModule" />
+      </option>
+      <envs />
+      <patterns />
       <method />
     </configuration>
     <configuration default="true" type="#org.jetbrains.idea.devkit.run.PluginConfigurationType" factoryName="Plugin">
@@ -1346,12 +1027,14 @@
     <configuration default="true" type="osgi.bnd.run" factoryName="Test Launcher (JUnit)">
       <method />
     </configuration>
-    <list size="1">
+    <list size="2">
       <item index="0" class="java.lang.String" itemvalue="Application.FeverExampleMain" />
+      <item index="1" class="java.lang.String" itemvalue="JUnit.AfterEvaluatorTest" />
     </list>
     <recent_temporary>
-      <list size="1">
+      <list size="2">
         <item index="0" class="java.lang.String" itemvalue="Application.FeverExampleMain" />
+        <item index="1" class="java.lang.String" itemvalue="JUnit.AfterEvaluatorTest" />
       </list>
     </recent_temporary>
   </component>
@@ -1371,16 +1054,30 @@
       <workItem from="1473291576518" duration="9074000" />
       <workItem from="1473301937296" duration="1232000" />
       <workItem from="1473333258806" duration="26438000" />
-      <workItem from="1473381507182" duration="5143000" />
+      <workItem from="1473381507182" duration="5216000" />
+      <workItem from="1473387410147" duration="1999000" />
+      <workItem from="1473501710292" duration="4509000" />
+      <workItem from="1473506437105" duration="5226000" />
     </task>
     <servers />
   </component>
+  <component name="TestHistory">
+    <history-entry file="AfterEvaluatorTest - 2016.09.10 at 09h 04m 39s.xml">
+      <configuration name="AfterEvaluatorTest" configurationId="JUnit" />
+    </history-entry>
+    <history-entry file="AfterEvaluatorTest - 2016.09.10 at 09h 07m 21s.xml">
+      <configuration name="AfterEvaluatorTest" configurationId="JUnit" />
+    </history-entry>
+    <history-entry file="AfterEvaluatorTest - 2016.09.10 at 09h 08m 23s.xml">
+      <configuration name="AfterEvaluatorTest" configurationId="JUnit" />
+    </history-entry>
+  </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="41887000" />
+    <option name="totallyTimeSpent" value="53694000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="4" y="23" width="1676" height="1027" extended-state="6" />
-    <editor active="false" />
+    <frame x="4" y="23" width="1674" height="1027" extended-state="6" />
+    <editor active="true" />
     <layout>
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
@@ -1388,18 +1085,18 @@
       <window_info id="Palette&#9;" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Analysis" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
-      <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.32986537" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.32941177" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.30575982" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.43850267" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Tool" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.26682988" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.19914216" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="UI Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.5090909" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
@@ -1410,28 +1107,29 @@
     </layout>
     <layout-to-restore>
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
-      <window_info id="Palette&#9;" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
-      <window_info id="Capture Analysis" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
-      <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
-      <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
-      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
-      <window_info id="Capture Tool" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Designer" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.26682988" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.33353734" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
+      <window_info id="Capture Tool" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Designer" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
-      <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32941177" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="UI Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
+      <window_info id="UI Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
+      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32941177" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
+      <window_info id="Palette&#9;" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
+      <window_info id="Capture Analysis" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32941177" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
+      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.26682988" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32941177" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="5" side_tool="true" content_ui="tabs" />
     </layout-to-restore>
   </component>
@@ -1448,7 +1146,21 @@
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
-      <option name="time" value="7" />
+      <breakpoints>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/scene-core/src/main/java/br/ufes/inf/lprm/scene/base/SituationHelper.java</url>
+          <line>78</line>
+          <properties />
+          <option name="timeStamp" value="8" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/scene-core/src/main/java/br/ufes/inf/lprm/scene/base/CurrentSituation.java</url>
+          <line>16</line>
+          <properties />
+          <option name="timeStamp" value="9" />
+        </line-breakpoint>
+      </breakpoints>
+      <option name="time" value="10" />
     </breakpoint-manager>
     <watches-manager />
   </component>
@@ -1457,169 +1169,11 @@
     <option name="FILTER_TARGETS" value="false" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/scene-core/src/main/java/br/ufes/inf/lprm/scene/base/evaluators/IncludesEvaluatorDefinition.java" />
-    <entry file="file://$PROJECT_DIR$/scene-core/src/main/java/br/ufes/inf/lprm/scene/base/evaluators/definition/SCENEIncludesEvaluatorDefinition.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="255">
-          <caret line="17" column="33" selection-start-line="17" selection-start-column="33" selection-end-line="17" selection-end-column="33" />
-          <folding>
-            <element signature="imports" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/scene-core/src/main/java/br/ufes/inf/lprm/scene/base/evaluators/OverlappedByEvaluatorDefinition.java" />
-    <entry file="file://$PROJECT_DIR$/scene-core/src/main/java/br/ufes/inf/lprm/scene/base/evaluators/definition/SCENEOverlappedByEvaluatorDefinition.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="65">
-          <caret line="16" column="50" selection-start-line="16" selection-start-column="50" selection-end-line="44" selection-end-column="0" />
-          <folding>
-            <element signature="imports" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/scene-core/src/main/java/br/ufes/inf/lprm/scene/base/evaluators/OverlapsEvaluatorDefinition.java" />
-    <entry file="file://$PROJECT_DIR$/scene-core/src/main/java/br/ufes/inf/lprm/scene/base/evaluators/implementation/SCENEIncludesEvaluator.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="480">
-          <caret line="150" column="4" selection-start-line="150" selection-start-column="4" selection-end-line="150" selection-end-column="188" />
-          <folding>
-            <element signature="method#evaluate#0;class#SCENEIncludesEvaluator#0" expanded="false" />
-            <element signature="method#evaluateCachedRight#0;class#SCENEIncludesEvaluator#0" expanded="false" />
-            <element signature="method#evaluateCachedLeft#0;class#SCENEIncludesEvaluator#0" expanded="false" />
-            <element signature="method#evaluate#1;class#SCENEIncludesEvaluator#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/scene-core/src/main/java/br/ufes/inf/lprm/scene/base/evaluators/implementation/SCENEFinishesEvaluator.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="440">
-          <caret line="136" column="4" selection-start-line="136" selection-start-column="4" selection-end-line="137" selection-end-column="188" />
-          <folding>
-            <element signature="imports" expanded="false" />
-            <element signature="method#evaluate#0;class#SCENEFinishesEvaluator#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/scene-core/src/main/java/br/ufes/inf/lprm/scene/base/evaluators/implementation/SCENEFinishedByEvaluator.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="450">
-          <caret line="135" column="4" selection-start-line="135" selection-start-column="4" selection-end-line="136" selection-end-column="188" />
-          <folding>
-            <element signature="method#evaluate#0;class#SCENEFinishedByEvaluator#0" expanded="false" />
-            <element signature="method#evaluateCachedRight#0;class#SCENEFinishedByEvaluator#0" expanded="false" />
-            <element signature="method#evaluateCachedLeft#0;class#SCENEFinishedByEvaluator#0" expanded="false" />
-            <element signature="method#evaluate#1;class#SCENEFinishedByEvaluator#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/scene-core/src/main/java/br/ufes/inf/lprm/scene/base/evaluators/implementation/SCENECoincidesEvaluator.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="315">
-          <caret line="38" column="160" selection-start-line="38" selection-start-column="160" selection-end-line="38" selection-end-column="160" />
-          <folding>
-            <element signature="method#SCENECoincidesEvaluator#0;class#SCENECoincidesEvaluator#0" expanded="false" />
-            <element signature="method#evaluateCachedRight#0;class#SCENECoincidesEvaluator#0" expanded="false" />
-            <element signature="method#evaluateCachedLeft#0;class#SCENECoincidesEvaluator#0" expanded="false" />
-            <element signature="method#evaluate#1;class#SCENECoincidesEvaluator#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/scene-core/src/main/java/br/ufes/inf/lprm/scene/base/evaluators/implementation/SCENEBeforeEvaluator.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="80">
-          <caret line="34" column="20" selection-start-line="34" selection-start-column="20" selection-end-line="34" selection-end-column="20" />
-          <folding>
-            <element signature="docComment;class#SCENEBeforeEvaluator#0" expanded="false" />
-            <element signature="method#SCENEBeforeEvaluator#0;class#SCENEBeforeEvaluator#0" expanded="false" />
-            <element signature="method#evaluate#1;class#SCENEBeforeEvaluator#0" expanded="false" />
-            <element signature="method#evaluateCachedLeft#0;class#SCENEBeforeEvaluator#0" expanded="false" />
-            <element signature="method#evaluateCachedRight#0;class#SCENEBeforeEvaluator#0" expanded="false" />
-            <element signature="method#evaluate#2;class#SCENEBeforeEvaluator#0" expanded="false" />
-            <element signature="method#getLeftTimestamp#0;class#SCENEBeforeEvaluator#0" expanded="false" />
-            <element signature="method#getRightTimestamp#0;class#SCENEBeforeEvaluator#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/scene-core/src/main/java/br/ufes/inf/lprm/scene/base/evaluators/implementation/SCENEAfterEvaluator.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="95">
-          <caret line="43" column="13" selection-start-line="43" selection-start-column="13" selection-end-line="43" selection-end-column="13" />
-          <folding>
-            <element signature="docComment;class#SCENEAfterEvaluator#0" expanded="false" />
-            <element signature="method#SCENEAfterEvaluator#0;class#SCENEAfterEvaluator#0" expanded="false" />
-            <element signature="method#evaluate#1;class#SCENEAfterEvaluator#0" expanded="false" />
-            <element signature="method#evaluateCachedLeft#0;class#SCENEAfterEvaluator#0" expanded="false" />
-            <element signature="method#evaluateCachedRight#0;class#SCENEAfterEvaluator#0" expanded="false" />
-            <element signature="method#evaluate#2;class#SCENEAfterEvaluator#0" expanded="false" />
-            <element signature="method#getLeftTimestamp#0;class#SCENEAfterEvaluator#0" expanded="false" />
-            <element signature="method#getRightTimestamp#0;class#SCENEAfterEvaluator#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/scene-core/src/main/java/br/ufes/inf/lprm/scene/base/evaluators/implementation/SCENEDuringEvaluator.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="285">
-          <caret line="34" column="157" selection-start-line="34" selection-start-column="157" selection-end-line="34" selection-end-column="157" />
-          <folding>
-            <element signature="method#SCENEDuringEvaluator#0;class#SCENEDuringEvaluator#0" expanded="false" />
-            <element signature="method#evaluateCachedRight#0;class#SCENEDuringEvaluator#0" expanded="false" />
-            <element signature="method#evaluateCachedLeft#0;class#SCENEDuringEvaluator#0" expanded="false" />
-            <element signature="method#evaluate#1;class#SCENEDuringEvaluator#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/scene-core/src/main/java/br/ufes/inf/lprm/scene/base/evaluators/implementation/SCENEOverlappedByEvaluator.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="285">
-          <caret line="19" column="4" selection-start-line="19" selection-start-column="4" selection-end-line="19" selection-end-column="32" />
-          <folding>
-            <element signature="imports" expanded="false" />
-            <element signature="method#SCENEOverlappedByEvaluator#0;class#SCENEOverlappedByEvaluator#0" expanded="false" />
-            <element signature="method#evaluate#0;class#SCENEOverlappedByEvaluator#0" expanded="false" />
-            <element signature="method#evaluate#1;class#SCENEOverlappedByEvaluator#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/scene-core/src/main/java/br/ufes/inf/lprm/scene/base/evaluators/definition/SCENEOverlapsEvaluatorDefinition.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="375">
-          <caret line="25" column="56" selection-start-line="25" selection-start-column="56" selection-end-line="25" selection-end-column="56" />
-          <folding>
-            <element signature="imports" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/scene-core/src/main/java/br/ufes/inf/lprm/scene/base/evaluators/definition/SCENEStartedByEvaluatorDefinition.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="255">
-          <caret line="17" column="42" selection-start-line="17" selection-start-column="42" selection-end-line="17" selection-end-column="42" />
-          <folding>
-            <element signature="imports" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/scene-core/src/main/java/br/ufes/inf/lprm/scene/base/evaluators/StartedByEvaluatorDefinition.java" />
     <entry file="file://$PROJECT_DIR$/scene-core/src/main/java/br/ufes/inf/lprm/scene/base/evaluators/implementation/SCENEOverlapsEvaluator.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="600">
           <caret line="149" column="4" selection-start-line="149" selection-start-column="4" selection-end-line="150" selection-end-column="188" />
-          <folding>
-            <element signature="imports" expanded="false" />
-            <element signature="method#evaluate#0;class#SCENEOverlapsEvaluator#0" expanded="false" />
-            <element signature="method#evaluate#1;class#SCENEOverlapsEvaluator#0" expanded="false" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -1627,9 +1181,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="285">
           <caret line="19" column="26" selection-start-line="19" selection-start-column="26" selection-end-line="19" selection-end-column="26" />
-          <folding>
-            <element signature="method#evaluate#0;class#SCENEStartsEvaluator#0" expanded="false" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -1637,65 +1188,15 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="600">
           <caret line="144" column="4" selection-start-line="144" selection-start-column="4" selection-end-line="145" selection-end-column="188" />
-          <folding>
-            <element signature="imports" expanded="false" />
-            <element signature="method#evaluate#0;class#SCENEStartedByEvaluator#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/scene-core/src/main/java/br/ufes/inf/lprm/scene/base/evaluators/definition/SCENEStartsEvaluatorDefinition.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="255">
-          <caret line="17" column="33" selection-start-line="17" selection-start-column="33" selection-end-line="17" selection-end-column="33" />
-          <folding>
-            <element signature="imports" expanded="false" />
-          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/scene-core/src/main/java/br/ufes/inf/lprm/scene/base/evaluators/StartsEvaluatorDefinition.java" />
-    <entry file="file://$PROJECT_DIR$/scene-core/src/main/java/br/ufes/inf/lprm/scene/base/CurrentSituation.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="240">
-          <caret line="16" column="41" selection-start-line="16" selection-start-column="41" selection-end-line="16" selection-end-column="41" />
-          <folding>
-            <element signature="imports" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/scene-core/src/main/java/br/ufes/inf/lprm/scene/SituationKnowledgeBuilderFactory.java" />
     <entry file="file://$PROJECT_DIR$/scene-core/src/main/java/br/ufes/inf/lprm/scene/spm/SituationProfile.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="165">
           <caret line="11" column="13" selection-start-line="11" selection-start-column="13" selection-end-line="11" selection-end-column="13" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/situation-api/src/main/java/br/ufes/inf/lprm/situation/SituationCast.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="315">
-          <caret line="78" column="5" selection-start-line="78" selection-start-column="5" selection-end-line="78" selection-end-column="5" />
-          <folding>
-            <element signature="imports" expanded="false" />
-            <element signature="method#SituationCast#0;class#SituationCast#0" expanded="false" />
-            <element signature="e#528#536#0" expanded="false" />
-            <element signature="method#SituationCast#1;class#SituationCast#0" expanded="false" />
-            <element signature="method#put#0;class#SituationCast#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/situation-api/src/main/java/br/ufes/inf/lprm/situation/SituationUtils.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="615">
-          <caret line="41" column="8" selection-start-line="41" selection-start-column="8" selection-end-line="41" selection-end-column="8" />
-          <folding>
-            <element signature="imports" expanded="false" />
-            <element signature="e#1176#1186#0" expanded="false" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -1703,7 +1204,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="105">
           <caret line="7" column="0" selection-start-line="7" selection-start-column="0" selection-end-line="7" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1712,7 +1212,7 @@
         <state relative-caret-position="90">
           <caret line="6" column="13" selection-start-line="6" selection-start-column="13" selection-end-line="6" selection-end-column="13" />
           <folding>
-            <element signature="imports" expanded="true" />
+            <element signature="imports" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -1722,17 +1222,7 @@
         <state relative-caret-position="75">
           <caret line="5" column="46" selection-start-line="5" selection-start-column="46" selection-end-line="5" selection-end-column="46" />
           <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/situation-api/src/main/java/br/ufes/inf/lprm/situation/events/DeactivateSituationEvent.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="90">
-          <caret line="6" column="46" selection-start-line="6" selection-start-column="46" selection-end-line="6" selection-end-column="46" />
-          <folding>
-            <element signature="imports" expanded="true" />
+            <element signature="imports" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -1741,31 +1231,15 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="60">
           <caret line="4" column="22" selection-start-line="4" selection-start-column="22" selection-end-line="4" selection-end-column="22" />
-          <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/scene-core/src/main/java/br/ufes/inf/lprm/scene/publishing/sinos/SinosSituationPublisher.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="15">
-          <caret line="18" column="65" selection-start-line="18" selection-start-column="65" selection-end-line="18" selection-end-column="65" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/scene-core/src/main/java/br/ufes/inf/lprm/scene/publishing/sinos/publisher/SinosActivePublisher.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="105">
-          <caret line="7" column="13" selection-start-line="7" selection-start-column="13" selection-end-line="7" selection-end-column="13" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
+    <entry file="file://$PROJECT_DIR$/scene-core/src/main/java/br/ufes/inf/lprm/scene/publishing/sinos/SinosSituationPublisher.java" />
+    <entry file="file://$PROJECT_DIR$/scene-core/src/main/java/br/ufes/inf/lprm/scene/publishing/sinos/publisher/SinosActivePublisher.java" />
     <entry file="file://$PROJECT_DIR$/scene-core/src/main/java/br/ufes/inf/lprm/scene/publishing/Publish.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="120">
           <caret line="11" column="6" selection-start-line="11" selection-start-column="6" selection-end-line="11" selection-end-column="6" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1773,34 +1247,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="330">
           <caret line="24" column="8" selection-start-line="24" selection-start-column="8" selection-end-line="24" selection-end-column="8" />
-          <folding>
-            <element signature="imports" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/scene-core/src/main/java/br/ufes/inf/lprm/scene/spm/SituationProfileManager.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="161">
-          <caret line="78" column="26" selection-start-line="78" selection-start-column="26" selection-end-line="78" selection-end-column="26" />
-          <folding>
-            <element signature="imports" expanded="false" />
-            <element signature="method#SituationProfileManager#0;class#SituationProfileManager#0" expanded="false" />
-            <element signature="method#initInstance#0;class#SituationProfileManager#0" expanded="false" />
-            <element signature="method#initInstance#1;class#SituationProfileManager#0" expanded="false" />
-            <element signature="method#getInstance#0;class#SituationProfileManager#0" expanded="false" />
-            <element signature="method#toString#0;class#SituationProfileManager#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/scene-core/src/main/java/br/ufes/inf/lprm/scene/SituationKieBase.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="135">
-          <caret line="9" column="0" selection-start-line="9" selection-start-column="0" selection-end-line="9" selection-end-column="0" />
-          <folding>
-            <element signature="imports" expanded="false" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -1808,32 +1254,275 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="150">
           <caret line="10" column="106" selection-start-line="10" selection-start-column="106" selection-end-line="10" selection-end-column="106" />
-          <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/scene-examples/target/classes/META-INF/kmodule.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
+    <entry file="file://$PROJECT_DIR$/scene-examples/target/classes/META-INF/kmodule.xml" />
     <entry file="file://$PROJECT_DIR$/scene-core/src/main/java/br/ufes/inf/lprm/scene/base/listeners/SCENESessionListener.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="225">
           <caret line="21" column="0" selection-start-line="21" selection-start-column="0" selection-end-line="21" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/scene-examples/target/classes/br/ufes/inf/lprm/scene/examples/fever/FeverSituation.drl" />
+    <entry file="file://$PROJECT_DIR$/scene-core/src/main/resources/log4j.properties">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/situation-api/src/main/java/br/ufes/inf/lprm/situation/events/DeactivateSituationEvent.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="15">
+          <caret line="1" column="0" selection-start-line="1" selection-start-column="0" selection-end-line="1" selection-end-column="0" />
+          <folding>
+            <element signature="imports" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/.gitignore">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="105">
+          <caret line="7" column="0" selection-start-line="7" selection-start-column="0" selection-end-line="7" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/situation-api/src/main/java/br/ufes/inf/lprm/situation/SituationUtils.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="210">
+          <caret line="31" column="47" selection-start-line="31" selection-start-column="47" selection-end-line="31" selection-end-column="47" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/situation-api/src/main/java/br/ufes/inf/lprm/situation/SituationCast.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="210">
+          <caret line="17" column="20" selection-start-line="17" selection-start-column="20" selection-end-line="17" selection-end-column="20" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="method#SituationCast#1;class#SituationCast#0" expanded="false" />
+            <element signature="method#put#0;class#SituationCast#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/scene-examples/pom.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="210">
+          <caret line="14" column="17" selection-start-line="14" selection-start-column="17" selection-end-line="14" selection-end-column="17" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/situation-api/pom.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="120">
+          <caret line="8" column="42" selection-start-line="8" selection-start-column="42" selection-end-line="8" selection-end-column="42" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/scene-core/src/main/java/br/ufes/inf/lprm/scene/base/evaluators/definition/SCENEAfterEvaluatorDefinition.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="330">
+          <caret line="24" column="64" selection-start-line="24" selection-start-column="64" selection-end-line="24" selection-end-column="64" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/scene-core/src/main/java/br/ufes/inf/lprm/scene/base/evaluators/definition/SCENEStartsEvaluatorDefinition.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="364">
+          <caret line="26" column="65" selection-start-line="26" selection-start-column="65" selection-end-line="26" selection-end-column="65" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/scene-core/src/main/java/br/ufes/inf/lprm/scene/base/evaluators/definition/SCENEStartedByEvaluatorDefinition.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="285">
+          <caret line="27" column="68" selection-start-line="27" selection-start-column="68" selection-end-line="27" selection-end-column="68" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/scene-core/src/main/java/br/ufes/inf/lprm/scene/base/evaluators/definition/SCENEOverlapsEvaluatorDefinition.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="285">
+          <caret line="27" column="67" selection-start-line="27" selection-start-column="67" selection-end-line="27" selection-end-column="67" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/scene-core/src/main/java/br/ufes/inf/lprm/scene/base/evaluators/definition/SCENEOverlappedByEvaluatorDefinition.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="300">
+          <caret line="28" column="71" selection-start-line="28" selection-start-column="71" selection-end-line="28" selection-end-column="71" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/scene-core/src/main/java/br/ufes/inf/lprm/scene/base/evaluators/definition/SCENEIncludesEvaluatorDefinition.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="285">
+          <caret line="27" column="67" selection-start-line="27" selection-start-column="67" selection-end-line="27" selection-end-column="67" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/scene-core/src/main/java/br/ufes/inf/lprm/scene/base/evaluators/definition/SCENEFinishesEvaluatorDefinition.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="285">
+          <caret line="27" column="67" selection-start-line="27" selection-start-column="67" selection-end-line="27" selection-end-column="67" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/scene-core/src/main/java/br/ufes/inf/lprm/scene/base/evaluators/definition/SCENEFinishedByEvaluatorDefinition.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="300">
+          <caret line="28" column="69" selection-start-line="28" selection-start-column="69" selection-end-line="28" selection-end-column="69" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/scene-core/src/main/java/br/ufes/inf/lprm/scene/base/evaluators/definition/SCENEDuringEvaluatorDefinition.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="285">
+          <caret line="27" column="65" selection-start-line="27" selection-start-column="65" selection-end-line="27" selection-end-column="65" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/scene-core/src/main/java/br/ufes/inf/lprm/scene/base/evaluators/definition/SCENECoincidesEvaluatorDefinition.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="135">
+          <caret line="17" column="16" selection-start-line="17" selection-start-column="16" selection-end-line="17" selection-end-column="47" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/scene-core/src/main/java/br/ufes/inf/lprm/scene/base/evaluators/definition/SCENEBeforeEvaluatorDefinition.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="405">
+          <caret line="43" column="65" selection-start-line="43" selection-start-column="65" selection-end-line="43" selection-end-column="65" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$MAVEN_REPOSITORY$/org/kie/kie-api/6.4.0.Final/kie-api-6.4.0.Final-sources.jar!/org/kie/api/KieServices.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="3270">
+          <caret line="248" column="0" selection-start-line="248" selection-start-column="0" selection-end-line="248" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/pom.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="173">
+          <caret line="83" column="12" selection-start-line="83" selection-start-column="12" selection-end-line="92" selection-end-column="25" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/scene-core/src/test/java/br/ufes/inf/lprm/scene/base/evaluators/AfterEvaluatorTest.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="90">
+          <caret line="102" column="20" selection-start-line="102" selection-start-column="20" selection-end-line="102" selection-end-column="20" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/scene-core/pom.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="630">
+          <caret line="42" column="46" selection-start-line="42" selection-start-column="46" selection-end-line="42" selection-end-column="46" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/scene-core/src/test/resources/META-INF/kmodule.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="60">
+          <caret line="4" column="69" selection-start-line="4" selection-start-column="24" selection-end-line="4" selection-end-column="69" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/scene-examples/src/main/resources/META-INF/kmodule.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="45">
+          <caret line="3" column="78" selection-start-line="3" selection-start-column="78" selection-end-line="3" selection-end-column="78" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/scene-core/src/main/java/br/ufes/inf/lprm/scene/spm/SituationProfileManager.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="956">
+          <caret line="78" column="26" selection-start-line="78" selection-start-column="26" selection-end-line="78" selection-end-column="26" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/scene-core/src/test/resources/br/ufes/inf/lprm/scene/examples/fever/FeverSituation.drl">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="45" selection-start-line="0" selection-start-column="8" selection-end-line="0" selection-end-column="45" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/scene-core/src/main/java/br/ufes/inf/lprm/scene/SituationKieBase.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="105">
+          <caret line="9" column="67" selection-start-line="9" selection-start-column="67" selection-end-line="9" selection-end-column="67" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/scene-examples/src/main/resources/br/ufes/inf/lprm/scene/examples/fever/FeverSituation.drl">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="150">
+          <caret line="10" column="8" selection-start-line="10" selection-start-column="8" selection-end-line="10" selection-end-column="8" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/scene-core/src/main/resources/br/ufes/inf/lprm/scene/base/SituationBaseRules.drl">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="255">
+          <caret line="27" column="67" selection-start-line="27" selection-start-column="67" selection-end-line="27" selection-end-column="67" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/scene-core/src/main/java/br/ufes/inf/lprm/scene/base/CurrentSituation.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="75">
+          <caret line="19" column="0" selection-start-line="19" selection-start-column="0" selection-end-line="19" selection-end-column="0" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/scene-core/src/main/java/br/ufes/inf/lprm/scene/base/SituationHelper.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="285">
-          <caret line="78" column="50" selection-start-line="78" selection-start-column="50" selection-end-line="78" selection-end-column="50" />
+        <state relative-caret-position="315">
+          <caret line="37" column="67" selection-start-line="37" selection-start-column="67" selection-end-line="37" selection-end-column="67" />
           <folding>
-            <element signature="imports" expanded="true" />
             <element signature="method#SetFieldsFromMatchedObjects#0;class#SituationHelper#0" expanded="false" />
             <element signature="method#activateSituation#0;class#SituationHelper#0" expanded="false" />
             <element signature="method#deactivateSituation#0;class#SituationHelper#0" expanded="false" />
@@ -1841,86 +1530,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/scene-examples/target/classes/br/ufes/inf/lprm/scene/examples/fever/FeverSituation.drl">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="165">
-          <caret line="11" column="50" selection-start-line="11" selection-start-column="50" selection-end-line="11" selection-end-column="50" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/scene-core/src/main/resources/br/ufes/inf/lprm/scene/base/SituationBaseRules.drl">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="345">
-          <caret line="23" column="4" selection-start-line="23" selection-start-column="4" selection-end-line="23" selection-end-column="4" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/scene-core/src/test/java/br/ufes/inf/lprm/scene/base/evaluators/AfterEvaluatorTest.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="330">
-          <caret line="113" column="53" selection-start-line="113" selection-start-column="53" selection-end-line="113" selection-end-column="53" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/scene-examples/src/main/resources/br/ufes/inf/lprm/scene/examples/fever/FeverSituation.drl">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="165">
-          <caret line="11" column="46" selection-start-line="11" selection-start-column="46" selection-end-line="11" selection-end-column="46" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/scene-examples/src/main/resources/META-INF/kmodule.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="105">
-          <caret line="7" column="0" selection-start-line="7" selection-start-column="0" selection-end-line="7" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/situation-api/pom.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="75">
-          <caret line="5" column="18" selection-start-line="5" selection-start-column="18" selection-end-line="5" selection-end-column="18" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/scene-examples/src/main/java/br/ufes/inf/lprm/scene/examples/fever/FeverExampleMain.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="285">
-          <caret line="23" column="21" selection-start-line="23" selection-start-column="21" selection-end-line="23" selection-end-column="21" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/scene-examples/pom.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="260">
-          <caret line="56" column="4" selection-start-line="56" selection-start-column="4" selection-end-line="60" selection-end-column="13" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/scene-core/pom.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="518">
-          <caret line="122" column="41" selection-start-line="122" selection-start-column="41" selection-end-line="122" selection-end-column="41" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/pom.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="120">
-          <caret line="8" column="0" selection-start-line="8" selection-start-column="0" selection-end-line="8" selection-end-column="0" />
+        <state relative-caret-position="248">
+          <caret line="32" column="66" selection-start-line="32" selection-start-column="66" selection-end-line="32" selection-end-column="66" />
           <folding />
         </state>
       </provider>
@@ -1981,8 +1594,7 @@
           <splitter-proportions>
             <option name="proportions">
               <list>
-                <option value="0.2" />
-                <option value="0.6" />
+                <option value="0.5505747" />
               </list>
             </option>
           </splitter-proportions>
@@ -2002,7 +1614,7 @@
       </state>
       <state key="ProjectLibrariesConfigurable.UI">
         <settings>
-          <last-edited>Maven: br.ufes.inf.lprm:scene-core:0.9.1</last-edited>
+          <last-edited>Maven: commons-codec:commons-codec:1.4</last-edited>
           <splitter-proportions>
             <option name="proportions">
               <list>

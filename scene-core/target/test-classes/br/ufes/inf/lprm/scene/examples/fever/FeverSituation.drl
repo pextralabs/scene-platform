@@ -8,5 +8,6 @@ rule "FeverSituation"
     when
     	f1: Person(this.temperature > 37)
     then
-    	SituationHelper.situationDetected(drools);
+    	//SituationHelper.situationDetected(drools);
+    	System.out.println("ENTROU NESSA BAGACA");
 end
