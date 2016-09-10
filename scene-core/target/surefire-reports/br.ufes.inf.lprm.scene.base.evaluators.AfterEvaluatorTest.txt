@@ -1,4 +1,0 @@
--------------------------------------------------------------------------------
-Test set: br.ufes.inf.lprm.scene.base.evaluators.AfterEvaluatorTest
--------------------------------------------------------------------------------
-Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 2.701 sec - in br.ufes.inf.lprm.scene.base.evaluators.AfterEvaluatorTest
