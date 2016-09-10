@@ -9,6 +9,7 @@ declare SituationEvent
 end
 
 rule "SituationActivation"
+    salience 9999999
 	when
 		$act: CurrentSituation(situation == null, $type: type, $cast: cast, $timestamp: timestamp)
 	then
@@ -19,6 +20,7 @@ rule "SituationActivation"
 end
 
 rule "SituationDeactivation"
+    salience 9999999
 	when
 		$sit: SituationType(active==true, local==true)
 		not (exists CurrentSituation(situation == $sit))

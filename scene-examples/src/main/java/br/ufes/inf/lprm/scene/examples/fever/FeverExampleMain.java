@@ -1,32 +1,19 @@
 package br.ufes.inf.lprm.scene.examples.fever;
 
-import java.util.Random;
-
 import br.ufes.inf.lprm.scene.base.listeners.SCENESessionListener;
-import org.drools.KnowledgeBase;
-
-import org.drools.builder.KnowledgeBuilder;
-
-import org.drools.builder.KnowledgeBuilderError;
-import org.drools.builder.KnowledgeBuilderErrors;
-
-import org.drools.builder.ResourceType;
-
-import org.drools.io.ResourceFactory;
-import org.drools.runtime.StatefulKnowledgeSession;
-import org.drools.runtime.rule.FactHandle;
-
-import br.ufes.inf.lprm.scene.SituationKnowledgeBaseFactory;
-import br.ufes.inf.lprm.scene.SituationKnowledgeBuilderFactory;
 import br.ufes.inf.lprm.scene.examples.shared.Person;
+import org.kie.api.KieServices;
+import org.kie.api.runtime.KieContainer;
+import org.kie.api.runtime.KieSession;
+import org.kie.api.runtime.rule.FactHandle;
 
 /**
  * This is a sample class to launch a rule.
  */
 
 class RuleEngineThread extends Thread {	
-	private StatefulKnowledgeSession ksession;
-	public RuleEngineThread(StatefulKnowledgeSession ksession) {
+	private KieSession ksession;
+	public RuleEngineThread(KieSession ksession) {
 		this.ksession = ksession;
 	}
     public void run() {  	
@@ -40,79 +27,62 @@ public class FeverExampleMain {
         try {
         	
             // load up the knowledge base
-            KnowledgeBase kbase = readKnowledgeBase();
-            StatefulKnowledgeSession ksession = kbase.newStatefulKnowledgeSession();
-            ksession.addEventListener(new SCENESessionListener());
+			KieServices ks = KieServices.Factory.get();
+			KieContainer kContainer = ks.getKieClasspathContainer();
+			KieSession kSession = kContainer.newKieSession("br.ufes.inf.lprm.scene.examples.fever.session");//SituationKieBase.newKieSession(kContainer, "br.ufes.inf.lprm.scene.examples.fever.session");
+            kSession.addEventListener(new SCENESessionListener());
             
-            final RuleEngineThread eng = new RuleEngineThread(ksession);
+            final RuleEngineThread eng = new RuleEngineThread(kSession);
 			eng.start();			
 			
 			Person p1 = new Person("john", 1);
 						
 			p1.setTemperature(37);
 			
-			FactHandle fh1 = ksession.insert(p1);
+			FactHandle fh1 = kSession.insert(p1);
 			
 			while (true) {
 				
 				Thread.sleep(1000);
 	
 				p1.setTemperature(38);
-				ksession.update(fh1,  p1);
+				kSession.update(fh1,  p1);
 				
 				Thread.sleep(3000);
 	
 				p1.setTemperature(39);			
-				ksession.update(fh1,  p1);
+				kSession.update(fh1,  p1);
 	
 				Thread.sleep(3000);			
 				
 				p1.setTemperature(40);			
-				ksession.update(fh1,  p1);
+				kSession.update(fh1,  p1);
 				
 				Thread.sleep(3000);			
 				
 				p1.setTemperature(38);			
-				ksession.update(fh1,  p1);
+				kSession.update(fh1,  p1);
 	
 				Thread.sleep(3000);
 				
 				p1.setTemperature(37);			
-				ksession.update(fh1,  p1);			
+				kSession.update(fh1,  p1);
 	
 				Thread.sleep(3000);				
 				
 				p1.setTemperature(32);			
-				ksession.update(fh1,  p1);	
+				kSession.update(fh1,  p1);
 				
 				Thread.sleep(3000);				
 				
 				p1.setTemperature(31);			
-				ksession.update(fh1,  p1);
+				kSession.update(fh1,  p1);
 			
 			}
 						
         } catch (Throwable t) {
             t.printStackTrace();
         }
-    }
-
-    private static KnowledgeBase readKnowledgeBase() throws Exception {
-    	
-    	KnowledgeBuilder kbuilder = SituationKnowledgeBuilderFactory.newKnowledgeBuilder();
-    
-        kbuilder.add(ResourceFactory.newClassPathResource("br/ufes/inf/lprm/scene/examples/fever/FeverSituation.drl"), ResourceType.DRL);
-        
-        KnowledgeBuilderErrors errors = kbuilder.getErrors();
-        if (errors.size() > 0) {
-            for (KnowledgeBuilderError error: errors) {
-                System.err.println(error);
-            }
-            throw new IllegalArgumentException("Could not parse knowledge.");
-        }
-        
-        KnowledgeBase kbase = SituationKnowledgeBaseFactory.newKnowledgeBase(kbuilder);
-        return kbase;
     }
 
 }

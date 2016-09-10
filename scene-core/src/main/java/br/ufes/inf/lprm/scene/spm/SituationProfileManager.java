@@ -1,16 +1,13 @@
 package br.ufes.inf.lprm.scene.spm;
 
-import java.lang.reflect.Constructor;
+import br.ufes.inf.lprm.scene.exceptions.AlreadyInstantiatedException;
+import br.ufes.inf.lprm.scene.publishing.Publish;
+import br.ufes.inf.lprm.situation.SituationUtils;
+import org.drools.core.definitions.rule.impl.RuleImpl;
+import org.kie.internal.definition.KnowledgePackage;
+
 import java.util.Collection;
 import java.util.HashMap;
-
-import br.ufes.inf.lprm.scene.exceptions.AlreadyInstantiatedException;
-import org.drools.definition.KnowledgePackage;
-import org.drools.rule.Rule;
-
-import br.ufes.inf.lprm.scene.publishing.Publish;
-import br.ufes.inf.lprm.scene.publishing.SituationPublisher;
-import br.ufes.inf.lprm.situation.SituationUtils;
 
 /*
     The Situation Profile Manager (SPM) is a Singleton which keeps
@@ -61,7 +58,7 @@ public final class SituationProfileManager {
 		
 		for (KnowledgePackage pkg: packages) {
 			 		
-			for (Rule rule:  SituationUtils.getRulesFromPackage(pkg)) {
+			for (RuleImpl rule:  SituationUtils.getRulesFromPackage(pkg)) {
 				
 				if (rule.getMetaData().containsKey("role")) {
 					
@@ -76,16 +73,16 @@ public final class SituationProfileManager {
 						}
 
                         Publish pub;
-                        conf.setType(Class.forName(type, true, this.getClass().getClassLoader()));
+                        conf.setType(Class.forName(type, true, this.classLoader));
+                        pub = Class.forName(type, true, this.classLoader).getAnnotation(Publish.class);
 
-                        pub = Class.forName(type, true, this.getClass().getClassLoader()).getAnnotation(Publish.class);
-
-						if (pub!=null) {
+						/*if (pub!=null) {
+							
 							Constructor<SituationPublisher> ctor = (Constructor<SituationPublisher>) pub.publisher().getDeclaredConstructors()[0];
 							ctor.setAccessible(true);
 							conf.setPublisher((SituationPublisher) ctor.newInstance(conf.getType(), pub.host(), pub.port(), pub.delay(), pub.attempts(), pub.timeout()));
 							ctor.setAccessible(false);
-						}
+						}*/
 					
 						if (rule.getMetaData().containsKey("snapshot")) {
 							
@@ -143,11 +140,6 @@ public final class SituationProfileManager {
 	public SituationProfile getProfile(String situation) {
 		return profiles.get(situation);
 	}
-
-	public SituationProfile getProfile(Rule rule) {
-		String situation =  rule.getPackageName() + "." + SituationUtils.getSituationMetaDataValue(rule, "type");
-		return profiles.get(situation);
-	}	
 	
 	@Override
 	public String toString() {

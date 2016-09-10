@@ -1,16 +1,10 @@
 package br.ufes.inf.lprm.situation;
 
+import org.drools.core.definitions.rule.impl.RuleImpl;
+import org.drools.core.spi.Activation;
+
 import java.lang.reflect.Field;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
-
-import org.drools.rule.Rule;
-import org.drools.runtime.rule.Activation;
-
-import br.ufes.inf.lprm.situation.SituationUtils;
+import java.util.*;
 
 @SuppressWarnings("serial")
 public class SituationCast extends HashMap<String, Object> {
@@ -23,7 +17,7 @@ public class SituationCast extends HashMap<String, Object> {
 		String 	roleLabel;
 		Object 	obj;
 		
-		Rule 	rule 					= (Rule) activation.getRule();
+		RuleImpl rule 					= activation.getRule();
 		List<String> LHSIdentifiers 	= new ArrayList<String>(rule.getDeclarations().keySet());
 		List<Field> situationRoleFields = SituationUtils.getSituationRoleFields(type);
 		
@@ -83,24 +77,5 @@ public class SituationCast extends HashMap<String, Object> {
 	public int hashCode() {
 		return hash;
 	}
-
-    /*public String toString() {
-        StringBuilder str = new StringBuilder();
-        str.append("{");
-        ArrayList<String> keys = (ArrayList) this.keySet();
-        for (String k: keys) {
-            if (str.length() > 1) str.append(", ");
-            str.append(k);
-            str.append(": [");
-            str.append(this.get(k).toString());
-            str.append("]");
-        }
-        str.append("}");
-        return str.toString();
-    } */
-	
-	//public int getHash() {
-	//	return hash;
-	//}
 
 }
