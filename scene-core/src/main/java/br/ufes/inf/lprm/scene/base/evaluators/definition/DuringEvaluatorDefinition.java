@@ -1,8 +1,6 @@
 package br.ufes.inf.lprm.scene.base.evaluators.definition;
 
-import br.ufes.inf.lprm.scene.base.evaluators.implementation.SCENECoincidesEvaluator;
 import org.drools.core.base.ValueType;
-import org.drools.core.base.evaluators.CoincidesEvaluatorDefinition;
 import org.drools.core.base.evaluators.TimeIntervalParser;
 import org.drools.core.spi.Evaluator;
 
@@ -13,9 +11,9 @@ import java.util.Map;
 /**
  * Created by hborjaille on 9/8/16.
  */
-public class SCENECoincidesEvaluatorDefinition extends CoincidesEvaluatorDefinition {
+public class DuringEvaluatorDefinition extends org.drools.core.base.evaluators.DuringEvaluatorDefinition {
 
-    private Map<String, SCENECoincidesEvaluator> cache     = Collections.emptyMap();
+    private Map<String, br.ufes.inf.lprm.scene.base.evaluators.implementation.DuringEvaluator> cache     = Collections.emptyMap();
 
     @Override
     public Evaluator getEvaluator(final ValueType type,
@@ -25,20 +23,18 @@ public class SCENECoincidesEvaluatorDefinition extends CoincidesEvaluatorDefinit
                                   final Target left,
                                   final Target right) {
         if ( this.cache == Collections.EMPTY_MAP ) {
-            this.cache = new HashMap<String, SCENECoincidesEvaluator>();
+            this.cache = new HashMap<String, br.ufes.inf.lprm.scene.base.evaluators.implementation.DuringEvaluator>();
         }
         String key = left + ":" + right + ":" + isNegated + ":" + parameterText;
-        SCENECoincidesEvaluator eval = this.cache.get( key );
+        br.ufes.inf.lprm.scene.base.evaluators.implementation.DuringEvaluator eval = this.cache.get( key );
         if ( eval == null ) {
             long[] params = TimeIntervalParser.parse( parameterText );
-            eval = new SCENECoincidesEvaluator( type,
+            eval = new br.ufes.inf.lprm.scene.base.evaluators.implementation.DuringEvaluator( type,
                     isNegated,
                     params,
-                    parameterText,
-                    left == Target.FACT,
-                    right == Target.FACT );
+                    parameterText);
             this.cache.put( key,
-                    eval );
+                            eval );
         }
         return eval;
     }

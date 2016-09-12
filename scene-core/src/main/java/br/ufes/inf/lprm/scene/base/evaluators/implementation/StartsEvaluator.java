@@ -2,7 +2,8 @@ package br.ufes.inf.lprm.scene.base.evaluators.implementation;
 
 import br.ufes.inf.lprm.situation.SituationType;
 import org.drools.core.base.ValueType;
-import org.drools.core.base.evaluators.DuringEvaluatorDefinition.DuringEvaluator;
+import org.drools.core.base.evaluators.StartsEvaluatorDefinition;
+import org.drools.core.base.evaluators.StartsEvaluatorDefinition.StartsEvaluator;
 import org.drools.core.common.DefaultFactHandle;
 import org.drools.core.common.EventFactHandle;
 import org.drools.core.common.InternalFactHandle;
@@ -15,31 +16,32 @@ import org.drools.core.spi.InternalReadAccessor;
 /**
  * Created by hborjaille on 9/8/16.
  */
-public class SCENEDuringEvaluator extends DuringEvaluator {
+public class StartsEvaluator extends StartsEvaluatorDefinition.StartsEvaluator {
 
-    private long              startMinDev, startMaxDev;
-    private long              endMinDev, endMaxDev;
+    private long startDev;
 
-    public SCENEDuringEvaluator(final ValueType type,
-                                   final boolean isNegated,
-                                   final long[] parameters,
-                                   final String paramText) {
+    public StartsEvaluator(final ValueType type,
+                           final boolean isNegated,
+                           final long[] params,
+                           final String paramText) {
         super( type,
                 isNegated,
-                parameters,
-                paramText);
+                params,
+                paramText );
     }
 
     @Override
     public boolean evaluate(InternalWorkingMemory workingMemory, InternalReadAccessor extractor, InternalFactHandle factHandle, FieldValue value) {
-        throw new RuntimeException( "The 'during' operator can only be used to compare one event to another, and never to compare to literal constraints." );
+        throw new RuntimeException( "The 'starts' operator can only be used to compare one event to another, and never to compare to literal constraints." );
     }
 
     @Override
     public boolean evaluateCachedRight(InternalWorkingMemory workingMemory, VariableContextEntry context, InternalFactHandle left) {
+
         if ( context.rightNull ) {
             return false;
         }
+
         long leftStartTS = -1;
         long leftEndTS = -1;
         long rightStartTS = -1;
@@ -77,15 +79,12 @@ public class SCENEDuringEvaluator extends DuringEvaluator {
                 } else return false;
             }
         }
-
-        long distStart = rightStartTS - leftStartTS;
-
-        if (leftEndTS==-1) {
-            return this.getOperator().isNegated() ^ (distStart >= this.startMinDev && distStart <= this.startMaxDev);
+        long distStart = Math.abs( rightStartTS - leftStartTS );
+        if (leftEndTS==(-1)) {
+            return this.getOperator().isNegated() ^ (distStart <= this.startDev);
         } else {
             long distEnd = leftEndTS - rightEndTS;
-            return this.getOperator().isNegated() ^ (distStart >= this.startMinDev && distStart <= this.startMaxDev && distEnd >= this.endMinDev && distEnd <= this.endMaxDev);
-
+            return this.getOperator().isNegated() ^ (distStart <= this.startDev && distEnd > 0 );
         }
     }
 
@@ -95,7 +94,6 @@ public class SCENEDuringEvaluator extends DuringEvaluator {
                 right ) ) {
             return false;
         }
-
         long leftStartTS = -1;
         long leftEndTS = -1;
         long rightStartTS = -1;
@@ -133,15 +131,12 @@ public class SCENEDuringEvaluator extends DuringEvaluator {
                 } else return false;
             }
         }
-
-        long distStart = rightStartTS - leftStartTS;
-
-        if (leftEndTS==-1) {
-            return this.getOperator().isNegated() ^ (distStart >= this.startMinDev && distStart <= this.startMaxDev);
+        long distStart = Math.abs( rightStartTS - leftStartTS );
+        if (leftEndTS==(-1)) {
+            return this.getOperator().isNegated() ^ (distStart <= this.startDev);
         } else {
             long distEnd = leftEndTS - rightEndTS;
-            return this.getOperator().isNegated() ^ (distStart >= this.startMinDev && distStart <= this.startMaxDev && distEnd >= this.endMinDev && distEnd <= this.endMaxDev);
-
+            return this.getOperator().isNegated() ^ (distStart <= this.startDev && distEnd > 0 );
         }
     }
 
@@ -185,17 +180,17 @@ public class SCENEDuringEvaluator extends DuringEvaluator {
                 obj2StartTS = ((SituationType) obj2Fact).getActivation().getTimestamp();
                 if (!((SituationType) obj2Fact).isActive()) {
                     obj2EndTS = ((SituationType) obj2Fact).getDeactivation().getTimestamp();
-                } else return false;
+                }
             }
         }
 
-        long distStart = obj1StartTS - obj2StartTS;
-
-        if (obj2EndTS==-1) {
-            return this.getOperator().isNegated() ^ (distStart >= this.startMinDev && distStart <= this.startMaxDev);
+        long distStart = Math.abs( obj1StartTS - obj2StartTS );
+        if (obj2StartTS==(-1)) {
+            return this.getOperator().isNegated() ^ (distStart <= this.startDev);
         } else {
             long distEnd = obj2EndTS - obj1EndTS;
-            return this.getOperator().isNegated() ^ (distStart >= this.startMinDev && distStart <= this.startMaxDev && distEnd >= this.endMinDev && distEnd <= this.endMaxDev);
+            return this.getOperator().isNegated() ^ (distStart <= this.startDev && distEnd > 0 );
         }
+
     }
 }

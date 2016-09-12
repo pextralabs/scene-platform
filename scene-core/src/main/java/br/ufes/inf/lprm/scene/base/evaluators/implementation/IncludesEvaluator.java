@@ -2,6 +2,7 @@ package br.ufes.inf.lprm.scene.base.evaluators.implementation;
 
 import br.ufes.inf.lprm.situation.SituationType;
 import org.drools.core.base.ValueType;
+import org.drools.core.base.evaluators.IncludesEvaluatorDefinition;
 import org.drools.core.base.evaluators.IncludesEvaluatorDefinition.IncludesEvaluator;
 import org.drools.core.common.DefaultFactHandle;
 import org.drools.core.common.EventFactHandle;
@@ -15,12 +16,12 @@ import org.drools.core.spi.InternalReadAccessor;
 /**
  * Created by hborjaille on 9/8/16.
  */
-public class SCENEIncludesEvaluator extends IncludesEvaluator {
+public class IncludesEvaluator extends IncludesEvaluatorDefinition.IncludesEvaluator {
 
     private long startMinDev, startMaxDev;
     private long endMinDev, endMaxDev;
 
-    public SCENEIncludesEvaluator(final ValueType type,
+    public IncludesEvaluator(final ValueType type,
                              final boolean isNegated,
                              final long[] parameters,
                              final String paramText) {

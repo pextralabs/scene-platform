@@ -2,27 +2,28 @@ package br.ufes.inf.lprm.scene.base.evaluators.implementation;
 
 import br.ufes.inf.lprm.situation.SituationType;
 import org.drools.core.base.ValueType;
-import org.drools.core.base.evaluators.FinishedByEvaluatorDefinition.FinishedByEvaluator;
+import org.drools.core.base.evaluators.OverlapsEvaluatorDefinition;
+import org.drools.core.base.evaluators.OverlapsEvaluatorDefinition.OverlapsEvaluator;
 import org.drools.core.common.DefaultFactHandle;
 import org.drools.core.common.EventFactHandle;
 import org.drools.core.common.InternalFactHandle;
 import org.drools.core.common.InternalWorkingMemory;
-import org.drools.core.rule.VariableRestriction.ObjectVariableContextEntry;
 import org.drools.core.rule.VariableRestriction.VariableContextEntry;
+import org.drools.core.rule.VariableRestriction.ObjectVariableContextEntry;
 import org.drools.core.spi.FieldValue;
 import org.drools.core.spi.InternalReadAccessor;
 
 /**
  * Created by hborjaille on 9/8/16.
  */
-public class SCENEFinishedByEvaluator extends FinishedByEvaluator {
+public class OverlapsEvaluator extends OverlapsEvaluatorDefinition.OverlapsEvaluator {
 
-    private long endDev;
+    private long minDev, maxDev;
 
-    public SCENEFinishedByEvaluator(final ValueType type,
-                               final boolean isNegated,
-                               final long[] parameters,
-                               final String paramText) {
+    public OverlapsEvaluator(final ValueType type,
+                             final boolean isNegated,
+                             final long[] parameters,
+                             final String paramText) {
         super( type,
                 isNegated,
                 parameters,
@@ -31,7 +32,7 @@ public class SCENEFinishedByEvaluator extends FinishedByEvaluator {
 
     @Override
     public boolean evaluate(InternalWorkingMemory workingMemory, InternalReadAccessor extractor, InternalFactHandle factHandle, FieldValue value) {
-        throw new RuntimeException( "The 'finishedby' operator can only be used to compare one event to another, and never to compare to literal constraints." );
+        throw new RuntimeException( "The 'overlaps' operator can only be used to compare one event to another, and never to compare to literal constraints." );
     }
 
     @Override
@@ -41,10 +42,10 @@ public class SCENEFinishedByEvaluator extends FinishedByEvaluator {
             return false;
         }
 
-        long leftStartTS = -1;
-        long leftEndTS = -1;
-        long rightStartTS = -1;
-        long rightEndTS = -1;
+        long leftStartTS = 0;
+        long leftEndTS = 0;
+        long rightStartTS = 0;
+        long rightEndTS = 0;
 
         DefaultFactHandle leftFH = (DefaultFactHandle) left;
 
@@ -56,10 +57,11 @@ public class SCENEFinishedByEvaluator extends FinishedByEvaluator {
             Object leftFact =  workingMemory.getObject(leftFH);
             if (leftFact instanceof SituationType) {
                 leftStartTS = ((SituationType) leftFact).getActivation().getTimestamp();
-                //'started' is not applicable when situationB not finished
+
                 if (!((SituationType) leftFact).isActive()) {
                     leftEndTS = ((SituationType) leftFact).getDeactivation().getTimestamp();
-                }  else return false;
+                }
+
             }
         }
 
@@ -73,15 +75,22 @@ public class SCENEFinishedByEvaluator extends FinishedByEvaluator {
             Object rightFact =  workingMemory.getObject(rightFH);
             if (rightFact instanceof SituationType) {
                 rightStartTS = ((SituationType) rightFact).getActivation().getTimestamp();
+
                 if (!((SituationType) rightFact).isActive()) {
                     rightEndTS = ((SituationType) rightFact).getDeactivation().getTimestamp();
-                } else return false;
+                }
+
             }
         }
 
-        long distStart = leftStartTS - rightStartTS;
-        long distEnd = Math.abs( leftEndTS - rightEndTS );
-        return this.getOperator().isNegated() ^ (distStart > 0 && distEnd <= this.endDev);
+        if (rightEndTS==0) {
+            return this.getOperator().isNegated() ^ (rightStartTS < leftStartTS);
+        } else {
+            long dist = rightEndTS - leftStartTS;
+            return this.getOperator().isNegated() ^ (rightStartTS < leftStartTS &&
+                    rightEndTS < leftEndTS &&
+                    dist >= this.minDev && dist <= this.maxDev);
+        }
     }
 
     @Override
@@ -90,10 +99,11 @@ public class SCENEFinishedByEvaluator extends FinishedByEvaluator {
                 right ) ) {
             return false;
         }
-        long leftStartTS = -1;
-        long leftEndTS = -1;
-        long rightStartTS = -1;
-        long rightEndTS = -1;
+
+        long leftStartTS = 0;
+        long leftEndTS = 0;
+        long rightStartTS = 0;
+        long rightEndTS = 0;
 
         DefaultFactHandle leftFH = (DefaultFactHandle) ((ObjectVariableContextEntry) context).left;
 
@@ -105,10 +115,9 @@ public class SCENEFinishedByEvaluator extends FinishedByEvaluator {
             Object leftFact =  workingMemory.getObject(leftFH);
             if (leftFact instanceof SituationType) {
                 leftStartTS = ((SituationType) leftFact).getActivation().getTimestamp();
-                //'started' is not applicable when situationB not finished
                 if (!((SituationType) leftFact).isActive()) {
                     leftEndTS = ((SituationType) leftFact).getDeactivation().getTimestamp();
-                }  else return false;
+                }
             }
         }
 
@@ -124,13 +133,19 @@ public class SCENEFinishedByEvaluator extends FinishedByEvaluator {
                 rightStartTS = ((SituationType) rightFact).getActivation().getTimestamp();
                 if (!((SituationType) rightFact).isActive()) {
                     rightEndTS = ((SituationType) rightFact).getDeactivation().getTimestamp();
-                } else return false;
+                }
+
             }
         }
 
-        long distStart = leftStartTS - rightStartTS;
-        long distEnd = Math.abs( leftEndTS - rightEndTS );
-        return this.getOperator().isNegated() ^ (distStart > 0 && distEnd <= this.endDev);
+        if (rightEndTS==0) {
+            return this.getOperator().isNegated() ^ (rightStartTS < leftStartTS);
+        } else {
+            long dist = rightEndTS - leftStartTS;
+            return this.getOperator().isNegated() ^ (rightStartTS < leftStartTS &&
+                    rightEndTS < leftEndTS &&
+                    dist >= this.minDev && dist <= this.maxDev);
+        }
     }
 
     @Override
@@ -157,7 +172,7 @@ public class SCENEFinishedByEvaluator extends FinishedByEvaluator {
                 obj1StartTS = ((SituationType) obj1Fact).getActivation().getTimestamp();
                 if (!((SituationType) obj1Fact).isActive()) {
                     obj1EndTS = ((SituationType) obj1Fact).getDeactivation().getTimestamp();
-                } else return false;
+                }
             }
         }
 
@@ -173,12 +188,18 @@ public class SCENEFinishedByEvaluator extends FinishedByEvaluator {
                 obj2StartTS = ((SituationType) obj2Fact).getActivation().getTimestamp();
                 if (!((SituationType) obj2Fact).isActive()) {
                     obj2EndTS = ((SituationType) obj2Fact).getDeactivation().getTimestamp();
-                } else return false;
+                }
             }
         }
 
-        long distStart = obj2StartTS - obj1StartTS;
-        long distEnd = Math.abs( obj2EndTS - obj1EndTS );
-        return this.getOperator().isNegated() ^ (distStart > 0 && distEnd <= this.endDev);
+        if (obj1EndTS==-1) {
+            return this.getOperator().isNegated() ^ (obj1StartTS < obj2StartTS);
+        } else {
+            long dist = obj1EndTS - obj2StartTS;
+            return this.getOperator().isNegated() ^ ( obj1StartTS < obj2StartTS &&
+                    obj1EndTS < obj2EndTS &&
+                    dist >= this.minDev && dist <= this.maxDev );
+        }
+
     }
 }
