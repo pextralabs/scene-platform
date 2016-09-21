@@ -3,7 +3,6 @@ package br.ufes.inf.lprm.scene.base.evaluators.implementation;
 import br.ufes.inf.lprm.situation.SituationType;
 import org.drools.core.base.ValueType;
 import org.drools.core.base.evaluators.StartsEvaluatorDefinition;
-import org.drools.core.base.evaluators.StartsEvaluatorDefinition.StartsEvaluator;
 import org.drools.core.common.DefaultFactHandle;
 import org.drools.core.common.EventFactHandle;
 import org.drools.core.common.InternalFactHandle;
