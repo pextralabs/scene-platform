@@ -105,6 +105,12 @@
 				<version>2.3</version>
 			</dependency>
 
+			<dependency>
+				<groupId>com.google.code.gson</groupId>
+				<artifactId>gson</artifactId>
+				<version>2.7</version>
+			</dependency>
+
 			<!-- Local Dependencies -->
 			<dependency>
 				<groupId>br.ufes.inf.lprm</groupId>
@@ -120,6 +126,11 @@
 			</dependency>
 			<dependency>
 				<groupId>br.ufes.inf.lprm</groupId>
+				<artifactId>scene-server</artifactId>
+				<version>${project.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>br.ufes.inf.lprm</groupId>
 				<artifactId>scene-examples</artifactId>
 				<version>${project.version}</version>
 			</dependency>
@@ -129,6 +140,7 @@
 	<modules>
 		<module>situation-api</module>
 		<module>scene-core</module>
+		<module>scene-server</module>
 		<module>scene-examples</module>
 	</modules>
 

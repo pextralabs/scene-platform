@@ -1,0 +1,50 @@
+package br.ufes.inf.lprm.scene;
+
+import java.util.ArrayList;
+dialect  "mvel"
+
+declare Plate
+    id: Integer
+    name: String
+end
+
+declare Car
+    id: Integer
+    name: String
+end
+
+declare Person
+    id: Integer
+    name: String
+    temperature: Double
+    cars: ArrayList @type(Car)
+end
+
+rule "Fever"
+    when
+        $p: Person(temperature > 37)
+    then
+        System.out.println($p + " is running a fever.");
+end
+
+rule "Person"
+    when
+        $p: Person()
+    then
+        System.out.println($p);
+end
+
+rule "Car"
+    when
+        $c: Car()
+    then
+        System.out.println($c);
+end
+
+rule "Plate"
+    when
+        $p: Plate()
+    then
+        System.out.println($p);
+end
+

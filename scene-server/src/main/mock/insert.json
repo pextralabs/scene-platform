@@ -1,0 +1,38 @@
+{
+  "Person": [
+    {
+      "id": 1,
+      "name": "Higor",
+      "temperature": 37,
+      "cars": [1, 2]
+    },
+    {
+      "id": 2,
+      "name": "Isaac",
+      "temperature": 36,
+      "cars": [2]
+    }
+  ],
+  "Car": [
+    {
+      "id": 1,
+      "name": "Higor's Car",
+      "plate": 1
+    },
+    {
+      "id": 2,
+      "name": "Isaac's Car",
+      "plate": 2
+    }
+  ],
+  "Plate": [
+    {
+      "id": 1,
+      "name": "Higor's Car's plate"
+    },
+    {
+      "id": 2,
+      "name": "Isaac's Car's plate"
+    }
+  ]
+}
