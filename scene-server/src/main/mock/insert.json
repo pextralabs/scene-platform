@@ -4,7 +4,8 @@
       "id": 1,
       "name": "Higor",
       "temperature": 37,
-      "cars": [1, 2]
+      "cars": [1, 2],
+      "friends": [{"1": 2}, {"1": 2}]
     },
     {
       "id": 2,

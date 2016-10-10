@@ -1,6 +1,7 @@
 package br.ufes.inf.lprm.scene;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 dialect  "mvel"
 
 declare Plate
@@ -18,6 +19,7 @@ declare Person
     name: String
     temperature: Double
     cars: ArrayList @type(Car)
+    friends: HashMap @mapkey(String) @mapvalue(Person)
 end
 
 rule "Fever"
@@ -25,6 +27,14 @@ rule "Fever"
         $p: Person(temperature > 37)
     then
         System.out.println($p + " is running a fever.");
+end
+
+rule "Person has car"
+    when
+        $c: Car(name == "Higor's Car")
+        $p: Person(cars contains $c)
+    then
+    System.out.println($p + " has " + $c);
 end
 
 rule "Person"

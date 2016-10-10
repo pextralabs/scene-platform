@@ -11,9 +11,11 @@ import java.util.Map;
 public class ServerContext {
     private static ServerContext uniqueInstance;
     private Map<String, Map<Integer, FactHandle>> factHandleMap;
+    private Map<String, Map<Integer, Object>> objectMap;
 
     private ServerContext() {
         factHandleMap = new HashMap<String, Map<Integer, FactHandle>>();
+        objectMap = new HashMap<String, Map<Integer, Object>>();
     }
 
     public static synchronized ServerContext getInstance() {
@@ -23,7 +25,26 @@ public class ServerContext {
         return uniqueInstance;
     }
 
-    public void put(String clazz, int id, FactHandle fact) {
+    public void putObj(String clazz, int id, Object obj) {
+        Map<Integer, Object> item = objectMap.get(clazz);
+        if(item != null) {
+            item.put(id, obj);
+        } else {
+            item = new HashMap<Integer, Object>();
+            item.put(id, obj);
+            objectMap.put(clazz, item);
+        }
+    }
+
+    public Object getObj(String clazz, int id) {
+        return objectMap.get(clazz).get(id);
+    }
+
+    public void removeObj(String clazz, Object obj) {
+        objectMap.get(clazz).remove(obj);
+    }
+
+    public void putFact(String clazz, int id, FactHandle fact) {
         Map<Integer, FactHandle> item = factHandleMap.get(clazz);
         if(item != null) {
             item.put(id, fact);
@@ -34,11 +55,11 @@ public class ServerContext {
         }
     }
 
-    public FactHandle get(String clazz, int id) {
+    public FactHandle getFact(String clazz, int id) {
         return factHandleMap.get(clazz).get(id);
     }
 
-    public void remove(String clazz, FactHandle fact) {
+    public void removeFact(String clazz, FactHandle fact) {
         factHandleMap.get(clazz).remove(fact);
     }
 }

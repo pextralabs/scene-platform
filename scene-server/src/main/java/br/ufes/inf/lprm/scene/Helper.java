@@ -5,6 +5,7 @@ import com.google.gson.reflect.TypeToken;
 import com.google.gson.stream.JsonReader;
 import com.google.gson.stream.JsonToken;
 import org.kie.api.KieServices;
+import org.kie.api.definition.type.FactField;
 import org.kie.api.definition.type.FactType;
 import org.kie.api.runtime.KieContainer;
 import org.kie.api.runtime.KieSession;
@@ -37,14 +38,18 @@ public class Helper {
             Map<String, Object> myMap = gson.fromJson(new FileReader(file), jsonType);
 
             JsonReader jsonreader = new JsonReader(new FileReader(file));
-            readJson(kSession, jsonreader, myMap, type);
+            readJson(kSession, jsonreader, myMap, type, false);
+            if (type == JsonType.INSERT) {
+                jsonreader = new JsonReader(new FileReader(file));
+                readJson(kSession, jsonreader, myMap, type, true);
+            }
         } catch (IOException e) {
             System.out.println("Could not open " + file.getName());
         }
 
     }
 
-    public static void readJson(KieSession kSession, JsonReader reader, Map<String, Object> map, JsonType type) {
+    public static void readJson(KieSession kSession, JsonReader reader, Map<String, Object> map, JsonType type, boolean isInsert) {
 
         try {
             JsonToken token = reader.peek();
@@ -54,8 +59,7 @@ public class Helper {
                 if(list != null) {
                     switch (type) {
                         case INSERT:
-                            tryToInstantiateEverything(kSession, name, list, true);
-                            tryToInstantiateEverything(kSession, name, list, false);
+                            tryToInstantiateEverything(kSession, name, list, isInsert);
                             break;
                         case UPDATE:
                             tryToUpdateEverything(kSession, name, list);
@@ -71,13 +75,13 @@ public class Helper {
             } else if(token == JsonToken.BEGIN_ARRAY) {
                 reader.beginArray();
                 while (reader.hasNext()) {
-                    readJson(kSession, reader, map, type);
+                    readJson(kSession, reader, map, type, isInsert);
                 }
                 reader.endArray();
             } else if(token == JsonToken.BEGIN_OBJECT) {
                 reader.beginObject();
                 while (reader.hasNext()) {
-                    readJson(kSession, reader, map, type);
+                    readJson(kSession, reader, map, type, isInsert);
                 }
                 reader.endObject();
             }
@@ -117,7 +121,8 @@ public class Helper {
         }
     }
 
-    public static void setFields(Map<String, Object> objAux, Object objClass) {
+    public static void setFields(Map<String, Object> objAux, Object objClass, FactType type, boolean chooser) {
+        ServerContext context = ServerContext.getInstance();
         for (String str : objAux.keySet()) {
             Field[] fields = objClass.getClass().getDeclaredFields();
 
@@ -129,8 +134,35 @@ public class Helper {
                         if(f.getType().getName().contains("Integer")) {
                             f.set(objClass, ((Double)attribute).intValue());
                         } else {
-                            // TODO LIST
-                            f.set(objClass, attribute);
+                            if(chooser) {
+                                Map<String, Object> metadata = null;
+                                for (FactField fieldType: type.getFields()) {
+                                    if(fieldType.getName().equals(f.getName()))
+                                        metadata = fieldType.getMetaData();
+                                }
+
+                                if(metadata != null) {
+                                    if(metadata.size() > 1) {
+                                        // TODO MAP
+                                        List<Map> fieldData = (List<Map>) attribute;
+
+                                        System.out.println("\n\n ATTR: " + fieldData.get(0).get("1") + "\n\n");
+                                    } else {
+                                        List fieldData = (List) attribute;
+                                        for(int i = 0; i < fieldData.size(); i++) {
+                                            int id = ((Double)fieldData.get(i)).intValue();
+                                            Object obj = context.getObj(metadata.get("type").toString(), id);
+                                            fieldData.set(i, obj);
+                                        }
+                                        f.set(objClass, fieldData);
+                                    }
+                                } else {
+                                    f.set(objClass, attribute);
+                                }
+                            } else {
+                                System.out.println("\n\n ATTR: " + attribute + "\n\n");
+                                f.set(objClass, attribute);
+                            }
                         }
                     } catch (IllegalAccessException e) {
                         System.out.println("Could not set the attribute " + str);
@@ -153,13 +185,11 @@ public class Helper {
 
             id = ((Double)objAux.get("id")).intValue();
 
-            if(chooser) {
-                setId(objClass, id);
-            } else {
-                setFields(objAux, objClass);
-            }
 
-            context.put(objClass.getClass().getName(), id, kSession.insert(objClass));
+            setFields(objAux, objClass, type, chooser);
+
+            context.putFact(objClass.getClass().getName(), id, kSession.insert(objClass));
+            context.putObj(objClass.getClass().getSimpleName(), id, objClass);
         }
         kSession.fireAllRules();
     }
@@ -172,10 +202,10 @@ public class Helper {
 
             Map<String, Object> objAux = (Map<String, Object>) obj;
             id = ((Double)objAux.get("id")).intValue();
-            FactHandle fact = context.get(type.getName(), id);
+            FactHandle fact = context.getFact(type.getName(), id);
             Object objClass = kSession.getObject(fact);
 
-            setFields(objAux, objClass);
+            setFields(objAux, objClass, type, true);
 
             kSession.update(fact, objClass);
         }
@@ -190,9 +220,10 @@ public class Helper {
 
             Map<String, Object> objAux = (Map<String, Object>) obj;
             id = ((Double)objAux.get("id")).intValue();
-            FactHandle fact = context.get(type.getName(), id);
+            FactHandle fact = context.getFact(type.getName(), id);
 
             kSession.delete(fact);
+            context.removeFact(type.getName(), fact);
         }
         kSession.fireAllRules();
     }
