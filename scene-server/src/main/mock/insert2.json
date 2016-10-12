@@ -1,0 +1,16 @@
+{
+  "Person": [
+    {
+      "id": 1,
+      "name": "Jucelindo",
+      "temperature": 40,
+      "cars": []
+    },
+    {
+      "id": 2,
+      "name": "Berinbaldo",
+      "temperature": 36,
+      "cars": []
+    }
+  ]
+}
