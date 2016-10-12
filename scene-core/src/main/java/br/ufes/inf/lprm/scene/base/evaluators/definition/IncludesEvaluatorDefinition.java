@@ -1,8 +1,6 @@
 package br.ufes.inf.lprm.scene.base.evaluators.definition;
 
-import br.ufes.inf.lprm.scene.base.evaluators.implementation.SCENEStartedByEvaluator;
 import org.drools.core.base.ValueType;
-import org.drools.core.base.evaluators.StartedByEvaluatorDefinition;
 import org.drools.core.base.evaluators.TimeIntervalParser;
 import org.drools.core.spi.Evaluator;
 
@@ -13,9 +11,9 @@ import java.util.Map;
 /**
  * Created by hborjaille on 9/8/16.
  */
-public class SCENEStartedByEvaluatorDefinition extends StartedByEvaluatorDefinition {
+public class IncludesEvaluatorDefinition extends org.drools.core.base.evaluators.IncludesEvaluatorDefinition {
 
-    private Map<String, SCENEStartedByEvaluator> cache = Collections.emptyMap();
+    private Map<String, br.ufes.inf.lprm.scene.base.evaluators.implementation.IncludesEvaluator> cache = Collections.emptyMap();
 
     @Override
     public Evaluator getEvaluator(final ValueType type,
@@ -25,13 +23,13 @@ public class SCENEStartedByEvaluatorDefinition extends StartedByEvaluatorDefinit
                                   final Target left,
                                   final Target right ) {
         if ( this.cache == Collections.EMPTY_MAP ) {
-            this.cache = new HashMap<String, SCENEStartedByEvaluator>();
+            this.cache = new HashMap<String, br.ufes.inf.lprm.scene.base.evaluators.implementation.IncludesEvaluator>();
         }
         String key = isNegated + ":" + parameterText;
-        SCENEStartedByEvaluator eval = this.cache.get( key );
+        br.ufes.inf.lprm.scene.base.evaluators.implementation.IncludesEvaluator eval = this.cache.get( key );
         if ( eval == null ) {
             long[] params = TimeIntervalParser.parse( parameterText );
-            eval = new SCENEStartedByEvaluator( type,
+            eval = new br.ufes.inf.lprm.scene.base.evaluators.implementation.IncludesEvaluator( type,
                     isNegated,
                     params,
                     parameterText );

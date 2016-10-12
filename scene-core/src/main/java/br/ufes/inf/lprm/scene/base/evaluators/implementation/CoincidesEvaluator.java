@@ -2,7 +2,7 @@ package br.ufes.inf.lprm.scene.base.evaluators.implementation;
 
 import br.ufes.inf.lprm.situation.SituationType;
 import org.drools.core.base.ValueType;
-import org.drools.core.base.evaluators.OverlappedByEvaluatorDefinition.OverlappedByEvaluator;
+import org.drools.core.base.evaluators.CoincidesEvaluatorDefinition;
 import org.drools.core.common.DefaultFactHandle;
 import org.drools.core.common.EventFactHandle;
 import org.drools.core.common.InternalFactHandle;
@@ -15,23 +15,28 @@ import org.drools.core.spi.InternalReadAccessor;
 /**
  * Created by hborjaille on 9/8/16.
  */
-public class SCENEOverlappedByEvaluator extends OverlappedByEvaluator {
+public class CoincidesEvaluator extends CoincidesEvaluatorDefinition.CoincidesEvaluator {
 
-    private long minDev, maxDev;
+    private long              startDev;
+    private long              endDev;
 
-    public SCENEOverlappedByEvaluator(final ValueType type,
-                                 final boolean isNegated,
-                                 final long[] parameters,
-                                 final String paramText) {
+    public CoincidesEvaluator(final ValueType type,
+                              final boolean isNegated,
+                              final long[] parameters,
+                              final String paramText,
+                              final boolean unwrapLeft,
+                              final boolean unwrapRight) {
         super( type,
                 isNegated,
                 parameters,
-                paramText);
+                paramText,
+                unwrapLeft,
+                unwrapRight);
     }
 
     @Override
     public boolean evaluate(InternalWorkingMemory workingMemory, InternalReadAccessor extractor, InternalFactHandle factHandle, FieldValue value) {
-        throw new RuntimeException( "The 'overlappedby' operator can only be used to compare one event to another, and never to compare to literal constraints." );
+        throw new RuntimeException( "The 'coincides' operator can only be used to compare one event to another, and never to compare to literal constraints." );
     }
 
     @Override
@@ -39,11 +44,10 @@ public class SCENEOverlappedByEvaluator extends OverlappedByEvaluator {
         if ( context.rightNull ) {
             return false;
         }
-
-        long leftStartTS = 0;
-        long leftEndTS = 0;
-        long rightStartTS = 0;
-        long rightEndTS = 0;
+        long leftStartTS = -1;
+        long leftEndTS = -1;
+        long rightStartTS = -1;
+        long rightEndTS = -1;
 
         DefaultFactHandle leftFH = (DefaultFactHandle) left;
 
@@ -55,11 +59,10 @@ public class SCENEOverlappedByEvaluator extends OverlappedByEvaluator {
             Object leftFact =  workingMemory.getObject(leftFH);
             if (leftFact instanceof SituationType) {
                 leftStartTS = ((SituationType) leftFact).getActivation().getTimestamp();
-
+                //'started' is not applicable when situationB not finished
                 if (!((SituationType) leftFact).isActive()) {
                     leftEndTS = ((SituationType) leftFact).getDeactivation().getTimestamp();
-                }
-
+                }  else return false;
             }
         }
 
@@ -73,23 +76,15 @@ public class SCENEOverlappedByEvaluator extends OverlappedByEvaluator {
             Object rightFact =  workingMemory.getObject(rightFH);
             if (rightFact instanceof SituationType) {
                 rightStartTS = ((SituationType) rightFact).getActivation().getTimestamp();
-
                 if (!((SituationType) rightFact).isActive()) {
                     rightEndTS = ((SituationType) rightFact).getDeactivation().getTimestamp();
-                }
-
+                } else return false;
             }
         }
 
-        if (leftEndTS==0) {
-            return this.getOperator().isNegated() ^ (leftStartTS < rightStartTS);
-        } else {
-            long dist = leftEndTS - rightStartTS;
-            return this.getOperator().isNegated() ^ (leftStartTS < rightStartTS &&
-                    leftEndTS < rightEndTS &&
-                    dist >= this.minDev && dist <= this.maxDev);
-        }
-
+        long distStart = Math.abs( rightStartTS - leftStartTS );
+        long distEnd = Math.abs( rightEndTS - leftEndTS );
+        return this.getOperator().isNegated() ^ (distStart <= this.startDev && distEnd <= this.endDev);
     }
 
     @Override
@@ -99,10 +94,10 @@ public class SCENEOverlappedByEvaluator extends OverlappedByEvaluator {
             return false;
         }
 
-        long leftStartTS = 0;
-        long leftEndTS = 0;
-        long rightStartTS = 0;
-        long rightEndTS = 0;
+        long leftStartTS = -1;
+        long leftEndTS = -1;
+        long rightStartTS = -1;
+        long rightEndTS = -1;
 
         DefaultFactHandle leftFH = (DefaultFactHandle) ((ObjectVariableContextEntry) context).left;
 
@@ -114,10 +109,10 @@ public class SCENEOverlappedByEvaluator extends OverlappedByEvaluator {
             Object leftFact =  workingMemory.getObject(leftFH);
             if (leftFact instanceof SituationType) {
                 leftStartTS = ((SituationType) leftFact).getActivation().getTimestamp();
-
+                //'coincides' is not applicable when situationB not finished
                 if (!((SituationType) leftFact).isActive()) {
                     leftEndTS = ((SituationType) leftFact).getDeactivation().getTimestamp();
-                }
+                }  else return false;
             }
         }
 
@@ -131,22 +126,15 @@ public class SCENEOverlappedByEvaluator extends OverlappedByEvaluator {
             Object rightFact =  workingMemory.getObject(rightFH);
             if (rightFact instanceof SituationType) {
                 rightStartTS = ((SituationType) rightFact).getActivation().getTimestamp();
-
                 if (!((SituationType) rightFact).isActive()) {
                     rightEndTS = ((SituationType) rightFact).getDeactivation().getTimestamp();
-                }
-
+                } else return false;
             }
         }
 
-        if (leftEndTS==0) {
-            return this.getOperator().isNegated() ^ (leftStartTS < rightStartTS);
-        } else {
-            long dist = leftEndTS - rightStartTS;
-            return this.getOperator().isNegated() ^ (leftStartTS < rightStartTS &&
-                    leftEndTS < rightEndTS &&
-                    dist >= this.minDev && dist <= this.maxDev);
-        }
+        long distStart = Math.abs( rightStartTS - leftStartTS );
+        long distEnd = Math.abs( rightEndTS - leftEndTS );
+        return this.getOperator().isNegated() ^ (distStart <= this.startDev && distEnd <= this.endDev);
     }
 
     @Override
@@ -173,7 +161,7 @@ public class SCENEOverlappedByEvaluator extends OverlappedByEvaluator {
                 obj1StartTS = ((SituationType) obj1Fact).getActivation().getTimestamp();
                 if (!((SituationType) obj1Fact).isActive()) {
                     obj1EndTS = ((SituationType) obj1Fact).getDeactivation().getTimestamp();
-                }
+                } else return false;
             }
         }
 
@@ -189,17 +177,12 @@ public class SCENEOverlappedByEvaluator extends OverlappedByEvaluator {
                 obj2StartTS = ((SituationType) obj2Fact).getActivation().getTimestamp();
                 if (!((SituationType) obj2Fact).isActive()) {
                     obj2EndTS = ((SituationType) obj2Fact).getDeactivation().getTimestamp();
-                }
+                } else return false;
             }
         }
 
-        if (obj2EndTS==-1) {
-            return this.getOperator().isNegated() ^ (obj2StartTS < obj1StartTS);
-        } else {
-            long dist = obj1StartTS - obj2EndTS;
-            return this.getOperator().isNegated() ^ (obj2StartTS < obj1StartTS &&
-                    obj2EndTS < obj1EndTS &&
-                    dist >= this.minDev && dist <= this.maxDev );
-        }
+        long distStart = Math.abs( obj1StartTS - obj2StartTS );
+        long distEnd = Math.abs( obj1EndTS - obj2EndTS);
+        return this.getOperator().isNegated() ^ (distStart <= this.startDev && distEnd <= this.endDev);
     }
 }

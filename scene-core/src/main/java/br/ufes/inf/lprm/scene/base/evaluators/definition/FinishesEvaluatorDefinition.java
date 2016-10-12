@@ -1,8 +1,6 @@
 package br.ufes.inf.lprm.scene.base.evaluators.definition;
 
-import br.ufes.inf.lprm.scene.base.evaluators.implementation.SCENEStartsEvaluator;
 import org.drools.core.base.ValueType;
-import org.drools.core.base.evaluators.StartsEvaluatorDefinition;
 import org.drools.core.base.evaluators.TimeIntervalParser;
 import org.drools.core.spi.Evaluator;
 
@@ -13,10 +11,11 @@ import java.util.Map;
 /**
  * Created by hborjaille on 9/8/16.
  */
-public class SCENEStartsEvaluatorDefinition extends StartsEvaluatorDefinition {
+public class FinishesEvaluatorDefinition extends org.drools.core.base.evaluators.FinishesEvaluatorDefinition {
 
-    private Map<String, SCENEStartsEvaluator> cache = Collections.emptyMap();
+    private Map<String, br.ufes.inf.lprm.scene.base.evaluators.implementation.FinishesEvaluator> cache = Collections.emptyMap();
 
+    @Override
     public Evaluator getEvaluator(final ValueType type,
                                   final String operatorId,
                                   final boolean isNegated,
@@ -24,13 +23,13 @@ public class SCENEStartsEvaluatorDefinition extends StartsEvaluatorDefinition {
                                   final Target left,
                                   final Target right ) {
         if ( this.cache == Collections.EMPTY_MAP ) {
-            this.cache = new HashMap<String, SCENEStartsEvaluator>();
+            this.cache = new HashMap<String, br.ufes.inf.lprm.scene.base.evaluators.implementation.FinishesEvaluator>();
         }
         String key = isNegated + ":" + parameterText;
-        SCENEStartsEvaluator eval = this.cache.get( key );
+        br.ufes.inf.lprm.scene.base.evaluators.implementation.FinishesEvaluator eval = this.cache.get( key );
         if ( eval == null ) {
             long[] params = TimeIntervalParser.parse( parameterText );
-            eval = new SCENEStartsEvaluator( type,
+            eval = new br.ufes.inf.lprm.scene.base.evaluators.implementation.FinishesEvaluator( type,
                     isNegated,
                     params,
                     parameterText );

@@ -2,7 +2,7 @@ package br.ufes.inf.lprm.scene.base.evaluators.implementation;
 
 import br.ufes.inf.lprm.situation.SituationType;
 import org.drools.core.base.ValueType;
-import org.drools.core.base.evaluators.OverlapsEvaluatorDefinition.OverlapsEvaluator;
+import org.drools.core.base.evaluators.IncludesEvaluatorDefinition;
 import org.drools.core.common.DefaultFactHandle;
 import org.drools.core.common.EventFactHandle;
 import org.drools.core.common.InternalFactHandle;
@@ -15,11 +15,12 @@ import org.drools.core.spi.InternalReadAccessor;
 /**
  * Created by hborjaille on 9/8/16.
  */
-public class SCENEOverlapsEvaluator extends OverlapsEvaluator {
+public class IncludesEvaluator extends IncludesEvaluatorDefinition.IncludesEvaluator {
 
-    private long minDev, maxDev;
+    private long startMinDev, startMaxDev;
+    private long endMinDev, endMaxDev;
 
-    public SCENEOverlapsEvaluator(final ValueType type,
+    public IncludesEvaluator(final ValueType type,
                              final boolean isNegated,
                              final long[] parameters,
                              final String paramText) {
@@ -31,7 +32,7 @@ public class SCENEOverlapsEvaluator extends OverlapsEvaluator {
 
     @Override
     public boolean evaluate(InternalWorkingMemory workingMemory, InternalReadAccessor extractor, InternalFactHandle factHandle, FieldValue value) {
-        throw new RuntimeException( "The 'overlaps' operator can only be used to compare one event to another, and never to compare to literal constraints." );
+        throw new RuntimeException( "The 'includes' operator can only be used to compare one event to another, and never to compare to literal constraints." );
     }
 
     @Override
@@ -41,10 +42,10 @@ public class SCENEOverlapsEvaluator extends OverlapsEvaluator {
             return false;
         }
 
-        long leftStartTS = 0;
-        long leftEndTS = 0;
-        long rightStartTS = 0;
-        long rightEndTS = 0;
+        long leftStartTS = -1;
+        long leftEndTS = -1;
+        long rightStartTS = -1;
+        long rightEndTS = -1;
 
         DefaultFactHandle leftFH = (DefaultFactHandle) left;
 
@@ -56,11 +57,10 @@ public class SCENEOverlapsEvaluator extends OverlapsEvaluator {
             Object leftFact =  workingMemory.getObject(leftFH);
             if (leftFact instanceof SituationType) {
                 leftStartTS = ((SituationType) leftFact).getActivation().getTimestamp();
-
+                //includes is not applicable when situationB not finished
                 if (!((SituationType) leftFact).isActive()) {
                     leftEndTS = ((SituationType) leftFact).getDeactivation().getTimestamp();
-                }
-
+                } else return false;
             }
         }
 
@@ -74,21 +74,19 @@ public class SCENEOverlapsEvaluator extends OverlapsEvaluator {
             Object rightFact =  workingMemory.getObject(rightFH);
             if (rightFact instanceof SituationType) {
                 rightStartTS = ((SituationType) rightFact).getActivation().getTimestamp();
-
                 if (!((SituationType) rightFact).isActive()) {
                     rightEndTS = ((SituationType) rightFact).getDeactivation().getTimestamp();
                 }
 
             }
         }
-
-        if (rightEndTS==0) {
-            return this.getOperator().isNegated() ^ (rightStartTS < leftStartTS);
+        long distStart = leftStartTS - rightStartTS;
+        if (rightEndTS==(-1)) {
+            return this.getOperator().isNegated() ^ (distStart >= this.startMinDev && distStart <= this.startMaxDev);
         } else {
-            long dist = rightEndTS - leftStartTS;
-            return this.getOperator().isNegated() ^ (rightStartTS < leftStartTS &&
-                    rightEndTS < leftEndTS &&
-                    dist >= this.minDev && dist <= this.maxDev);
+            long distEnd = rightEndTS - leftEndTS;
+            return this.getOperator().isNegated() ^ (distStart >= this.startMinDev && distStart <= this.startMaxDev &&
+                    distEnd >= this.endMinDev && distEnd <= this.endMaxDev);
         }
     }
 
@@ -99,10 +97,10 @@ public class SCENEOverlapsEvaluator extends OverlapsEvaluator {
             return false;
         }
 
-        long leftStartTS = 0;
-        long leftEndTS = 0;
-        long rightStartTS = 0;
-        long rightEndTS = 0;
+        long leftStartTS = -1;
+        long leftEndTS = -1;
+        long rightStartTS = -1;
+        long rightEndTS = -1;
 
         DefaultFactHandle leftFH = (DefaultFactHandle) ((ObjectVariableContextEntry) context).left;
 
@@ -114,9 +112,10 @@ public class SCENEOverlapsEvaluator extends OverlapsEvaluator {
             Object leftFact =  workingMemory.getObject(leftFH);
             if (leftFact instanceof SituationType) {
                 leftStartTS = ((SituationType) leftFact).getActivation().getTimestamp();
+                //includes is not applicable when situationB not finished
                 if (!((SituationType) leftFact).isActive()) {
                     leftEndTS = ((SituationType) leftFact).getDeactivation().getTimestamp();
-                }
+                } else return false;
             }
         }
 
@@ -133,17 +132,18 @@ public class SCENEOverlapsEvaluator extends OverlapsEvaluator {
                 if (!((SituationType) rightFact).isActive()) {
                     rightEndTS = ((SituationType) rightFact).getDeactivation().getTimestamp();
                 }
-
             }
         }
 
-        if (rightEndTS==0) {
-            return this.getOperator().isNegated() ^ (rightStartTS < leftStartTS);
+        long distStart = leftStartTS - rightStartTS;
+
+        if (rightEndTS==(-1)) {
+            return this.getOperator().isNegated() ^ (distStart >= this.startMinDev && distStart <= this.startMaxDev);
         } else {
-            long dist = rightEndTS - leftStartTS;
-            return this.getOperator().isNegated() ^ (rightStartTS < leftStartTS &&
-                    rightEndTS < leftEndTS &&
-                    dist >= this.minDev && dist <= this.maxDev);
+            long distEnd = rightEndTS - leftEndTS;
+            return this.getOperator().isNegated() ^ (distStart >= this.startMinDev && distStart <= this.startMaxDev &&
+                    distEnd >= this.endMinDev && distEnd <= this.endMaxDev);
+
         }
     }
 
@@ -185,20 +185,20 @@ public class SCENEOverlapsEvaluator extends OverlapsEvaluator {
             Object obj2Fact =  workingMemory.getObject(obj2FH);
             if (obj2Fact instanceof SituationType) {
                 obj2StartTS = ((SituationType) obj2Fact).getActivation().getTimestamp();
+                //includes is not applicable when situationB is not finished
                 if (!((SituationType) obj2Fact).isActive()) {
                     obj2EndTS = ((SituationType) obj2Fact).getDeactivation().getTimestamp();
-                }
+                } else return false;
             }
         }
 
-        if (obj1EndTS==-1) {
-            return this.getOperator().isNegated() ^ (obj1StartTS < obj2StartTS);
+        long distStart = obj2StartTS - obj1StartTS;
+        if (obj1EndTS==(-1)) {
+            return this.getOperator().isNegated() ^ (distStart >= this.startMinDev && distStart <= this.startMaxDev);
         } else {
-            long dist = obj1EndTS - obj2StartTS;
-            return this.getOperator().isNegated() ^ ( obj1StartTS < obj2StartTS &&
-                    obj1EndTS < obj2EndTS &&
-                    dist >= this.minDev && dist <= this.maxDev );
+            long distEnd = obj1EndTS - obj2EndTS;
+            return this.getOperator().isNegated() ^ (distStart >= this.startMinDev && distStart <= this.startMaxDev &&
+                    distEnd >= this.endMinDev && distEnd <= this.endMaxDev);
         }
-
     }
 }
