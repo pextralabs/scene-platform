@@ -6,7 +6,8 @@
     },
     {
       "id": 2,
-      "temperature": 37
+      "temperature": 37,
+      "cars": [2]
     }
   ]
 }

@@ -49,7 +49,7 @@ public class Helper {
 
     }
 
-    public static void readJson(KieSession kSession, JsonReader reader, Map<String, Object> map, JsonType type, boolean isInsert) {
+    public static void readJson(KieSession kSession, JsonReader reader, Map<String, Object> map, JsonType type, boolean isInsertOrUpdate) {
 
         try {
             JsonToken token = reader.peek();
@@ -59,7 +59,7 @@ public class Helper {
                 if(list != null) {
                     switch (type) {
                         case INSERT:
-                            tryToInstantiateEverything(kSession, name, list, isInsert);
+                            tryToInstantiateEverything(kSession, name, list, isInsertOrUpdate);
                             break;
                         case UPDATE:
                             tryToUpdateEverything(kSession, name, list);
@@ -75,13 +75,13 @@ public class Helper {
             } else if(token == JsonToken.BEGIN_ARRAY) {
                 reader.beginArray();
                 while (reader.hasNext()) {
-                    readJson(kSession, reader, map, type, isInsert);
+                    readJson(kSession, reader, map, type, isInsertOrUpdate);
                 }
                 reader.endArray();
             } else if(token == JsonToken.BEGIN_OBJECT) {
                 reader.beginObject();
                 while (reader.hasNext()) {
-                    readJson(kSession, reader, map, type, isInsert);
+                    readJson(kSession, reader, map, type, isInsertOrUpdate);
                 }
                 reader.endObject();
             }
@@ -121,6 +121,20 @@ public class Helper {
         }
     }
 
+    public static void setFieldsNull(Object objClass) {
+        Field[] fields = objClass.getClass().getDeclaredFields();
+
+        for (Field f : fields) {
+            f.setAccessible(true);
+            try {
+                f.set(objClass, null);
+            } catch (IllegalAccessException e) {
+                e.printStackTrace();
+            }
+            f.setAccessible(false);
+        }
+    }
+
     public static void setFields(Map<String, Object> objAux, Object objClass, FactType type, boolean chooser) {
         ServerContext context = ServerContext.getInstance();
         for (String str : objAux.keySet()) {
@@ -133,6 +147,12 @@ public class Helper {
                         Object attribute = objAux.get(str);
                         if(f.getType().getName().contains("Integer")) {
                             f.set(objClass, ((Double)attribute).intValue());
+                        } else if(f.getType().getName().contains("Float")) {
+                            f.set(objClass, ((Double)attribute).floatValue());
+                        } else if(f.getType().getName().contains("Short")) {
+                            f.set(objClass, ((Double)attribute).shortValue());
+                        } else if(f.getType().getName().contains("Long")) {
+                            f.set(objClass, ((Double)attribute).longValue());
                         } else {
                             if(chooser) {
                                 Map<String, Object> metadata = null;
@@ -142,25 +162,17 @@ public class Helper {
                                 }
 
                                 if(metadata != null) {
-                                    if(metadata.size() > 1) {
-                                        // TODO MAP
-                                        List<Map> fieldData = (List<Map>) attribute;
-
-                                        System.out.println("\n\n ATTR: " + fieldData.get(0).get("1") + "\n\n");
-                                    } else {
-                                        List fieldData = (List) attribute;
-                                        for(int i = 0; i < fieldData.size(); i++) {
-                                            int id = ((Double)fieldData.get(i)).intValue();
-                                            Object obj = context.getObj(metadata.get("type").toString(), id);
-                                            fieldData.set(i, obj);
-                                        }
-                                        f.set(objClass, fieldData);
+                                    List fieldData = (List) attribute;
+                                    for(int i = 0; i < fieldData.size(); i++) {
+                                        int id = ((Double)fieldData.get(i)).intValue();
+                                        Object obj = context.getObj(metadata.get("type").toString(), id);
+                                        fieldData.set(i, obj);
                                     }
+                                    f.set(objClass, fieldData);
                                 } else {
                                     f.set(objClass, attribute);
                                 }
                             } else {
-                                System.out.println("\n\n ATTR: " + attribute + "\n\n");
                                 f.set(objClass, attribute);
                             }
                         }
@@ -205,6 +217,7 @@ public class Helper {
             FactHandle fact = context.getFact(type.getName(), id);
             Object objClass = kSession.getObject(fact);
 
+            setFieldsNull(objClass);
             setFields(objAux, objClass, type, true);
 
             kSession.update(fact, objClass);
@@ -244,6 +257,10 @@ public class Helper {
 
         file  = new File("/Users/hborjaille/Projects/scene-platform/scene-server/src/main/mock/delete.json");
         compileJson(kSession, file, JsonType.DELETE);
+        kSession.fireAllRules();
+
+        file  = new File("/Users/hborjaille/Projects/scene-platform/scene-server/src/main/mock/insert2.json");
+        compileJson(kSession, file, JsonType.INSERT);
         kSession.fireAllRules();
     }
 

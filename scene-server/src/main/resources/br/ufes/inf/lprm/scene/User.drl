@@ -17,9 +17,8 @@ end
 declare Person
     id: Integer
     name: String
-    temperature: Double
+    temperature: Float
     cars: ArrayList @type(Car)
-    friends: HashMap @mapkey(String) @mapvalue(Person)
 end
 
 rule "Fever"
@@ -35,26 +34,5 @@ rule "Person has car"
         $p: Person(cars contains $c)
     then
     System.out.println($p + " has " + $c);
-end
-
-rule "Person"
-    when
-        $p: Person()
-    then
-        System.out.println($p);
-end
-
-rule "Car"
-    when
-        $c: Car()
-    then
-        System.out.println($c);
-end
-
-rule "Plate"
-    when
-        $p: Plate()
-    then
-        System.out.println($p);
 end
 
