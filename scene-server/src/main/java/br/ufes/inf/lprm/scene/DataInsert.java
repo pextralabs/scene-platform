@@ -22,15 +22,9 @@ import java.util.Map;
 /**
  * Created by hborjaille on 10/7/16.
  */
-public class Helper {
+public class DataInsert {
 
-    private enum JsonType {
-        INSERT, UPDATE, DELETE;
-    }
-
-    private static final String packagePath = "br.ufes.inf.lprm.scene";
-
-    public static void compileJson(KieSession kSession, File file, JsonType type) {
+    public static void compileDataJson(KieSession kSession, File file, JsonType type, String packagePath) {
         try {
             Gson gson = new Gson();
             Type jsonType = new TypeToken<Map<String, Object>>(){}.getType();
@@ -38,10 +32,10 @@ public class Helper {
             Map<String, Object> myMap = gson.fromJson(new FileReader(file), jsonType);
 
             JsonReader jsonreader = new JsonReader(new FileReader(file));
-            readJson(kSession, jsonreader, myMap, type, false);
+            readDataJson(kSession, jsonreader, myMap, type, false, packagePath);
             if (type == JsonType.INSERT) {
                 jsonreader = new JsonReader(new FileReader(file));
-                readJson(kSession, jsonreader, myMap, type, true);
+                readDataJson(kSession, jsonreader, myMap, type, true, packagePath);
             }
         } catch (IOException e) {
             System.out.println("Could not open " + file.getName());
@@ -49,7 +43,7 @@ public class Helper {
 
     }
 
-    public static void readJson(KieSession kSession, JsonReader reader, Map<String, Object> map, JsonType type, boolean isInsertOrUpdate) {
+    public static void readDataJson(KieSession kSession, JsonReader reader, Map<String, Object> map, JsonType type, boolean isInsertOrUpdate, String packagePath) {
 
         try {
             JsonToken token = reader.peek();
@@ -59,13 +53,13 @@ public class Helper {
                 if(list != null) {
                     switch (type) {
                         case INSERT:
-                            tryToInstantiateEverything(kSession, name, list, isInsertOrUpdate);
+                            tryToInstantiateEveryAvailableData(kSession, name, list, packagePath, isInsertOrUpdate);
                             break;
                         case UPDATE:
-                            tryToUpdateEverything(kSession, name, list);
+                            tryToUpdateEveryAvailableData(kSession, name, list, packagePath);
                             break;
                         case DELETE:
-                            tryToDeleteEverything(kSession, name, list);
+                            tryToDeleteEveryAvailableData(kSession, name, list, packagePath);
                             break;
                     }
 
@@ -75,13 +69,13 @@ public class Helper {
             } else if(token == JsonToken.BEGIN_ARRAY) {
                 reader.beginArray();
                 while (reader.hasNext()) {
-                    readJson(kSession, reader, map, type, isInsertOrUpdate);
+                    readDataJson(kSession, reader, map, type, isInsertOrUpdate, packagePath);
                 }
                 reader.endArray();
             } else if(token == JsonToken.BEGIN_OBJECT) {
                 reader.beginObject();
                 while (reader.hasNext()) {
-                    readJson(kSession, reader, map, type, isInsertOrUpdate);
+                    readDataJson(kSession, reader, map, type, isInsertOrUpdate, packagePath);
                 }
                 reader.endObject();
             }
@@ -90,7 +84,7 @@ public class Helper {
         }
     }
 
-    public static FactType getClassByName(KieSession kSession, String classname) {
+    public static FactType getClassByName(KieSession kSession, String classname, String packagePath) {
         FactType type = kSession.getKieBase().getFactType(packagePath, classname);
         return type;
     }
@@ -106,19 +100,6 @@ public class Helper {
         }
 
         return objClass;
-    }
-
-    public static void setId(Object objClass, int id) {
-        try {
-            Field field = objClass.getClass().getDeclaredField("id");
-            field.setAccessible(true);
-            field.set(objClass, id);
-            field.setAccessible(false);
-        } catch (NoSuchFieldException e) {
-            System.out.println("There is no id attribute.");
-        } catch (IllegalAccessException e) {
-            System.out.println("Could not set the id.");
-        }
     }
 
     public static void setFieldsNull(Object objClass) {
@@ -186,10 +167,10 @@ public class Helper {
         }
     }
 
-    private static void tryToInstantiateEverything(KieSession kSession, String classname, List list, boolean chooser) {
+    private static void tryToInstantiateEveryAvailableData(KieSession kSession, String classname, List list, String packagePath, boolean chooser) {
         ServerContext context = ServerContext.getInstance();
         for (Object obj: list) {
-            FactType type = getClassByName(kSession, classname);
+            FactType type = getClassByName(kSession, classname, packagePath);
             Object objClass = tryToInstantiateClass(type);
 
             int id = 0;
@@ -206,11 +187,11 @@ public class Helper {
         kSession.fireAllRules();
     }
 
-    private static void tryToUpdateEverything(KieSession kSession, String classname, List list) {
+    private static void tryToUpdateEveryAvailableData(KieSession kSession, String classname, List list, String packagePath) {
         ServerContext context = ServerContext.getInstance();
         for (Object obj: list) {
             int id = 0;
-            FactType type = getClassByName(kSession, classname);
+            FactType type = getClassByName(kSession, classname, packagePath);
 
             Map<String, Object> objAux = (Map<String, Object>) obj;
             id = ((Double)objAux.get("id")).intValue();
@@ -225,11 +206,11 @@ public class Helper {
         kSession.fireAllRules();
     }
 
-    private static void tryToDeleteEverything(KieSession kSession, String classname, List list) {
+    private static void tryToDeleteEveryAvailableData(KieSession kSession, String classname, List list, String packagePath) {
         ServerContext context = ServerContext.getInstance();
         for (Object obj: list) {
             int id = 0;
-            FactType type = getClassByName(kSession, classname);
+            FactType type = getClassByName(kSession, classname, packagePath);
 
             Map<String, Object> objAux = (Map<String, Object>) obj;
             id = ((Double)objAux.get("id")).intValue();
@@ -240,28 +221,4 @@ public class Helper {
         }
         kSession.fireAllRules();
     }
-
-    public static final void main(String[] args) {
-        // load up the knowledge base
-        KieServices ks = KieServices.Factory.get();
-        KieContainer kContainer = ks.getKieClasspathContainer();
-        KieSession kSession = kContainer.newKieSession("br.ufes.inf.lprm.scene.test.session");
-
-        File file  = new File("/Users/hborjaille/Projects/scene-platform/scene-server/src/main/mock/insert.json");
-        compileJson(kSession, file, JsonType.INSERT);
-        kSession.fireAllRules();
-
-        file  = new File("/Users/hborjaille/Projects/scene-platform/scene-server/src/main/mock/update.json");
-        compileJson(kSession, file, JsonType.UPDATE);
-        kSession.fireAllRules();
-
-        file  = new File("/Users/hborjaille/Projects/scene-platform/scene-server/src/main/mock/delete.json");
-        compileJson(kSession, file, JsonType.DELETE);
-        kSession.fireAllRules();
-
-        file  = new File("/Users/hborjaille/Projects/scene-platform/scene-server/src/main/mock/insert2.json");
-        compileJson(kSession, file, JsonType.INSERT);
-        kSession.fireAllRules();
-    }
-
 }
