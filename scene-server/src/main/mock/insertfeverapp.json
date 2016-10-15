@@ -1,0 +1,11 @@
+{
+  "application": "Fever Situation",
+  "version": "1.0",
+  "files": [
+    {
+      "name": "fever.drl",
+      "package": "br.ufes.inf.lprm.scene.examples.fever",
+      "content": "package br.ufes.inf.lprm.scene.examples.fever;\nimport br.ufes.inf.lprm.scene.base.*;\nimport br.ufes.inf.lprm.situation.SituationType;\ndeclare Person\n\tid: Integer\n\tname: String\n\ttemperature: Integer\nend\ndeclare Fever extends SituationType\n\tfebrile: Person\nend\nrule \"FeverSituation\"\n@role(situation)\n@type(Fever)\n\twhen\n\t\tf1: Person(temperature > 37)\n\tthen\n\t\tSituationHelper.situationDetected(drools);\nend"
+    }
+  ]
+}

@@ -4,10 +4,8 @@ import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.google.gson.stream.JsonReader;
 import com.google.gson.stream.JsonToken;
-import org.kie.api.KieServices;
 import org.kie.api.definition.type.FactField;
 import org.kie.api.definition.type.FactType;
-import org.kie.api.runtime.KieContainer;
 import org.kie.api.runtime.KieSession;
 import org.kie.api.runtime.rule.FactHandle;
 
@@ -16,6 +14,7 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.lang.reflect.Field;
 import java.lang.reflect.Type;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -23,8 +22,15 @@ import java.util.Map;
  * Created by hborjaille on 10/7/16.
  */
 public class DataInsert {
+    private KieSession kSession;
+    ArrayList<String> packages;
 
-    public static void compileDataJson(KieSession kSession, File file, JsonType type, String packagePath) {
+    public DataInsert(KieSession kieSession, ArrayList<String> pakages) {
+        kSession = kieSession;
+        packages = pakages;
+    }
+
+    public void compileDataJson(File file, JsonType type) {
         try {
             Gson gson = new Gson();
             Type jsonType = new TypeToken<Map<String, Object>>(){}.getType();
@@ -32,10 +38,10 @@ public class DataInsert {
             Map<String, Object> myMap = gson.fromJson(new FileReader(file), jsonType);
 
             JsonReader jsonreader = new JsonReader(new FileReader(file));
-            readDataJson(kSession, jsonreader, myMap, type, false, packagePath);
+            readDataJson(jsonreader, myMap, type, false);
             if (type == JsonType.INSERT) {
                 jsonreader = new JsonReader(new FileReader(file));
-                readDataJson(kSession, jsonreader, myMap, type, true, packagePath);
+                readDataJson(jsonreader, myMap, type, true);
             }
         } catch (IOException e) {
             System.out.println("Could not open " + file.getName());
@@ -43,7 +49,7 @@ public class DataInsert {
 
     }
 
-    public static void readDataJson(KieSession kSession, JsonReader reader, Map<String, Object> map, JsonType type, boolean isInsertOrUpdate, String packagePath) {
+    public void readDataJson(JsonReader reader, Map<String, Object> map, JsonType type, boolean isInsertOrUpdate) {
 
         try {
             JsonToken token = reader.peek();
@@ -53,13 +59,13 @@ public class DataInsert {
                 if(list != null) {
                     switch (type) {
                         case INSERT:
-                            tryToInstantiateEveryAvailableData(kSession, name, list, packagePath, isInsertOrUpdate);
+                            tryToInstantiateEveryAvailableData(name, list, isInsertOrUpdate);
                             break;
                         case UPDATE:
-                            tryToUpdateEveryAvailableData(kSession, name, list, packagePath);
+                            tryToUpdateEveryAvailableData(name, list);
                             break;
                         case DELETE:
-                            tryToDeleteEveryAvailableData(kSession, name, list, packagePath);
+                            tryToDeleteEveryAvailableData(name, list);
                             break;
                     }
 
@@ -69,13 +75,13 @@ public class DataInsert {
             } else if(token == JsonToken.BEGIN_ARRAY) {
                 reader.beginArray();
                 while (reader.hasNext()) {
-                    readDataJson(kSession, reader, map, type, isInsertOrUpdate, packagePath);
+                    readDataJson(reader, map, type, isInsertOrUpdate);
                 }
                 reader.endArray();
             } else if(token == JsonToken.BEGIN_OBJECT) {
                 reader.beginObject();
                 while (reader.hasNext()) {
-                    readDataJson(kSession, reader, map, type, isInsertOrUpdate, packagePath);
+                    readDataJson(reader, map, type, isInsertOrUpdate);
                 }
                 reader.endObject();
             }
@@ -84,12 +90,12 @@ public class DataInsert {
         }
     }
 
-    public static FactType getClassByName(KieSession kSession, String classname, String packagePath) {
+    public FactType getClassByName(String classname, String packagePath) {
         FactType type = kSession.getKieBase().getFactType(packagePath, classname);
         return type;
     }
 
-    public static Object tryToInstantiateClass(FactType type) {
+    public Object tryToInstantiateClass(FactType type) {
         Object objClass = null;
         try {
             objClass = type.newInstance();
@@ -102,7 +108,7 @@ public class DataInsert {
         return objClass;
     }
 
-    public static void setFieldsNull(Object objClass) {
+    public void setFieldsNull(Object objClass) {
         Field[] fields = objClass.getClass().getDeclaredFields();
 
         for (Field f : fields) {
@@ -116,7 +122,7 @@ public class DataInsert {
         }
     }
 
-    public static void setFields(Map<String, Object> objAux, Object objClass, FactType type, boolean chooser) {
+    public void setFields(Map<String, Object> objAux, Object objClass, FactType type, boolean chooser) {
         ServerContext context = ServerContext.getInstance();
         for (String str : objAux.keySet()) {
             Field[] fields = objClass.getClass().getDeclaredFields();
@@ -167,10 +173,14 @@ public class DataInsert {
         }
     }
 
-    private static void tryToInstantiateEveryAvailableData(KieSession kSession, String classname, List list, String packagePath, boolean chooser) {
+    private void tryToInstantiateEveryAvailableData(String classname, List list, boolean chooser) {
         ServerContext context = ServerContext.getInstance();
         for (Object obj: list) {
-            FactType type = getClassByName(kSession, classname, packagePath);
+            FactType type = null;
+            for (String pakage : packages) {
+                type = getClassByName(classname, pakage);
+                if(type != null) break;
+            }
             Object objClass = tryToInstantiateClass(type);
 
             int id = 0;
@@ -187,11 +197,15 @@ public class DataInsert {
         kSession.fireAllRules();
     }
 
-    private static void tryToUpdateEveryAvailableData(KieSession kSession, String classname, List list, String packagePath) {
+    private void tryToUpdateEveryAvailableData(String classname, List list) {
         ServerContext context = ServerContext.getInstance();
         for (Object obj: list) {
             int id = 0;
-            FactType type = getClassByName(kSession, classname, packagePath);
+            FactType type = null;
+            for (String pakage : packages) {
+                type = getClassByName(classname, pakage);
+                if(type != null) break;
+            }
 
             Map<String, Object> objAux = (Map<String, Object>) obj;
             id = ((Double)objAux.get("id")).intValue();
@@ -206,11 +220,15 @@ public class DataInsert {
         kSession.fireAllRules();
     }
 
-    private static void tryToDeleteEveryAvailableData(KieSession kSession, String classname, List list, String packagePath) {
+    private void tryToDeleteEveryAvailableData(String classname, List list) {
         ServerContext context = ServerContext.getInstance();
         for (Object obj: list) {
             int id = 0;
-            FactType type = getClassByName(kSession, classname, packagePath);
+            FactType type = null;
+            for (String pakage : packages) {
+                type = getClassByName(classname, pakage);
+                if(type != null) break;
+            }
 
             Map<String, Object> objAux = (Map<String, Object>) obj;
             id = ((Double)objAux.get("id")).intValue();

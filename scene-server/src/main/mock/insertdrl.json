@@ -5,12 +5,12 @@
     {
       "name": "rules1.drl",
       "package": "org.ufes.inf.test.test1",
-      "content": "package org.ufes.inf.test.test1;import java.util.ArrayList;import java.util.HashMap;dialect  \"mvel\";declare Plate id: Integer;name: String;end;declare Car id: Integer;name: String;end;"
+      "content": "package org.ufes.inf.test.test1;\nimport java.util.ArrayList;\nimport java.util.HashMap;\ndialect \"mvel\"\ndeclare Plate\n\tid: Integer\n\tname: String\nend\ndeclare Car\n\tid: Integer\n\tname: String\nend\nrule \"Car\"\n\twhen\n\t\t$c: Car()\n\tthen\n\t\tSystem.out.println($c + \" is a car.\");\nend"
     },
     {
       "name": "rules2.drl",
       "package": "org.ufes.inf.test.test2",
-      "content": "package org.ufes.inf.test.test2;import org.ufes.inf.test.test1.*;dialect  \"mvel\";declare Person id: Integer;name: String;temperature: Float;cars: ArrayList @type(Car);end;rule \"Fever\" when $p: Person(temperature > 37);then System.out.println($p + \" is running a fever.\");end;rule \"Person has car\" when $c: Car(name == \"Higor's Car\");$p: Person(cars contains $c);then System.out.println($p + \" has \" + $c);end;"
+      "content": "package org.ufes.inf.test.test2;\nimport org.ufes.inf.test.test1.*;\nimport java.util.ArrayList;\ndialect \"mvel\"\ndeclare Person\n\tid: Integer\n\tname: String\n\ttemperature: Float\n\tcars: ArrayList @type(Car)\nend\nrule \"Fever\"\n\twhen\n\t\t$p: Person(temperature > 37)\n\tthen\n\t\tSystem.out.println($p + \" is running a fever.\");\nend\nrule \"Person has car\"\n\twhen\n\t\t$c: Car(name == \"Higor's Car\")\n\t\t$p: Person(cars contains $c)\n\tthen\n\t\tSystem.out.println($p + \" has \" + $c);\nend"
     }
   ]
 }
