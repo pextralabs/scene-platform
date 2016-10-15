@@ -80,8 +80,6 @@ public class CodeInsert {
 
         List<Map<String, String>> files = (List<Map<String, String>>) map.get("files");
 
-        List<String> packList = new ArrayList<String>();
-
         for (Map<String, String> f: files) {
             String name = f.get("name");
             String pakage = f.get("package");
@@ -130,48 +128,5 @@ public class CodeInsert {
 
     public void setkSession(KieSession kSession) {
         this.kSession = kSession;
-    }
-
-    public static final void main(String[] args) {
-
-        File file = new File("/Users/hborjaille/Projects/scene-platform/scene-server/src/main/mock/insertfeverapp.json");
-        CodeInsert code = new CodeInsert(file);
-
-        try {
-            file  = new File("/Users/hborjaille/Projects/scene-platform/scene-server/src/main/mock/insertfeverdata.json");
-            code.insertData(file);
-
-            Thread.sleep(3000);
-
-            file  = new File("/Users/hborjaille/Projects/scene-platform/scene-server/src/main/mock/updatefeverdata1.json");
-            code.updateData(file);
-
-            Thread.sleep(3000);
-
-            file  = new File("/Users/hborjaille/Projects/scene-platform/scene-server/src/main/mock/updatefeverdata2.json");
-            code.updateData(file);
-
-            Thread.sleep(3000);
-
-            file  = new File("/Users/hborjaille/Projects/scene-platform/scene-server/src/main/mock/updatefeverdata3.json");
-            code.updateData(file);
-
-            Thread.sleep(3000);
-
-            file  = new File("/Users/hborjaille/Projects/scene-platform/scene-server/src/main/mock/updatefeverdata2.json");
-            code.updateData(file);
-
-            Thread.sleep(3000);
-
-            file  = new File("/Users/hborjaille/Projects/scene-platform/scene-server/src/main/mock/updatefeverdata1.json");
-            code.updateData(file);
-
-            Thread.sleep(3000);
-
-            file  = new File("/Users/hborjaille/Projects/scene-platform/scene-server/src/main/mock/updatefeverdata4.json");
-            code.updateData(file);
-        } catch (Throwable t) {
-            t.printStackTrace();
-        }
     }
 }
