@@ -11,6 +11,7 @@ import org.drools.core.definitions.rule.impl.RuleImpl;
 import org.drools.core.spi.KnowledgeHelper;
 import org.kie.api.KieBase;
 import org.kie.api.definition.KiePackage;
+import org.kie.api.definition.type.FactType;
 
 import java.lang.reflect.Field;
 import java.util.List;
@@ -74,8 +75,21 @@ public class SituationHelper {
 
 	public static void situationDetected(KnowledgeHelper khelper) throws Exception {
 		RuleImpl rule = khelper.getRule();
-		String type = rule.getPackageName() + "." + rule.getMetaData().get("type");
-		Class clazz = Class.forName(type);
+
+		String packageName = rule.getPackageName();
+		String className = (String) rule.getMetaData().get("type");
+
+		Class clazz = null;
+
+		//find
+		FactType type = khelper.getKieRuntime().getKieBase().getFactType(packageName, className);
+
+		if (type == null) {
+			clazz = Class.forName(packageName + "." + className);
+		} else {
+			clazz = type.getFactClass();
+		}
+
 		CurrentSituation asf = new CurrentSituation(clazz);
 		asf.setTimestamp(khelper.getKieRuntime().getSessionClock().getCurrentTime());
     	asf.setCast(new SituationCast(khelper.getMatch(), clazz));
