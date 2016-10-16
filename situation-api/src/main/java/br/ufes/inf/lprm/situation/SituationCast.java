@@ -22,11 +22,11 @@ public class SituationCast extends HashMap<String, Object> {
 		List<Field> situationRoleFields = SituationUtils.getSituationRoleFields(type);
 		
 		for(Field field: situationRoleFields) {
-			Role role = field.getAnnotation(Role.class);
-			if (role != null) {
+			Part part = field.getAnnotation(Part.class);
+			if (part != null) {
 				
-				if (role.label() != "") {
-					roleLabel = new String(role.label());
+				if (part.label() != "") {
+					roleLabel = new String(part.label());
 				} else {
 					roleLabel = new String(field.getName());
 				}

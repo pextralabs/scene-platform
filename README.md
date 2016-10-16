@@ -10,7 +10,7 @@
 
 * **Using the API**
 
-	A Situation specification is comprised by two artifats: a *SituationType* child class definition and a *Situation Rule* declaration. The 		*SituationType* definition structures the situation in terms of participant entity types for which individuals will be casted in a 			situation occurrence. The Situation API provides an annotation (@SituationRole) in order to tag the class fields representing entity 			types which play a well-defined role on the situation.
+	A Situation specification is comprised by two artifats: a *SituationType* child class definition and a *Situation Rule* declaration. The 		*SituationType* definition structures the situation in terms of participant entity types for which individuals will be casted in a 			situation occurrence. The Situation API provides an annotation (@SituationRole) in order to tag the class fields representing entity 			types which play a well-defined part on the situation.
 
 	A *situation type* declaration:
 
@@ -36,7 +36,7 @@
 	A *situation rule* declaration:
 
         rule "MySituationRule"
-			@role(situation)
+			@part(situation)
 			@type(MySituation)
                 when
                         label1: Entity(<constraint 1>, ... ,<constraint N>)

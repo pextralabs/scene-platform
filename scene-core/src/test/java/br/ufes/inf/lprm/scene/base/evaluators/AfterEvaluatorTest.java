@@ -2,7 +2,7 @@ package br.ufes.inf.lprm.scene.base.evaluators;
 
 import br.ufes.inf.lprm.scene.SituationKieBase;
 import br.ufes.inf.lprm.scene.base.listeners.SCENESessionListener;
-import br.ufes.inf.lprm.situation.Role;
+import br.ufes.inf.lprm.situation.Part;
 import br.ufes.inf.lprm.situation.SituationType;
 import org.kie.api.KieServices;
 import org.kie.api.runtime.KieContainer;
@@ -64,7 +64,7 @@ class Person implements Serializable {
 class Fever extends SituationType {
 
 	private static final long serialVersionUID = 1L;
-	@Role
+	@Part
 	private Person febrile;
 
 	public void setFebrile(Person febrile) {
@@ -79,9 +79,9 @@ class Fever extends SituationType {
 class FeverAfterFever extends SituationType {
 
 	private static final long serialVersionUID = 1L;
-	@Role
+	@Part
 	private Fever previous;
-	@Role
+	@Part
 	private Fever latter;
 
 	public Fever getPrevious() {

@@ -5,14 +5,14 @@ import java.util.Date;
 
 import br.ufes.inf.lprm.scene.examples.shared.Device;
 import br.ufes.inf.lprm.scene.examples.shared.Network;
-import br.ufes.inf.lprm.situation.Role;
+import br.ufes.inf.lprm.situation.Part;
 import br.ufes.inf.lprm.situation.SituationType;
 
 public class SituationConnected extends SituationType {
 	
-	@Role(label = "device")
+	@Part(label = "device")
 	private Device device;
-	@Role(label = "network")
+	@Part(label = "network")
 	private Network network;
 	
 	public Device getDevice() {

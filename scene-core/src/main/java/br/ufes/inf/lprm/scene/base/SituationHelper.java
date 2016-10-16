@@ -1,6 +1,6 @@
 package br.ufes.inf.lprm.scene.base;
 
-import br.ufes.inf.lprm.situation.Role;
+import br.ufes.inf.lprm.situation.Part;
 import br.ufes.inf.lprm.situation.SituationCast;
 import br.ufes.inf.lprm.situation.SituationType;
 import br.ufes.inf.lprm.situation.SituationUtils;
@@ -48,10 +48,10 @@ public class SituationHelper {
 		Object participant;
 		
 		for(Field field: targetObjFields) {
-			Role role = field.getAnnotation(Role.class);
-			if (role != null) {
-				if (role.label() != "") {
-					participant = cast.get(role.label());
+			Part part = field.getAnnotation(Part.class);
+			if (part != null) {
+				if (part.label() != "") {
+					participant = cast.get(part.label());
 
 				}
 				else {
