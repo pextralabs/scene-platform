@@ -1,5 +1,3 @@
-import play.sbt.PlayJava
-import play.sbt.routes.RoutesKeys._
 import sbt.Keys._
 
 scalaVersion in Global := "2.11.4"
