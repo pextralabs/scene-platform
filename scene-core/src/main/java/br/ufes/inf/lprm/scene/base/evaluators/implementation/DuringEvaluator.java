@@ -2,41 +2,36 @@ package br.ufes.inf.lprm.scene.base.evaluators.implementation;
 
 import br.ufes.inf.lprm.situation.SituationType;
 import org.drools.core.base.ValueType;
-import org.drools.core.base.evaluators.CoincidesEvaluatorDefinition.CoincidesEvaluator;
 import org.drools.core.common.DefaultFactHandle;
 import org.drools.core.common.EventFactHandle;
 import org.drools.core.common.InternalFactHandle;
 import org.drools.core.common.InternalWorkingMemory;
-import org.drools.core.rule.VariableRestriction.VariableContextEntry;
 import org.drools.core.rule.VariableRestriction.ObjectVariableContextEntry;
+import org.drools.core.rule.VariableRestriction.VariableContextEntry;
 import org.drools.core.spi.FieldValue;
 import org.drools.core.spi.InternalReadAccessor;
 
 /**
  * Created by hborjaille on 9/8/16.
  */
-public class SCENECoincidesEvaluator extends CoincidesEvaluator {
+public class DuringEvaluator extends org.drools.core.base.evaluators.DuringEvaluatorDefinition.DuringEvaluator {
 
-    private long              startDev;
-    private long              endDev;
+    private long              startMinDev, startMaxDev;
+    private long              endMinDev, endMaxDev;
 
-    public SCENECoincidesEvaluator(final ValueType type,
-                              final boolean isNegated,
-                              final long[] parameters,
-                              final String paramText,
-                              final boolean unwrapLeft,
-                              final boolean unwrapRight) {
+    public DuringEvaluator(final ValueType type,
+                           final boolean isNegated,
+                           final long[] parameters,
+                           final String paramText) {
         super( type,
                 isNegated,
                 parameters,
-                paramText,
-                unwrapLeft,
-                unwrapRight);
+                paramText);
     }
 
     @Override
     public boolean evaluate(InternalWorkingMemory workingMemory, InternalReadAccessor extractor, InternalFactHandle factHandle, FieldValue value) {
-        throw new RuntimeException( "The 'coincides' operator can only be used to compare one event to another, and never to compare to literal constraints." );
+        throw new RuntimeException( "The 'during' operator can only be used to compare one event to another, and never to compare to literal constraints." );
     }
 
     @Override
@@ -59,10 +54,10 @@ public class SCENECoincidesEvaluator extends CoincidesEvaluator {
             Object leftFact =  workingMemory.getObject(leftFH);
             if (leftFact instanceof SituationType) {
                 leftStartTS = ((SituationType) leftFact).getActivation().getTimestamp();
-                //'started' is not applicable when situationB not finished
+                //'during' is not applicable when situationA not finished
                 if (!((SituationType) leftFact).isActive()) {
                     leftEndTS = ((SituationType) leftFact).getDeactivation().getTimestamp();
-                }  else return false;
+                }
             }
         }
 
@@ -82,9 +77,15 @@ public class SCENECoincidesEvaluator extends CoincidesEvaluator {
             }
         }
 
-        long distStart = Math.abs( rightStartTS - leftStartTS );
-        long distEnd = Math.abs( rightEndTS - leftEndTS );
-        return this.getOperator().isNegated() ^ (distStart <= this.startDev && distEnd <= this.endDev);
+        long distStart = rightStartTS - leftStartTS;
+
+        if (leftEndTS==-1) {
+            return this.getOperator().isNegated() ^ (distStart >= this.startMinDev && distStart <= this.startMaxDev);
+        } else {
+            long distEnd = leftEndTS - rightEndTS;
+            return this.getOperator().isNegated() ^ (distStart >= this.startMinDev && distStart <= this.startMaxDev && distEnd >= this.endMinDev && distEnd <= this.endMaxDev);
+
+        }
     }
 
     @Override
@@ -109,10 +110,10 @@ public class SCENECoincidesEvaluator extends CoincidesEvaluator {
             Object leftFact =  workingMemory.getObject(leftFH);
             if (leftFact instanceof SituationType) {
                 leftStartTS = ((SituationType) leftFact).getActivation().getTimestamp();
-                //'coincides' is not applicable when situationB not finished
+                //'during' is not applicable when situationA not finished
                 if (!((SituationType) leftFact).isActive()) {
                     leftEndTS = ((SituationType) leftFact).getDeactivation().getTimestamp();
-                }  else return false;
+                }
             }
         }
 
@@ -132,9 +133,15 @@ public class SCENECoincidesEvaluator extends CoincidesEvaluator {
             }
         }
 
-        long distStart = Math.abs( rightStartTS - leftStartTS );
-        long distEnd = Math.abs( rightEndTS - leftEndTS );
-        return this.getOperator().isNegated() ^ (distStart <= this.startDev && distEnd <= this.endDev);
+        long distStart = rightStartTS - leftStartTS;
+
+        if (leftEndTS==-1) {
+            return this.getOperator().isNegated() ^ (distStart >= this.startMinDev && distStart <= this.startMaxDev);
+        } else {
+            long distEnd = leftEndTS - rightEndTS;
+            return this.getOperator().isNegated() ^ (distStart >= this.startMinDev && distStart <= this.startMaxDev && distEnd >= this.endMinDev && distEnd <= this.endMaxDev);
+
+        }
     }
 
     @Override
@@ -181,8 +188,13 @@ public class SCENECoincidesEvaluator extends CoincidesEvaluator {
             }
         }
 
-        long distStart = Math.abs( obj1StartTS - obj2StartTS );
-        long distEnd = Math.abs( obj1EndTS - obj2EndTS);
-        return this.getOperator().isNegated() ^ (distStart <= this.startDev && distEnd <= this.endDev);
+        long distStart = obj1StartTS - obj2StartTS;
+
+        if (obj2EndTS==-1) {
+            return this.getOperator().isNegated() ^ (distStart >= this.startMinDev && distStart <= this.startMaxDev);
+        } else {
+            long distEnd = obj2EndTS - obj1EndTS;
+            return this.getOperator().isNegated() ^ (distStart >= this.startMinDev && distStart <= this.startMaxDev && distEnd >= this.endMinDev && distEnd <= this.endMaxDev);
+        }
     }
 }

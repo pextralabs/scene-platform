@@ -1,8 +1,7 @@
 package br.ufes.inf.lprm.scene.base.evaluators.definition;
 
-import br.ufes.inf.lprm.scene.base.evaluators.implementation.SCENEDuringEvaluator;
+
 import org.drools.core.base.ValueType;
-import org.drools.core.base.evaluators.DuringEvaluatorDefinition;
 import org.drools.core.base.evaluators.TimeIntervalParser;
 import org.drools.core.spi.Evaluator;
 
@@ -13,9 +12,9 @@ import java.util.Map;
 /**
  * Created by hborjaille on 9/8/16.
  */
-public class SCENEDuringEvaluatorDefinition extends DuringEvaluatorDefinition {
+public class OverlappedByEvaluatorDefinition extends org.drools.core.base.evaluators.OverlappedByEvaluatorDefinition {
 
-    private Map<String, SCENEDuringEvaluator> cache     = Collections.emptyMap();
+    private Map<String, br.ufes.inf.lprm.scene.base.evaluators.implementation.OverlappedByEvaluator> cache = Collections.emptyMap();
 
     @Override
     public Evaluator getEvaluator(final ValueType type,
@@ -23,20 +22,20 @@ public class SCENEDuringEvaluatorDefinition extends DuringEvaluatorDefinition {
                                   final boolean isNegated,
                                   final String parameterText,
                                   final Target left,
-                                  final Target right) {
+                                  final Target right ) {
         if ( this.cache == Collections.EMPTY_MAP ) {
-            this.cache = new HashMap<String, SCENEDuringEvaluator>();
+            this.cache = new HashMap<String, br.ufes.inf.lprm.scene.base.evaluators.implementation.OverlappedByEvaluator>();
         }
-        String key = left + ":" + right + ":" + isNegated + ":" + parameterText;
-        SCENEDuringEvaluator eval = this.cache.get( key );
+        String key = isNegated + ":" + parameterText;
+        br.ufes.inf.lprm.scene.base.evaluators.implementation.OverlappedByEvaluator eval = this.cache.get( key );
         if ( eval == null ) {
             long[] params = TimeIntervalParser.parse( parameterText );
-            eval = new SCENEDuringEvaluator( type,
+            eval = new br.ufes.inf.lprm.scene.base.evaluators.implementation.OverlappedByEvaluator( type,
                     isNegated,
                     params,
-                    parameterText);
+                    parameterText );
             this.cache.put( key,
-                            eval );
+                    eval );
         }
         return eval;
     }

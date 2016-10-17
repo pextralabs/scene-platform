@@ -1,8 +1,9 @@
 package br.ufes.inf.lprm.scene.examples.fever;
 
 import br.ufes.inf.lprm.scene.base.listeners.SCENESessionListener;
-import br.ufes.inf.lprm.scene.examples.shared.Person;
 import org.kie.api.KieServices;
+import org.kie.api.definition.type.FactField;
+import org.kie.api.definition.type.FactType;
 import org.kie.api.runtime.KieContainer;
 import org.kie.api.runtime.KieSession;
 import org.kie.api.runtime.rule.FactHandle;
@@ -33,49 +34,55 @@ public class FeverExampleMain {
             kSession.addEventListener(new SCENESessionListener());
             
             final RuleEngineThread eng = new RuleEngineThread(kSession);
-			eng.start();			
-			
-			Person p1 = new Person("john", 1);
-						
-			p1.setTemperature(37);
+			eng.start();
+
+			FactType factType = kSession.getKieBase().getFactType("br.ufes.inf.lprm.scene.examples.fever", "Person");
+
+			Object p1 = factType.newInstance();
+
+			factType.getField("identifier").set(p1, 1);
+			factType.getField("name").set(p1, "john");
+			FactField temperature = factType.getField("temperature");
+
+			temperature.set(p1, 37);
+
 			
 			FactHandle fh1 = kSession.insert(p1);
 			
 			while (true) {
 				
 				Thread.sleep(1000);
-	
-				p1.setTemperature(38);
+				temperature.set(p1, 38);
 				kSession.update(fh1,  p1);
 				
 				Thread.sleep(3000);
-	
-				p1.setTemperature(39);			
-				kSession.update(fh1,  p1);
-	
-				Thread.sleep(3000);			
-				
-				p1.setTemperature(40);			
-				kSession.update(fh1,  p1);
-				
-				Thread.sleep(3000);			
-				
-				p1.setTemperature(38);			
+
+				temperature.set(p1, 39);
 				kSession.update(fh1,  p1);
 	
 				Thread.sleep(3000);
+
+				temperature.set(p1, 40);
+				kSession.update(fh1,  p1);
 				
-				p1.setTemperature(37);			
+				Thread.sleep(3000);
+
+				temperature.set(p1, 39);
 				kSession.update(fh1,  p1);
 	
-				Thread.sleep(3000);				
-				
-				p1.setTemperature(32);			
+				Thread.sleep(3000);
+
+				temperature.set(p1, 37);
+				kSession.update(fh1,  p1);
+	
+				Thread.sleep(3000);
+
+				temperature.set(p1, 32);
 				kSession.update(fh1,  p1);
 				
-				Thread.sleep(3000);				
-				
-				p1.setTemperature(31);			
+				Thread.sleep(3000);
+
+				temperature.set(p1, 31);
 				kSession.update(fh1,  p1);
 			
 			}

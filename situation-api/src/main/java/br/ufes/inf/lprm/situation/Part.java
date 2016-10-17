@@ -8,6 +8,6 @@ import java.lang.annotation.Target;
 @Target (ElementType.FIELD)
 @Retention (RetentionPolicy.RUNTIME)
 
-public @interface Role {
+public @interface Part {
 	String label() default "";
 }

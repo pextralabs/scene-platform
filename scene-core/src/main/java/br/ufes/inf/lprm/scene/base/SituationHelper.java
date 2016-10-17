@@ -1,6 +1,6 @@
 package br.ufes.inf.lprm.scene.base;
 
-import br.ufes.inf.lprm.situation.Role;
+import br.ufes.inf.lprm.situation.Part;
 import br.ufes.inf.lprm.situation.SituationCast;
 import br.ufes.inf.lprm.situation.SituationType;
 import br.ufes.inf.lprm.situation.SituationUtils;
@@ -49,10 +49,10 @@ public class SituationHelper {
 		Object participant;
 		
 		for(Field field: targetObjFields) {
-			Role role = field.getAnnotation(Role.class);
-			if (role != null) {
-				if (role.label() != "") {
-					participant = cast.get(role.label());
+			Part part = field.getAnnotation(Part.class);
+			if (part != null) {
+				if (part.label() != "") {
+					participant = cast.get(part.label());
 
 				}
 				else {
@@ -80,13 +80,19 @@ public class SituationHelper {
 
 	public static void situationDetected(KnowledgeHelper khelper) throws Exception {
 		RuleImpl rule = khelper.getRule();
-		String type = rule.getPackageName() + "." + rule.getMetaData().get("type");
+
+		String packageName = rule.getPackageName();
+		String className = (String) rule.getMetaData().get("type");
 
 		Class clazz = null;
-		try {
-			clazz = Class.forName(type);
-		} catch (ClassNotFoundException e) {
-			clazz = getDroolsClass(khelper, rule.getMetaData().get("type").toString(), rule.getPackageName());
+
+		//find
+		FactType type = khelper.getKieRuntime().getKieBase().getFactType(packageName, className);
+
+		if (type == null) {
+			clazz = Class.forName(packageName + "." + className);
+		} else {
+			clazz = type.getFactClass();
 		}
 
 		CurrentSituation asf = new CurrentSituation(clazz);

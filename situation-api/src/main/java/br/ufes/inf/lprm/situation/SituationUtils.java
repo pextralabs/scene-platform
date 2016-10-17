@@ -20,8 +20,8 @@ public class SituationUtils {
 		}
 		Field[] fields = sit.getDeclaredFields();
 		for(Field field: fields) {						
-			Role role = field.getAnnotation(Role.class);			
-			if (role != null) situationRoleFields.add(field);
+			Part part = field.getAnnotation(Part.class);
+			if (part != null) situationRoleFields.add(field);
 		}
 		return situationRoleFields;
 	}

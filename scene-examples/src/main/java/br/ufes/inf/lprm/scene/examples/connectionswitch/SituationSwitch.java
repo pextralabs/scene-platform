@@ -3,14 +3,14 @@ package br.ufes.inf.lprm.scene.examples.connectionswitch;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-import br.ufes.inf.lprm.situation.Role;
+import br.ufes.inf.lprm.situation.Part;
 import br.ufes.inf.lprm.situation.SituationType;
 
 public class SituationSwitch extends SituationType {
 	
-	@Role(label = "wlan")
+	@Part(label = "wlan")
 	private SituationConnected wlan;
-	@Role(label = "bluetooth")
+	@Part(label = "bluetooth")
 	private SituationConnected bluetooth;
 	
 	public SituationConnected getWlan() {

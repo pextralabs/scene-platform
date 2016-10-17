@@ -1,7 +1,17 @@
 package br.ufes.inf.lprm.scene.examples.fever;
 
 import br.ufes.inf.lprm.scene.base.*;
-import br.ufes.inf.lprm.scene.examples.shared.*;
+import br.ufes.inf.lprm.situation.*;
+
+declare Person
+	identifier: int
+	name: String
+	temperature: int
+end
+
+declare Fever extends SituationType
+    febrile: Person @part(label = "f1")
+end
 
 rule "FeverSituation"
 @role(situation)

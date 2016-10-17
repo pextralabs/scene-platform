@@ -2,36 +2,36 @@ package br.ufes.inf.lprm.scene.base.evaluators.implementation;
 
 import br.ufes.inf.lprm.situation.SituationType;
 import org.drools.core.base.ValueType;
-import org.drools.core.base.evaluators.FinishedByEvaluatorDefinition.FinishedByEvaluator;
+import org.drools.core.base.evaluators.StartsEvaluatorDefinition;
 import org.drools.core.common.DefaultFactHandle;
 import org.drools.core.common.EventFactHandle;
 import org.drools.core.common.InternalFactHandle;
 import org.drools.core.common.InternalWorkingMemory;
-import org.drools.core.rule.VariableRestriction.ObjectVariableContextEntry;
 import org.drools.core.rule.VariableRestriction.VariableContextEntry;
+import org.drools.core.rule.VariableRestriction.ObjectVariableContextEntry;
 import org.drools.core.spi.FieldValue;
 import org.drools.core.spi.InternalReadAccessor;
 
 /**
  * Created by hborjaille on 9/8/16.
  */
-public class SCENEFinishedByEvaluator extends FinishedByEvaluator {
+public class StartsEvaluator extends StartsEvaluatorDefinition.StartsEvaluator {
 
-    private long endDev;
+    private long startDev;
 
-    public SCENEFinishedByEvaluator(final ValueType type,
-                               final boolean isNegated,
-                               final long[] parameters,
-                               final String paramText) {
+    public StartsEvaluator(final ValueType type,
+                           final boolean isNegated,
+                           final long[] params,
+                           final String paramText) {
         super( type,
                 isNegated,
-                parameters,
+                params,
                 paramText );
     }
 
     @Override
     public boolean evaluate(InternalWorkingMemory workingMemory, InternalReadAccessor extractor, InternalFactHandle factHandle, FieldValue value) {
-        throw new RuntimeException( "The 'finishedby' operator can only be used to compare one event to another, and never to compare to literal constraints." );
+        throw new RuntimeException( "The 'starts' operator can only be used to compare one event to another, and never to compare to literal constraints." );
     }
 
     @Override
@@ -56,10 +56,10 @@ public class SCENEFinishedByEvaluator extends FinishedByEvaluator {
             Object leftFact =  workingMemory.getObject(leftFH);
             if (leftFact instanceof SituationType) {
                 leftStartTS = ((SituationType) leftFact).getActivation().getTimestamp();
-                //'started' is not applicable when situationB not finished
+                //'during' is not applicable when situationA not finished
                 if (!((SituationType) leftFact).isActive()) {
                     leftEndTS = ((SituationType) leftFact).getDeactivation().getTimestamp();
-                }  else return false;
+                }
             }
         }
 
@@ -78,10 +78,13 @@ public class SCENEFinishedByEvaluator extends FinishedByEvaluator {
                 } else return false;
             }
         }
-
-        long distStart = leftStartTS - rightStartTS;
-        long distEnd = Math.abs( leftEndTS - rightEndTS );
-        return this.getOperator().isNegated() ^ (distStart > 0 && distEnd <= this.endDev);
+        long distStart = Math.abs( rightStartTS - leftStartTS );
+        if (leftEndTS==(-1)) {
+            return this.getOperator().isNegated() ^ (distStart <= this.startDev);
+        } else {
+            long distEnd = leftEndTS - rightEndTS;
+            return this.getOperator().isNegated() ^ (distStart <= this.startDev && distEnd > 0 );
+        }
     }
 
     @Override
@@ -105,10 +108,10 @@ public class SCENEFinishedByEvaluator extends FinishedByEvaluator {
             Object leftFact =  workingMemory.getObject(leftFH);
             if (leftFact instanceof SituationType) {
                 leftStartTS = ((SituationType) leftFact).getActivation().getTimestamp();
-                //'started' is not applicable when situationB not finished
+                //'during' is not applicable when situationA not finished
                 if (!((SituationType) leftFact).isActive()) {
                     leftEndTS = ((SituationType) leftFact).getDeactivation().getTimestamp();
-                }  else return false;
+                }
             }
         }
 
@@ -127,10 +130,13 @@ public class SCENEFinishedByEvaluator extends FinishedByEvaluator {
                 } else return false;
             }
         }
-
-        long distStart = leftStartTS - rightStartTS;
-        long distEnd = Math.abs( leftEndTS - rightEndTS );
-        return this.getOperator().isNegated() ^ (distStart > 0 && distEnd <= this.endDev);
+        long distStart = Math.abs( rightStartTS - leftStartTS );
+        if (leftEndTS==(-1)) {
+            return this.getOperator().isNegated() ^ (distStart <= this.startDev);
+        } else {
+            long distEnd = leftEndTS - rightEndTS;
+            return this.getOperator().isNegated() ^ (distStart <= this.startDev && distEnd > 0 );
+        }
     }
 
     @Override
@@ -173,12 +179,17 @@ public class SCENEFinishedByEvaluator extends FinishedByEvaluator {
                 obj2StartTS = ((SituationType) obj2Fact).getActivation().getTimestamp();
                 if (!((SituationType) obj2Fact).isActive()) {
                     obj2EndTS = ((SituationType) obj2Fact).getDeactivation().getTimestamp();
-                } else return false;
+                }
             }
         }
 
-        long distStart = obj2StartTS - obj1StartTS;
-        long distEnd = Math.abs( obj2EndTS - obj1EndTS );
-        return this.getOperator().isNegated() ^ (distStart > 0 && distEnd <= this.endDev);
+        long distStart = Math.abs( obj1StartTS - obj2StartTS );
+        if (obj2StartTS==(-1)) {
+            return this.getOperator().isNegated() ^ (distStart <= this.startDev);
+        } else {
+            long distEnd = obj2EndTS - obj1EndTS;
+            return this.getOperator().isNegated() ^ (distStart <= this.startDev && distEnd > 0 );
+        }
+
     }
 }
