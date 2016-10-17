@@ -73,11 +73,6 @@ public class SituationHelper {
 		}
 	}
 
-	public static Class<? extends FactType> getDroolsClass(KnowledgeHelper khelper, String classname, String packagePath) {
-		FactType type = khelper.getKieRuntime().getKieBase().getFactType(packagePath, classname);
-		return type.getClass();
-	}
-
 	public static void situationDetected(KnowledgeHelper khelper) throws Exception {
 		RuleImpl rule = khelper.getRule();
 

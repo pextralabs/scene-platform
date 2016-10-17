@@ -5,7 +5,7 @@ import br.ufes.inf.lprm.scene.base.*;
 import scene.fever.*;
 
 rule "FeverSituation"
-//@role(situation)
+@role(situation)
 @type(fever.Fever)
     when
     	f1: Person(temperature > 37)

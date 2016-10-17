@@ -40,7 +40,7 @@ public class FeverExampleMain {
 
 			Object p1 = factType.newInstance();
 
-			factType.getField("identifier").set(p1, 1);
+			factType.getField("id").set(p1, 1);
 			factType.getField("name").set(p1, "john");
 			FactField temperature = factType.getField("temperature");
 

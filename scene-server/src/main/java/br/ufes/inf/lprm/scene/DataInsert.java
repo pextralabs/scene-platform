@@ -144,8 +144,9 @@ public class DataInsert {
                             if(chooser) {
                                 Map<String, Object> metadata = null;
                                 for (FactField fieldType: type.getFields()) {
-                                    if(fieldType.getName().equals(f.getName()))
+                                    if(fieldType.getName().equals(f.getName())) {
                                         metadata = fieldType.getMetaData();
+                                    }
                                 }
 
                                 if(metadata != null) {

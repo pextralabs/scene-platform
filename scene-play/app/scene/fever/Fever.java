@@ -1,6 +1,6 @@
 package scene.fever;
 
-import br.ufes.inf.lprm.situation.Role;
+import br.ufes.inf.lprm.situation.Part;
 import br.ufes.inf.lprm.situation.SituationType;
 
 import java.text.SimpleDateFormat;
@@ -10,7 +10,7 @@ import java.util.concurrent.TimeUnit;
 //@Publish(host="host", port=4040)
 public class Fever extends SituationType {
 	
-	@Role(label = "f1")
+	@Part(label = "f1")
 	private Person febrile;
 
 	public void setFebrile(Person febrile) {

@@ -4,9 +4,9 @@ import br.ufes.inf.lprm.scene.base.*;
 import br.ufes.inf.lprm.situation.*;
 
 declare Person
-	identifier: int
+	id: Integer
 	name: String
-	temperature: int
+	temperature: Integer
 end
 
 declare Fever extends SituationType
