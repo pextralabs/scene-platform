@@ -43,7 +43,7 @@ lazy val `scene-server` = ProjectName("scene-server","scene-server").settings(
     name := "scene-server",
     version := "2.0.0",
     organization := "br.ufes.inf.lprm"
-).settings().dependsOn()
+).settings().dependsOn(`scene-core`)
 
 lazy val `scene-examples` = ProjectName("scene-examples","scene-examples").settings(
   libraryDependencies ++= Seq(),
