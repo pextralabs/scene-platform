@@ -2,12 +2,13 @@
   "Person": [
     {
       "id": 1,
-      "temperature": 38
+      "temperature": 38,
+      "cars": [2]
     },
     {
       "id": 2,
       "temperature": 37,
-      "cars": [2]
+      "cars": [1]
     }
   ]
 }
