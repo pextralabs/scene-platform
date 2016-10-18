@@ -8,81 +8,81 @@ import java.io.File;
 public class FeverSituation {
     public static final void main(String[] args) {
 
-        File file = new File("/Users/hborjaille/Projects/scene-platform/scene-server/src/main/mock/insertfeverapp.json");
+        ClassLoader classLoader = FeverSituation.class.getClassLoader();
+
+        File file = new File(classLoader.getResource("mock/insertfeverapp.json").getFile());
         CodeInsert code = new CodeInsert(file);
 
         try {
-            file  = new File("/Users/hborjaille/Projects/scene-platform/scene-server/src/main/mock/insertfeverdata.json");
+            file  = new File(classLoader.getResource("mock/insertfeverdata.json").getFile());
             code.insertData(file);
 
             Thread.sleep(1000);
 
-            file  = new File("/Users/hborjaille/Projects/scene-platform/scene-server/src/main/mock/updatefeverdata1.json");
+            file  = new File(classLoader.getResource("mock/updatefeverdata1.json").getFile());
+
             code.updateData(file);
 
             Thread.sleep(1000);
 
-            file  = new File("/Users/hborjaille/Projects/scene-platform/scene-server/src/main/mock/updatefeverdata2.json");
+            file  = new File(classLoader.getResource("mock/updatefeverdata2.json").getFile());
+            code.updateData(file);
+
+            Thread.sleep(1000);
+            file  = new File(classLoader.getResource("mock/updatefeverdata3.json").getFile());
             code.updateData(file);
 
             Thread.sleep(1000);
 
-            file  = new File("/Users/hborjaille/Projects/scene-platform/scene-server/src/main/mock/updatefeverdata3.json");
+            file  = new File(classLoader.getResource("mock/updatefeverdata2.json").getFile());
             code.updateData(file);
 
             Thread.sleep(1000);
-
-            file  = new File("/Users/hborjaille/Projects/scene-platform/scene-server/src/main/mock/updatefeverdata2.json");
+            file  = new File(classLoader.getResource("mock/updatefeverdata1.json").getFile());
             code.updateData(file);
 
             Thread.sleep(1000);
-
-            file  = new File("/Users/hborjaille/Projects/scene-platform/scene-server/src/main/mock/updatefeverdata1.json");
-            code.updateData(file);
-
-            Thread.sleep(1000);
-
-            file  = new File("/Users/hborjaille/Projects/scene-platform/scene-server/src/main/mock/updatefeverdata4.json");
+            file  = new File(classLoader.getResource("mock/updatefeverdata4.json").getFile());
             code.updateData(file);
         } catch (Throwable t) {
             t.printStackTrace();
         }
 
-        file = new File("/Users/hborjaille/Projects/scene-platform/scene-server/src/main/mock/insertfeverapp2.json");
+        file = new File(classLoader.getResource("mock/insertfeverapp2.json").getFile());
         CodeInsert code2 = new CodeInsert(file);
 
         try {
-            file  = new File("/Users/hborjaille/Projects/scene-platform/scene-server/src/main/mock/insertfeverdata.json");
+            file  = new File(classLoader.getResource("mock/insertfeverdata.json").getFile());
             code2.insertData(file);
 
             Thread.sleep(1000);
 
-            file  = new File("/Users/hborjaille/Projects/scene-platform/scene-server/src/main/mock/updatefeverdata1.json");
+            file  = new File(classLoader.getResource("mock/updatefeverdata1.json").getFile());
             code2.updateData(file);
 
             Thread.sleep(1000);
 
-            file  = new File("/Users/hborjaille/Projects/scene-platform/scene-server/src/main/mock/updatefeverdata2.json");
+            file  = new File(classLoader.getResource("mock/updatefeverdata2.json").getFile());
             code2.updateData(file);
 
             Thread.sleep(1000);
 
-            file  = new File("/Users/hborjaille/Projects/scene-platform/scene-server/src/main/mock/updatefeverdata3.json");
+            file  = new File(classLoader.getResource("mock/updatefeverdata3.json").getFile());
             code2.updateData(file);
 
             Thread.sleep(1000);
 
-            file  = new File("/Users/hborjaille/Projects/scene-platform/scene-server/src/main/mock/updatefeverdata2.json");
+            file  = new File(classLoader.getResource("mock/updatefeverdata2.json").getFile());
             code2.updateData(file);
 
             Thread.sleep(1000);
 
-            file  = new File("/Users/hborjaille/Projects/scene-platform/scene-server/src/main/mock/updatefeverdata1.json");
+            file  = new File(classLoader.getResource("mock/updatefeverdata1.json").getFile());
             code2.updateData(file);
 
             Thread.sleep(1000);
 
-            file  = new File("/Users/hborjaille/Projects/scene-platform/scene-server/src/main/mock/updatefeverdata4.json");
+            file  = new File(classLoader.getResource("mock/updatefeverdata4.json").getFile());
             code2.updateData(file);
         } catch (Throwable t) {
             t.printStackTrace();
