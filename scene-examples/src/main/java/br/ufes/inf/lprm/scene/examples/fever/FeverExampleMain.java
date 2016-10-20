@@ -39,52 +39,73 @@ public class FeverExampleMain {
 			FactType factType = kSession.getKieBase().getFactType("br.ufes.inf.lprm.scene.examples.fever", "Person");
 
 			Object p1 = factType.newInstance();
+			Object p2 = factType.newInstance();
 
-			factType.getField("id").set(p1, 1);
-			factType.getField("name").set(p1, "john");
+			FactField id = factType.getField("id");
+			FactField name = factType.getField("name");
 			FactField temperature = factType.getField("temperature");
 
+			id.set(p1, 1);
+			name.set(p1, "john");
 			temperature.set(p1, 37);
 
-			
+			id.set(p2, 2);
+			name.set(p2, "isaac");
+			temperature.set(p2, 37);
+
 			FactHandle fh1 = kSession.insert(p1);
-			
+			FactHandle fh2 = kSession.insert(p2);
+
 			while (true) {
 				
 				Thread.sleep(1000);
 				temperature.set(p1, 38);
+				temperature.set(p2, 38);
 				kSession.update(fh1,  p1);
-				
+				kSession.update(fh2,  p2);
+
 				Thread.sleep(3000);
 
 				temperature.set(p1, 39);
+				temperature.set(p2, 39);
 				kSession.update(fh1,  p1);
-	
+				kSession.update(fh2,  p2);
+
 				Thread.sleep(3000);
 
 				temperature.set(p1, 40);
+				temperature.set(p2, 40);
 				kSession.update(fh1,  p1);
-				
+				kSession.update(fh2,  p2);
+
 				Thread.sleep(3000);
 
 				temperature.set(p1, 39);
+				temperature.set(p2, 39);
 				kSession.update(fh1,  p1);
-	
+				kSession.update(fh2,  p2);
+
 				Thread.sleep(3000);
 
 				temperature.set(p1, 37);
+				temperature.set(p2, 37);
 				kSession.update(fh1,  p1);
-	
+				kSession.update(fh2,  p2);
+
 				Thread.sleep(3000);
 
 				temperature.set(p1, 32);
+				temperature.set(p2, 32);
 				kSession.update(fh1,  p1);
-				
+				kSession.update(fh2,  p2);
+
 				Thread.sleep(3000);
 
 				temperature.set(p1, 31);
+				temperature.set(p2, 31);
 				kSession.update(fh1,  p1);
-			
+				kSession.update(fh2,  p2);
+
 			}
 						
         } catch (Throwable t) {

@@ -68,8 +68,11 @@ public class SituationCast extends HashMap<String, Object> {
 
 	@Override
 	public Object put(String key, Object value) {
+		this.hash = 17;
 		//this.hash = this.hash + (key.hashCode() + value.getClass().hashCode() + ((Entity) value).getEID());
-		this.hash = this.hash + (key.hashCode() + value.getClass().hashCode() + value.hashCode());
+		this.hash = 31*this.hash + key.hashCode();
+		this.hash =	31*this.hash + value.getClass().hashCode();
+		this.hash =	31*this.hash + value.hashCode();
 		return super.put(key, value);
 	}
 
