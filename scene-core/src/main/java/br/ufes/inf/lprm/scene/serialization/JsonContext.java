@@ -25,10 +25,13 @@ import org.kie.api.runtime.rule.FactHandle;
 import java.io.*;
 import java.lang.reflect.Field;
 import java.lang.reflect.Type;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.net.URISyntaxException;
+import java.net.URL;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.util.*;
+
+import static org.kie.internal.io.ResourceFactory.newUrlResource;
 
 /**
  * Created by hborjaille on 10/24/16.
@@ -74,8 +77,9 @@ public class JsonContext {
 
         ReleaseId releaseId = kServices.newReleaseId("br.ufes.inf.lprm.scene", appname, (String) map.get("version"));
         kFileSystem.generateAndWritePomXML(releaseId);
-        KieBaseModel sceneBase = kieModuleModel.newKieBaseModel("sceneKieBase");
-        sceneBase =  kServices.getKieClasspathContainer().getKieBaseModel("sceneKieBase");
+
+        //KieBaseModel sceneBase = kieModuleModel.newKieBaseModel("sceneKieBase");
+        //sceneBase =  kServices.getKieClasspathContainer().getKieBaseModel("sceneKieBase");
         KieBaseModel kieBaseModel = kieModuleModel.newKieBaseModel(appname);
         kieBaseModel.addInclude("sceneKieBase");
 
@@ -99,8 +103,22 @@ public class JsonContext {
                 .setType(KieSessionModel.KieSessionType.STATEFUL);
 
         kFileSystem.writeKModuleXML(kieModuleModel.toXML());
-
-        KieBuilder kbuilder = kServices.newKieBuilder(kFileSystem).buildAll();
+        KieBuilder kbuilder = kServices.newKieBuilder(kFileSystem);
+        ArrayList<Resource> dependencies = new ArrayList();
+        try {
+            Enumeration<URL> e = JsonContext.class.getClassLoader().getResources("META-INF/kmodule.xml");
+            while ( e.hasMoreElements() ) {
+                URL url = e.nextElement();
+                Path path = Paths.get(url.toURI());
+                dependencies.add(kServices.getResources().newFileSystemResource(path.getParent().getParent().toString()));
+            }
+        } catch (IOException e1) {
+            e1.printStackTrace();
+        } catch (URISyntaxException e) {
+            e.printStackTrace();
+        }
+        kbuilder.setDependencies(dependencies.toArray(new Resource[0]));
+        kbuilder.buildAll();
         if (kbuilder.getResults().hasMessages()) {
             throw new IllegalArgumentException("Coudln't build knowledge module" + kbuilder.getResults());
         }
@@ -188,7 +206,6 @@ public class JsonContext {
 
     private void setFieldsNull(Object objClass) {
         Field[] fields = objClass.getClass().getDeclaredFields();
-
         for (Field f : fields) {
             f.setAccessible(true);
             try {
@@ -361,4 +378,5 @@ public class JsonContext {
     public KieSession getkSession() {
         return kSession;
     }
+
 }

@@ -55,5 +55,49 @@ public class FeverSituation {
         } catch (Throwable t) {
             t.printStackTrace();
         }
+
+        SceneApplication app2 = new SceneApplication();
+
+        try {
+            content = new Scanner(new File(classLoader.getResource("mock/insertfeverapp2.json").getFile())).useDelimiter("\\Z").next();
+            app2.insertCode(content);
+
+            content = new Scanner(new File(classLoader.getResource("mock/insertfeverdata.json").getFile())).useDelimiter("\\Z").next();
+            app2.insertData(content);
+
+            Thread.sleep(1000);
+
+            content = new Scanner(new File(classLoader.getResource("mock/updatefeverdata1.json").getFile())).useDelimiter("\\Z").next();
+
+            app2.updateData(content);
+
+            Thread.sleep(1000);
+
+            content = new Scanner(new File(classLoader.getResource("mock/updatefeverdata2.json").getFile())).useDelimiter("\\Z").next();
+            app2.updateData(content);
+
+            Thread.sleep(1000);
+
+            content = new Scanner(new File(classLoader.getResource("mock/updatefeverdata3.json").getFile())).useDelimiter("\\Z").next();
+            app2.updateData(content);
+
+            Thread.sleep(1000);
+
+            content = new Scanner(new File(classLoader.getResource("mock/updatefeverdata2.json").getFile())).useDelimiter("\\Z").next();
+            app2.updateData(content);
+
+            Thread.sleep(1000);
+
+            content = new Scanner(new File(classLoader.getResource("mock/updatefeverdata1.json").getFile())).useDelimiter("\\Z").next();
+            app2.updateData(content);
+
+            Thread.sleep(1000);
+
+            content = new Scanner(new File(classLoader.getResource("mock/updatefeverdata4.json").getFile())).useDelimiter("\\Z").next();
+            app2.updateData(content);
+        } catch (Throwable t) {
+            t.printStackTrace();
+        }
+
     }
 }

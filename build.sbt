@@ -53,13 +53,13 @@ lazy val `scene-core` = ProjectName("scene-core","scene-core").settings(
     organization := "br.ufes.inf.lprm"
 ).settings().dependsOn(`situation-model`)
 
-lazy val `scene-play` = ProjectName("scene-play","scene-play").enablePlugins(PlayJava).settings(
+lazy val `scene-server` = ProjectName("scene-server","scene-server").enablePlugins(PlayJava).settings(
   libraryDependencies ++= Seq(`org.slf4j_slf4j-log4j12`,
     `org.slf4j_slf4j-api`,
     `org.kie_kie-api`,
     `org.drools_drools-core`,
     `org.drools_drools-compiler`),
-  name := "scene-play",
+  name := "scene-server",
   version := "2.0.0",
   organization := "br.ufes.inf.lprm",
   routesGenerator := InjectedRoutesGenerator
