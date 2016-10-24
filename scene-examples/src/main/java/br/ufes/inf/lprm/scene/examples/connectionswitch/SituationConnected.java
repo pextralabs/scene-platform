@@ -5,14 +5,14 @@ import java.util.Date;
 
 import br.ufes.inf.lprm.scene.examples.shared.Device;
 import br.ufes.inf.lprm.scene.examples.shared.Network;
-import br.ufes.inf.lprm.situation.Part;
-import br.ufes.inf.lprm.situation.SituationType;
+import br.ufes.inf.lprm.scene.model.impl.Situation;
+import br.ufes.inf.lprm.situation.annotations.part;
 
-public class SituationConnected extends SituationType {
+public class SituationConnected extends Situation {
 	
-	@Part(label = "device")
+	@part(label = "device")
 	private Device device;
-	@Part(label = "network")
+	@part(label = "network")
 	private Network network;
 	
 	public Device getDevice() {
@@ -27,16 +27,6 @@ public class SituationConnected extends SituationType {
 	public void setNetwork(Network network) {
 		this.network = network;
 	}
-	
-	@Override
-	public void setActive() {
-		super.setActive();
-		System.out.println(device.getId() + " connected to " + network.getId() + " at " + new SimpleDateFormat("H:mm:ss").format(  new Date( this.getActivation().getTimestamp() ) ));		
-	}
-	@Override
-	public void setInactive() {
-		super.setInactive();
-		System.out.println(device.getId() + " disconnected from " + network.getId() + " at " + new SimpleDateFormat("H:mm:ss").format(  new Date( this.getDeactivation().getTimestamp() ) ));		
-	}		
+
 
 }

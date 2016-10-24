@@ -1,7 +1,8 @@
 package br.ufes.inf.lprm.scene.base;
 
-import br.ufes.inf.lprm.situation.SituationType;
-import br.ufes.inf.lprm.situation.events.*;
+import br.ufes.inf.lprm.scene.model.impl.Situation;
+import br.ufes.inf.lprm.situation.model.SituationType;
+import br.ufes.inf.lprm.situation.model.events.*;
 
 declare SituationEvent
 	@role(event)
@@ -9,25 +10,27 @@ declare SituationEvent
 end
 
 rule "SituationActivation"
-    salience 9999999
+    salience 1
 	when
-		$act: CurrentSituation(situation == null, $type: type, $cast: cast, $timestamp: timestamp)
+		$act: OnGoingSituation(situation == null, $type: type, $cast: cast, $timestamp: timestamp)
 	then
 		$act.setSituation(SituationHelper.activateSituation(drools, $cast, $type, $timestamp));
-		//tests
-		$act.getSituation().setDetectionTimestamp($act.getTimestamp());
 		update($act);
 end
 
 rule "SituationDeactivation"
-    salience 9999999
+    salience 999
 	when
-		$sit: SituationType(active==true, local==true)
-		not (exists CurrentSituation(situation == $sit))
+		$sit: Situation(active==true)
+		not (exists OnGoingSituation(situation == $sit))
 	then
 		SituationHelper.deactivateSituation(drools, (Object) $sit);
 end
 
-query "CurrentSituation" (String tp, int hash)
-	curr: CurrentSituation(this.situation != null, sit: this.situation, this.typename == tp, this.hashcode == hash)
+query "OnGoingSituation" (String tp, int hash)
+	curr: OnGoingSituation(this.situation != null, sit: this.situation, this.typename == tp, this.hashcode == hash)
+end
+
+query "SituationType" (String typeName)
+	type: SituationType(name == typeName)
 end

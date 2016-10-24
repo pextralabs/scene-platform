@@ -28,6 +28,7 @@ public class Drools {
         //kieSession.addEventListener(new DebugAgendaEventListener());
         //kieSession.addEventListener(new DebugRuleRuntimeEventListener());
 
+
         lifecycle.addStopHook(() -> {
             kieSession.destroy();
             return F.Promise.pure(null);

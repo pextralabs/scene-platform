@@ -1,20 +1,20 @@
 package br.ufes.inf.lprm.scene.base;
 
-import br.ufes.inf.lprm.situation.Part;
-import br.ufes.inf.lprm.situation.SituationCast;
-import br.ufes.inf.lprm.situation.SituationType;
-import br.ufes.inf.lprm.situation.SituationUtils;
-import br.ufes.inf.lprm.situation.events.ActivateSituationEvent;
-import br.ufes.inf.lprm.situation.events.DeactivateSituationEvent;
+import br.ufes.inf.lprm.scene.model.SituationCast;
+import br.ufes.inf.lprm.situation.model.Participation;
+import br.ufes.inf.lprm.situation.model.Situation;
+import br.ufes.inf.lprm.scene.model.impl.SituationTypeImpl;
+import br.ufes.inf.lprm.situation.model.SituationType;
+import br.ufes.inf.lprm.situation.model.events.Activation;
+import br.ufes.inf.lprm.situation.model.events.Deactivation;
 import org.drools.core.base.SalienceInteger;
 import org.drools.core.definitions.rule.impl.RuleImpl;
 import org.drools.core.spi.KnowledgeHelper;
 import org.kie.api.KieBase;
 import org.kie.api.definition.KiePackage;
-import org.kie.api.definition.type.FactType;
-
-import java.lang.reflect.Field;
-import java.util.List;
+import org.kie.api.runtime.KieRuntime;
+import org.kie.api.runtime.rule.QueryResults;
+import org.kie.api.runtime.rule.QueryResultsRow;
 
 public class SituationHelper {
 	
@@ -42,35 +42,13 @@ public class SituationHelper {
 			SituationUtils.getRuleFromPackage(situationBasePkg, "SituationDeactivation").setSalience(new SalienceInteger(maxSalience + 2));
 		}
 	}
-	
-	public static void SetFieldsFromMatchedObjects(Object situation, SituationCast cast) {
-		
-		List<Field> targetObjFields = SituationUtils.getSituationRoleFields(situation.getClass());
-		Object participant;
-		
-		for(Field field: targetObjFields) {
-			Part part = field.getAnnotation(Part.class);
-			if (part != null) {
-				if (part.label() != "") {
-					participant = cast.get(part.label());
 
-				}
-				else {
-					participant = cast.get(field.getName());					
-				}
-				if (participant != null) {
-					try {
-						field.setAccessible(true);
-						field.set(situation, participant);
-						field.setAccessible(false);
-					} catch (IllegalArgumentException e) {
-						e.printStackTrace();
-					} catch (IllegalAccessException e) {
-						e.printStackTrace();
-					}
-				}				
-			}
+	public static SituationType getSituationType(KieRuntime runtime, String typeName) {
+		QueryResults results = runtime.getQueryResults("SituationType", new Object[] {typeName} );
+		for (QueryResultsRow row: results ) {
+			return (SituationType) row.get( "type" );
 		}
+		return null;
 	}
 
 	public static void situationDetected(KnowledgeHelper khelper) throws Exception {
@@ -79,60 +57,40 @@ public class SituationHelper {
 		String packageName = rule.getPackageName();
 		String className = (String) rule.getMetaData().get("type");
 
-		Class clazz = null;
+        SituationType type = getSituationType(khelper.getKieRuntime(), packageName + '.' + className);
 
-		//find
-		FactType type = khelper.getKieRuntime().getKieBase().getFactType(packageName, className);
+		OnGoingSituation ongoing = new OnGoingSituation(type,
+                                                        khelper.getKieRuntime().getSessionClock().getCurrentTime(),
+                                                        new SituationCast(khelper.getMatch(), type));
 
-		if (type == null) {
-			clazz = Class.forName(packageName + "." + className);
-		} else {
-			clazz = type.getFactClass();
-		}
-
-		CurrentSituation asf = new CurrentSituation(clazz);
-		asf.setTimestamp(khelper.getKieRuntime().getSessionClock().getCurrentTime());
-    	asf.setCast(new SituationCast(khelper.getMatch(), clazz));
-
-    	khelper.insertLogical(asf);
+    	khelper.insertLogical(ongoing);
 	}
 	
-	public static SituationType activateSituation(KnowledgeHelper khelper, SituationCast cast, Class<?> type, long timestamp) {
-		
-		long evn_timestamp = khelper.getKieRuntime().getSessionClock().getCurrentTime();
-		ActivateSituationEvent ase = new ActivateSituationEvent(evn_timestamp);
-		
-		SituationType sit = null;
+	public static Situation activateSituation(KnowledgeHelper khelper, SituationCast cast, SituationType type, long timestamp) {
 
-		try {
-			
-			sit = (SituationType) type.newInstance();
-			
-			SetFieldsFromMatchedObjects(sit, cast);
-			ase.setSituation(sit);
-			
-			sit.setActivation(ase);
+		KieRuntime runtime = khelper.getKieRuntime();
 
-			khelper.getKieRuntime().insert(ase);
-			khelper.getKieRuntime().insert(sit);
-			
-		} catch (InstantiationException e) {
-			e.printStackTrace();
-		} catch (IllegalAccessException e) {
-			e.printStackTrace();
+		long evn_timestamp = runtime.getSessionClock().getCurrentTime();
+		Activation activation = new Activation(evn_timestamp);
+		
+		Situation situation = ((SituationTypeImpl) type).newInstance(activation, cast);
+        activation.setSituation(situation);
+		runtime.insert(activation);
+		for (Participation participation: situation.getParticipations()) {
+			runtime.insert(participation);
 		}
-		
-		return sit;
+		runtime.insert(situation);
+		return situation;
 	}
 	
 	public static void deactivateSituation(KnowledgeHelper khelper, Object sit) {
 		long evn_timestamp = khelper.getKieRuntime().getSessionClock().getCurrentTime();
-		DeactivateSituationEvent dse = new DeactivateSituationEvent(evn_timestamp);
-		dse.setSituation((SituationType) sit);
+		Deactivation deactivation = new Deactivation(evn_timestamp);
+		deactivation.setSituation((Situation) sit);
 
-		((SituationType) sit).setDeactivation(dse);
+		((Situation) sit).setDeactivation(deactivation);
 		
-		khelper.getKieRuntime().insert(dse);
+		khelper.getKieRuntime().insert(deactivation);
 		khelper.getKieRuntime().update(khelper.getKieRuntime().getFactHandle(sit), sit);
 	}
 	

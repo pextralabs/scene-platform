@@ -1,7 +1,10 @@
 package br.ufes.inf.lprm.scene.examples.fever;
 
-import br.ufes.inf.lprm.scene.base.*;
-import br.ufes.inf.lprm.situation.*;
+import br.ufes.inf.lprm.scene.base.SituationHelper;
+import br.ufes.inf.lprm.scene.model.impl.Situation;
+import br.ufes.inf.lprm.situation.annotations.part;
+import br.ufes.inf.lprm.situation.model.Participation;
+import br.ufes.inf.lprm.situation.model.SituationType;
 
 declare Person
 	id: Integer
@@ -9,15 +12,45 @@ declare Person
 	temperature: Integer
 end
 
-declare Fever extends SituationType
-    febrile: Person @part(label = "f1")
+declare Fever extends Situation
+    febrile: Person @part
+end
+
+declare NoFever extends Situation
+    person: Person @part(label = "f1")
 end
 
 rule "FeverSituation"
 @role(situation)
 @type(Fever)
     when
-    	f1: Person(temperature > 37)
+    	febrile: Person(temperature > 37)
     then
     	SituationHelper.situationDetected(drools);
 end
+
+rule "NoFeverSituation"
+@role(situation)
+@type(NoFever)
+    when
+    	f1: Person(temperature <= 37)
+    then
+    	SituationHelper.situationDetected(drools);
+end
+
+rule Subscription
+    when
+        $type: SituationType(name == "br.ufes.inf.lprm.scene.examples.fever.Fever")
+        $situation: Situation(type == $type, active)
+        $actor: Person(name == "john")
+        Participation(actor == $actor, situation == $situation)
+    then
+        System.out.println($situation.toString());
+end
+
+/*rule "Test"
+    when
+    	$f: Fever()
+    then
+        System.out.println($f.getType().getDeclaredFields());
+end*/
