@@ -27,23 +27,10 @@ val `org.slf4j_slf4j-api` = "org.slf4j" % "slf4j-api" % "1.7.21"
 
 lazy val `situation-model` = ProjectName("situation-model","situation-model").settings(
   libraryDependencies ++= Seq(`joda-time_joda-time`),
-    name := "situation-api",
+    name := "situation-model",
     version := "2.0.0",
     organization := "br.ufes.inf.lprm"
 ).settings().dependsOn()
-
-lazy val `scene-server` = ProjectName("scene-server","scene-server").settings(
-  libraryDependencies ++= Seq(`org.slf4j_slf4j-log4j12`,
-   `org.slf4j_slf4j-api`,
-   `org.kie_kie-api`,
-   `org.drools_drools-core`,
-   `org.drools_drools-compiler`,
-   `joda-time_joda-time`,
-   `com.google.code.gson_gson`),
-    name := "scene-server",
-    version := "2.0.0",
-    organization := "br.ufes.inf.lprm"
-).settings().dependsOn(`scene-core`)
 
 lazy val `scene-examples` = ProjectName("scene-examples","scene-examples").settings(
   libraryDependencies ++= Seq(),
@@ -58,7 +45,9 @@ lazy val `scene-core` = ProjectName("scene-core","scene-core").settings(
    `org.kie_kie-api`,
    `org.drools_drools-core`,
    `junit_junit`,
-   `org.drools_drools-compiler`),
+   `org.drools_drools-compiler`,
+    `joda-time_joda-time`,
+    `com.google.code.gson_gson`),
     name := "scene-core",
     version := "2.0.0",
     organization := "br.ufes.inf.lprm"

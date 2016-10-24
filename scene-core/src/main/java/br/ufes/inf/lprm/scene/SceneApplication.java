@@ -1,18 +1,20 @@
-package br.ufes.inf.lprm.scene.base;
+package br.ufes.inf.lprm.scene;
 
 
+import br.ufes.inf.lprm.scene.base.listeners.SCENESessionListener;
 import br.ufes.inf.lprm.scene.model.impl.PartImpl;
 import br.ufes.inf.lprm.scene.model.impl.Situation;
-import br.ufes.inf.lprm.situation.model.SituationType;
 import br.ufes.inf.lprm.scene.model.impl.SituationTypeImpl;
+import br.ufes.inf.lprm.scene.serialization.JsonContext;
+import br.ufes.inf.lprm.scene.serialization.JsonType;
+import br.ufes.inf.lprm.situation.annotations.part;
+import br.ufes.inf.lprm.situation.model.Part;
+import br.ufes.inf.lprm.situation.model.SituationType;
 import org.kie.api.KieBase;
 import org.kie.api.definition.KiePackage;
 import org.kie.api.definition.type.FactType;
 import org.kie.api.runtime.KieSession;
-import br.ufes.inf.lprm.situation.model.Part;
-import br.ufes.inf.lprm.situation.annotations.part;
 
-import java.lang.annotation.Annotation;
 import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.List;
@@ -21,21 +23,19 @@ import java.util.Map;
 public class SceneApplication {
 
     private String name;
-    private KieBase kbase;
     private KieSession ksession;
     private List<SituationTypeImpl> situationTypeImpls;
     private Map<String, SituationTypeImpl> mappedSituationTypes;
-
-    public SceneApplication(String name, KieBase kbase) {
-        this.name = name;
-        this.kbase = kbase;
-    }
+    private JsonContext context;
 
     public SceneApplication(String name, KieSession ksession) {
         this.name = name;
-        this.kbase = ksession.getKieBase();
         this.ksession = ksession;
         injectSceneMetamodel();
+    }
+
+    public SceneApplication() {
+        this.context = new JsonContext();
     }
 
     private List<SituationType> findSituationTypes(KieBase kbase) {
@@ -52,19 +52,13 @@ public class SceneApplication {
     }
 
     private void injectSceneMetamodel() {
-        List<SituationType> types = findSituationTypes(kbase);
+        List<SituationType> types = findSituationTypes(ksession.getKieBase());
         for (SituationType type: types) {
             for(Part part: type.getParts()) {
                 ksession.insert(part);
             }
             ksession.insert(type);
         }
-    }
-
-    private KieSession newSession() {
-        ksession = kbase.newKieSession();
-        injectSceneMetamodel();
-        return ksession;
     }
 
     private List<Part> findPartsFromClass(Class clazz) {
@@ -81,5 +75,25 @@ public class SceneApplication {
             }
         }
         return parts;
+    }
+
+    public void insertCode(String content) {
+        context.compileCodeJson(content);
+        name = context.getAppname();
+        ksession = context.getkSession();
+        ksession.addEventListener(new SCENESessionListener());
+        injectSceneMetamodel();
+    }
+
+    public void insertData(String content) {
+        context.compileDataJson(content, JsonType.INSERT);
+    }
+
+    public void updateData(String content) {
+        context.compileDataJson(content, JsonType.UPDATE);
+    }
+
+    public void deleteData(String content) {
+        context.compileDataJson(content, JsonType.DELETE);
     }
 }

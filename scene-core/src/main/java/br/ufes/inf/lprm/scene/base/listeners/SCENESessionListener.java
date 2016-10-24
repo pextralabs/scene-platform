@@ -1,6 +1,6 @@
 package br.ufes.inf.lprm.scene.base.listeners;
 
-import br.ufes.inf.lprm.scene.base.OnGoingSituation;
+import br.ufes.inf.lprm.scene.util.OnGoingSituation;
 import br.ufes.inf.lprm.scene.base.logging.SCENELogger;
 import br.ufes.inf.lprm.situation.model.events.SituationEvent;
 import org.kie.api.event.rule.DefaultRuleRuntimeEventListener;

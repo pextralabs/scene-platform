@@ -1,6 +1,6 @@
 package br.ufes.inf.lprm.scene.model.impl;
 
-import br.ufes.inf.lprm.scene.model.SituationCast;
+import br.ufes.inf.lprm.scene.util.SituationCast;
 import br.ufes.inf.lprm.situation.model.Part;
 import br.ufes.inf.lprm.situation.model.Participation;
 import br.ufes.inf.lprm.situation.model.SituationType;

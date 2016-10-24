@@ -1,55 +1,133 @@
-package br.ufes.inf.lprm.scene;
+package br.ufes.inf.lprm.scene.serialization;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.google.gson.stream.JsonReader;
 import com.google.gson.stream.JsonToken;
+import org.drools.core.ClockType;
+import org.kie.api.KieServices;
+import org.kie.api.builder.KieBuilder;
+import org.kie.api.builder.KieFileSystem;
+import org.kie.api.builder.KieModule;
+import org.kie.api.builder.ReleaseId;
+import org.kie.api.builder.model.KieBaseModel;
+import org.kie.api.builder.model.KieModuleModel;
+import org.kie.api.builder.model.KieSessionModel;
 import org.kie.api.definition.type.FactField;
 import org.kie.api.definition.type.FactType;
+import org.kie.api.io.Resource;
+import org.kie.api.io.ResourceType;
+import org.kie.api.runtime.KieContainer;
 import org.kie.api.runtime.KieSession;
+import org.kie.api.runtime.conf.ClockTypeOption;
 import org.kie.api.runtime.rule.FactHandle;
 
-import java.io.File;
-import java.io.FileReader;
-import java.io.IOException;
+import java.io.*;
 import java.lang.reflect.Field;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 /**
- * Created by hborjaille on 10/7/16.
+ * Created by hborjaille on 10/24/16.
  */
-public class DataInsert {
+public class JsonContext {
+    private Map<String, Map<Integer, FactHandle>> factHandleMap;
+    private Map<String, Map<Integer, Object>> objectMap;
+    private ArrayList<String> packages;
     private KieSession kSession;
-    ArrayList<String> packages;
+    private String appname;
 
-    public DataInsert(KieSession kieSession, ArrayList<String> pakages) {
-        kSession = kieSession;
-        packages = pakages;
+    public JsonContext() {
+        factHandleMap = new HashMap<>();
+        objectMap = new HashMap<>();
+        packages = new ArrayList<>();
     }
 
-    public void compileDataJson(File file, JsonType type) {
-        try {
-            Gson gson = new Gson();
-            Type jsonType = new TypeToken<Map<String, Object>>(){}.getType();
+    public void compileCodeJson(String content) {
+        Gson gson = new Gson();
+        Type jsonType = new TypeToken<Map<String, Object>>(){}.getType();
 
-            Map<String, Object> myMap = gson.fromJson(new FileReader(file), jsonType);
+        Map<String, Object> myMap = gson.fromJson(content, jsonType);
 
-            JsonReader jsonreader = new JsonReader(new FileReader(file));
-            readDataJson(jsonreader, myMap, type, false);
-            if (type == JsonType.INSERT) {
-                jsonreader = new JsonReader(new FileReader(file));
-                readDataJson(jsonreader, myMap, type, true);
-            }
-        } catch (IOException e) {
-            System.out.println("Could not open " + file.getName());
+        if(myMap.get("application") == null) {
+            System.out.println("Json format not compatible.");
+        } else {
+            readCodeJson(myMap);
+        }
+    }
+
+    private String refactorAppName(String name) {
+        return name.toLowerCase().replace(" ", "-").replace(".", "-");
+    }
+
+    private void readCodeJson(Map<String, Object> map) {
+        // Getting KieServices
+        KieServices kServices = KieServices.Factory.get();
+        // Instantiating a KieFileSystem and KieModuleModel
+        KieFileSystem kFileSystem = kServices.newKieFileSystem();
+        KieModuleModel kieModuleModel = kServices.newKieModuleModel();
+
+        appname = refactorAppName((String) map.get("application"));
+
+        ReleaseId releaseId = kServices.newReleaseId("br.ufes.inf.lprm.scene", appname, (String) map.get("version"));
+        kFileSystem.generateAndWritePomXML(releaseId);
+        KieBaseModel sceneBase = kieModuleModel.newKieBaseModel("sceneKieBase");
+        sceneBase =  kServices.getKieClasspathContainer().getKieBaseModel("sceneKieBase");
+        KieBaseModel kieBaseModel = kieModuleModel.newKieBaseModel(appname);
+        kieBaseModel.addInclude("sceneKieBase");
+
+        List<Map<String, String>> files = (List<Map<String, String>>) map.get("files");
+
+        for (Map<String, String> f: files) {
+            String name = f.get("name");
+            String pakage = f.get("package");
+
+            packages.add(pakage);
+            kieBaseModel.addPackage(pakage);
+
+            String path = "src/main/resources/" + pakage.replace(".", "/") + "/" + name;
+
+            Resource resource = kServices.getResources().newByteArrayResource(f.get("content").getBytes()).setResourceType(ResourceType.DRL);
+            kFileSystem.write(path, resource);
+        }
+
+        KieSessionModel kieSessionModel = kieBaseModel.newKieSessionModel(appname + ".session");
+        kieSessionModel.setClockType(ClockTypeOption.get(ClockType.REALTIME_CLOCK.getId()))
+                .setType(KieSessionModel.KieSessionType.STATEFUL);
+
+        kFileSystem.writeKModuleXML(kieModuleModel.toXML());
+
+        KieBuilder kbuilder = kServices.newKieBuilder(kFileSystem).buildAll();
+        if (kbuilder.getResults().hasMessages()) {
+            throw new IllegalArgumentException("Coudln't build knowledge module" + kbuilder.getResults());
+        }
+
+        KieModule kModule = kbuilder.getKieModule();
+        KieContainer kContainer = kServices.newKieContainer(kModule.getReleaseId());
+
+        kSession = kContainer.newKieSession(appname + ".session");
+
+    }
+
+    public void compileDataJson(String content, JsonType type) {
+        Gson gson = new Gson();
+        Type jsonType = new TypeToken<Map<String, Object>>(){}.getType();
+
+        Map<String, Object> myMap = gson.fromJson(content, jsonType);
+
+        JsonReader jsonreader = new JsonReader(new StringReader(content));
+        readDataJson(jsonreader, myMap, type, false);
+        if (type == JsonType.INSERT) {
+            jsonreader = new JsonReader(new StringReader(content));
+            readDataJson(jsonreader, myMap, type, true);
         }
 
     }
 
-    public void readDataJson(JsonReader reader, Map<String, Object> map, JsonType type, boolean isInsertOrUpdate) {
+    private void readDataJson(JsonReader reader, Map<String, Object> map, JsonType type, boolean isInsertOrUpdate) {
 
         try {
             JsonToken token = reader.peek();
@@ -90,12 +168,12 @@ public class DataInsert {
         }
     }
 
-    public FactType getClassByName(String classname, String packagePath) {
+    private FactType getClassByName(String classname, String packagePath) {
         FactType type = kSession.getKieBase().getFactType(packagePath, classname);
         return type;
     }
 
-    public Object tryToInstantiateClass(FactType type) {
+    private Object tryToInstantiateClass(FactType type) {
         Object objClass = null;
         try {
             objClass = type.newInstance();
@@ -108,7 +186,7 @@ public class DataInsert {
         return objClass;
     }
 
-    public void setFieldsNull(Object objClass) {
+    private void setFieldsNull(Object objClass) {
         Field[] fields = objClass.getClass().getDeclaredFields();
 
         for (Field f : fields) {
@@ -122,8 +200,7 @@ public class DataInsert {
         }
     }
 
-    public void setFields(Map<String, Object> objAux, Object objClass, FactType type, boolean chooser) {
-        ServerContext context = ServerContext.getInstance();
+    private void setFields(Map<String, Object> objAux, Object objClass, FactType type, boolean chooser) {
         for (String str : objAux.keySet()) {
             Field[] fields = objClass.getClass().getDeclaredFields();
 
@@ -153,7 +230,7 @@ public class DataInsert {
                                     List fieldData = (List) attribute;
                                     for(int i = 0; i < fieldData.size(); i++) {
                                         int id = ((Double)fieldData.get(i)).intValue();
-                                        Object obj = context.getObj(metadata.get("type").toString(), id);
+                                        Object obj = getObj(metadata.get("type").toString(), id);
                                         fieldData.set(i, obj);
                                     }
                                     f.set(objClass, fieldData);
@@ -175,7 +252,6 @@ public class DataInsert {
     }
 
     private void tryToInstantiateEveryAvailableData(String classname, List list, boolean chooser) {
-        ServerContext context = ServerContext.getInstance();
         for (Object obj: list) {
             FactType type = null;
             for (String pakage : packages) {
@@ -192,14 +268,13 @@ public class DataInsert {
 
             setFields(objAux, objClass, type, chooser);
 
-            context.putFact(objClass.getClass().getName(), id, kSession.insert(objClass));
-            context.putObj(objClass.getClass().getSimpleName(), id, objClass);
+            putFact(objClass.getClass().getName(), id, kSession.insert(objClass));
+            putObj(objClass.getClass().getSimpleName(), id, objClass);
         }
         kSession.fireAllRules();
     }
 
     private void tryToUpdateEveryAvailableData(String classname, List list) {
-        ServerContext context = ServerContext.getInstance();
         for (Object obj: list) {
             int id = 0;
             FactType type = null;
@@ -210,7 +285,7 @@ public class DataInsert {
 
             Map<String, Object> objAux = (Map<String, Object>) obj;
             id = ((Double)objAux.get("id")).intValue();
-            FactHandle fact = context.getFact(type.getName(), id);
+            FactHandle fact = getFact(type.getName(), id);
             Object objClass = kSession.getObject(fact);
 
             setFieldsNull(objClass);
@@ -222,7 +297,6 @@ public class DataInsert {
     }
 
     private void tryToDeleteEveryAvailableData(String classname, List list) {
-        ServerContext context = ServerContext.getInstance();
         for (Object obj: list) {
             int id = 0;
             FactType type = null;
@@ -233,11 +307,58 @@ public class DataInsert {
 
             Map<String, Object> objAux = (Map<String, Object>) obj;
             id = ((Double)objAux.get("id")).intValue();
-            FactHandle fact = context.getFact(type.getName(), id);
+            FactHandle fact = getFact(type.getName(), id);
 
             kSession.delete(fact);
-            context.removeFact(type.getName(), fact);
+            // TODO removeObj(type.getName(), );
+            removeFact(type.getName(), fact);
         }
         kSession.fireAllRules();
+    }
+
+    private void putObj(String clazz, int id, Object obj) {
+        Map<Integer, Object> item = objectMap.get(clazz);
+        if(item != null) {
+            item.put(id, obj);
+        } else {
+            item = new HashMap<Integer, Object>();
+            item.put(id, obj);
+            objectMap.put(clazz, item);
+        }
+    }
+
+    private Object getObj(String clazz, int id) {
+        return objectMap.get(clazz).get(id);
+    }
+
+    private void removeObj(String clazz, Object obj) {
+        objectMap.get(clazz).remove(obj);
+    }
+
+    private void putFact(String clazz, int id, FactHandle fact) {
+        Map<Integer, FactHandle> item = factHandleMap.get(clazz);
+        if(item != null) {
+            item.put(id, fact);
+        } else {
+            item = new HashMap<Integer, FactHandle>();
+            item.put(id, fact);
+            factHandleMap.put(clazz, item);
+        }
+    }
+
+    private FactHandle getFact(String clazz, int id) {
+        return factHandleMap.get(clazz).get(id);
+    }
+
+    private void removeFact(String clazz, FactHandle fact) {
+        factHandleMap.get(clazz).remove(fact);
+    }
+
+    public String getAppname() {
+        return appname;
+    }
+
+    public KieSession getkSession() {
+        return kSession;
     }
 }

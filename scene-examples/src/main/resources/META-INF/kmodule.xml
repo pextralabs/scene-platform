@@ -4,4 +4,7 @@
     <kbase name="feverKieBase" packages="br.ufes.inf.lprm.scene.examples.fever" includes="sceneKieBase">
         <ksession name="br.ufes.inf.lprm.scene.examples.fever.session" type="stateful"/>
     </kbase>
+    <kbase name="connectionsKieBase" packages="br.ufes.inf.lprm.scene.examples.connectionswitch" includes="sceneKieBase">
+        <ksession name="br.ufes.inf.lprm.scene.examples.connectionswitch.session" type="stateful"/>
+    </kbase>
 </kmodule>

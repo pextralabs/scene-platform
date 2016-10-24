@@ -1,10 +1,10 @@
 package br.ufes.inf.lprm.scene.examples.fever;
 
-import br.ufes.inf.lprm.scene.base.SituationHelper;
 import br.ufes.inf.lprm.scene.model.impl.Situation;
 import br.ufes.inf.lprm.situation.annotations.part;
 import br.ufes.inf.lprm.situation.model.Participation;
-import br.ufes.inf.lprm.situation.model.SituationType;
+import br.ufes.inf.lprm.situation.model.SituationType
+import br.ufes.inf.lprm.scene.util.SituationHelper;
 
 declare Person
 	id: Integer

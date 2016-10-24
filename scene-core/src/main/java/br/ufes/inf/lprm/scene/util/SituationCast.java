@@ -1,11 +1,10 @@
-package br.ufes.inf.lprm.scene.model;
+package br.ufes.inf.lprm.scene.util;
 
 import br.ufes.inf.lprm.situation.model.Part;
 import br.ufes.inf.lprm.situation.model.SituationType;
 import org.drools.core.definitions.rule.impl.RuleImpl;
 import org.drools.core.spi.Activation;
 
-import java.lang.reflect.Field;
 import java.util.*;
 
 @SuppressWarnings("serial")

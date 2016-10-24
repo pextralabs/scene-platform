@@ -1,6 +1,5 @@
 package br.ufes.inf.lprm.scene.examples.connectionswitch;
 
-import br.ufes.inf.lprm.scene.SituationKieBase;
 import br.ufes.inf.lprm.scene.examples.shared.Device;
 import br.ufes.inf.lprm.scene.examples.shared.Network;
 import br.ufes.inf.lprm.scene.examples.shared.NetworkType;
@@ -36,7 +35,7 @@ public class SituationOfSituationMain {
             // load up the knowledge base
             KieServices ks = KieServices.Factory.get();
             KieContainer kContainer = ks.getKieClasspathContainer();
-            KieSession ksession = SituationKieBase.newKieSession(kContainer, "br.ufes.inf.lprm.scene.examples.fever.session");
+            KieSession ksession = kContainer.newKieSession("br.ufes.inf.lprm.scene.examples.connectionswitch.session");
 
             //KnowledgeRuntimeLoggerFactory.newConsoleLogger(ksession);
             // go !

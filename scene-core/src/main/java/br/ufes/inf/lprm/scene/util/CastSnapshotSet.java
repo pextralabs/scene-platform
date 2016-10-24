@@ -1,4 +1,4 @@
-package br.ufes.inf.lprm.scene.model;
+package br.ufes.inf.lprm.scene.util;
 
 import java.util.Iterator;
 import java.util.LinkedList;

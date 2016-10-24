@@ -1,4 +1,4 @@
-package br.ufes.inf.lprm.scene;
+package br.ufes.inf.lprm.scene.serialization;
 
 /**
  * Created by higorborjaille on 13/10/2016.

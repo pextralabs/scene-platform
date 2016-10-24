@@ -1,7 +1,4 @@
-package br.ufes.inf.lprm.scene.base;
-
-import br.ufes.inf.lprm.situation.model.SituationType;
-import org.kie.api.KieBase;
+package br.ufes.inf.lprm.scene;
 
 import java.util.Map;
 

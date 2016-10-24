@@ -1,6 +1,6 @@
 package br.ufes.inf.lprm.scene.examples.fever;
 
-import br.ufes.inf.lprm.scene.base.SceneApplication;
+import br.ufes.inf.lprm.scene.SceneApplication;
 import br.ufes.inf.lprm.scene.base.listeners.SCENESessionListener;
 import org.kie.api.KieServices;
 import org.kie.api.definition.type.FactField;
@@ -31,7 +31,7 @@ public class FeverExampleMain {
             // load up the knowledge base
 			KieServices ks = KieServices.Factory.get();
 			KieContainer kContainer = ks.getKieClasspathContainer();
-			KieSession kSession = kContainer.newKieSession("br.ufes.inf.lprm.scene.examples.fever.session");//SituationKieBase.newKieSession(kContainer, "br.ufes.inf.lprm.scene.examples.fever.session");
+			KieSession kSession = kContainer.newKieSession("br.ufes.inf.lprm.scene.examples.fever.session");
             kSession.addEventListener(new SCENESessionListener());
 
 			SceneApplication app = new SceneApplication("Fever", kSession);

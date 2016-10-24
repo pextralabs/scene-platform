@@ -1,47 +1,18 @@
-package br.ufes.inf.lprm.scene.base;
+package br.ufes.inf.lprm.scene.util;
 
-import br.ufes.inf.lprm.scene.model.SituationCast;
+import br.ufes.inf.lprm.scene.model.impl.SituationTypeImpl;
 import br.ufes.inf.lprm.situation.model.Participation;
 import br.ufes.inf.lprm.situation.model.Situation;
-import br.ufes.inf.lprm.scene.model.impl.SituationTypeImpl;
 import br.ufes.inf.lprm.situation.model.SituationType;
 import br.ufes.inf.lprm.situation.model.events.Activation;
 import br.ufes.inf.lprm.situation.model.events.Deactivation;
-import org.drools.core.base.SalienceInteger;
 import org.drools.core.definitions.rule.impl.RuleImpl;
 import org.drools.core.spi.KnowledgeHelper;
-import org.kie.api.KieBase;
-import org.kie.api.definition.KiePackage;
 import org.kie.api.runtime.KieRuntime;
 import org.kie.api.runtime.rule.QueryResults;
 import org.kie.api.runtime.rule.QueryResultsRow;
 
 public class SituationHelper {
-	
-	public static void refactorSaliences(KieBase kbase) {
-		
-		KiePackage situationBasePkg = null;
-		Integer maxSalience = null;
-		
-		for (KiePackage pkg: kbase.getKiePackages()) {
-			
-			if (pkg.getName().equals("br.ufes.inf.lprm.scene.base")) { situationBasePkg = pkg; }
-			
-			for (RuleImpl rule:  SituationUtils.getRulesFromPackage(pkg)) {
-				
-        		if (maxSalience != null) {
-            		if (rule.getSalience().getValue() > maxSalience) {
-            			maxSalience = rule.getSalience().getValue();
-            		}        			
-        		} else maxSalience = rule.getSalience().getValue();
-			}
-		}
-
-		if (situationBasePkg != null) {
-			SituationUtils.getRuleFromPackage(situationBasePkg, "SituationActivation").setSalience(new SalienceInteger(maxSalience + 1));
-			SituationUtils.getRuleFromPackage(situationBasePkg, "SituationDeactivation").setSalience(new SalienceInteger(maxSalience + 2));
-		}
-	}
 
 	public static SituationType getSituationType(KieRuntime runtime, String typeName) {
 		QueryResults results = runtime.getQueryResults("SituationType", new Object[] {typeName} );

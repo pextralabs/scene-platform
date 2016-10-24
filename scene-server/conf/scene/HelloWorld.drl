@@ -2,7 +2,8 @@ package scene
 
 import br.ufes.inf.lprm.situation.*;
 import br.ufes.inf.lprm.scene.base.*;
-import scene.fever.*;
+import scene.fever.*
+import br.ufes.inf.lprm.scene.util.SituationHelper;
 
 rule "FeverSituation"
 @role(situation)

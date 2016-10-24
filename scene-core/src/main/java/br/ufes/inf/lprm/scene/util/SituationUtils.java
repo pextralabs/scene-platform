@@ -1,4 +1,4 @@
-package br.ufes.inf.lprm.scene.base;
+package br.ufes.inf.lprm.scene.util;
 
 import org.drools.core.definitions.rule.impl.RuleImpl;
 import org.kie.api.definition.KiePackage;
