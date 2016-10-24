@@ -1,6 +1,6 @@
 package br.ufes.inf.lprm.scene.base.evaluators.implementation;
 
-import br.ufes.inf.lprm.situation.SituationType;
+import br.ufes.inf.lprm.situation.model.Situation;
 import org.drools.core.base.ValueType;
 import org.drools.core.base.evaluators.MetByEvaluatorDefinition;
 import org.drools.core.common.EventFactHandle;
@@ -47,8 +47,8 @@ public class MeetsEvaluator extends MetByEvaluatorDefinition.MetByEvaluator {
             leftStartTS = ((EventFactHandle) left).getStartTimestamp();
         } else {
             Object leftFact =  workingMemory.getObject(left);
-            if (leftFact instanceof SituationType) {
-                leftStartTS = ((SituationType) leftFact).getActivation().getTimestamp();
+            if (leftFact instanceof Situation) {
+                leftStartTS = ((Situation) leftFact).getActivation().getTimestamp();
             }
         }
 
@@ -70,8 +70,8 @@ public class MeetsEvaluator extends MetByEvaluatorDefinition.MetByEvaluator {
             dist = Math.abs( leftStartTS - ((EventFactHandle) right).getEndTimestamp() );
         } else {
             Object rightFact =  workingMemory.getObject(right);
-            if (rightFact instanceof SituationType) {
-                dist = Math.abs( leftStartTS - ((SituationType) rightFact).getDeactivation().getTimestamp());
+            if (rightFact instanceof Situation) {
+                dist = Math.abs( leftStartTS - ((Situation) rightFact).getDeactivation().getTimestamp());
             }
         }
 
@@ -93,8 +93,8 @@ public class MeetsEvaluator extends MetByEvaluatorDefinition.MetByEvaluator {
             obj2StartTS = ((EventFactHandle) handle2).getStartTimestamp();
         } else {
             Object obj2Fact =  workingMemory.getObject(handle2);
-            if (obj2Fact instanceof SituationType) {
-                obj2StartTS = ((SituationType) obj2Fact).getActivation().getTimestamp();
+            if (obj2Fact instanceof Situation) {
+                obj2StartTS = ((Situation) obj2Fact).getActivation().getTimestamp();
             }
         }
 
@@ -103,8 +103,8 @@ public class MeetsEvaluator extends MetByEvaluatorDefinition.MetByEvaluator {
             dist = Math.abs( obj2StartTS - ((EventFactHandle) handle1).getEndTimestamp() );
         } else {
             Object obj1Fact = workingMemory.getObject(handle1);
-            if (obj1Fact instanceof SituationType) {
-                dist = Math.abs( obj2StartTS - ((SituationType) obj1Fact).getDeactivation().getTimestamp());
+            if (obj1Fact instanceof Situation) {
+                dist = Math.abs( obj2StartTS - ((Situation) obj1Fact).getDeactivation().getTimestamp());
             }
         }
 

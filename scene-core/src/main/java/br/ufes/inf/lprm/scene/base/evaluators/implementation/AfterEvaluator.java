@@ -1,6 +1,6 @@
 package br.ufes.inf.lprm.scene.base.evaluators.implementation;
 
-import br.ufes.inf.lprm.situation.SituationType;
+import br.ufes.inf.lprm.situation.model.Situation;
 import org.drools.core.base.ValueType;
 import org.drools.core.base.evaluators.AfterEvaluatorDefinition;
 import org.drools.core.common.EventFactHandle;
@@ -25,9 +25,9 @@ public class AfterEvaluator extends AfterEvaluatorDefinition.AfterEvaluator {
     @Override
     protected long getLeftTimestamp( InternalFactHandle handle ) {
         Object obj = handle.getObject();
-        if (obj instanceof SituationType) {
-            if (!((SituationType) obj).isActive()) {
-                return ((SituationType) obj).getDeactivation().getTimestamp();
+        if (obj instanceof Situation) {
+            if (!((Situation) obj).isActive()) {
+                return ((Situation) obj).getDeactivation().getTimestamp();
             }
             // the AFTER operation is only TRUE when A STARTS after the ENDING of B.
             // .If a situation B is NOT OVER yet,
@@ -40,8 +40,8 @@ public class AfterEvaluator extends AfterEvaluatorDefinition.AfterEvaluator {
     @Override
     protected long getRightTimestamp( InternalFactHandle handle ) {
         Object obj = handle.getObject();
-        if (obj instanceof SituationType) {
-            return ((SituationType) obj).getActivation().getTimestamp();
+        if (obj instanceof Situation) {
+            return ((Situation) obj).getActivation().getTimestamp();
         } else return ( (EventFactHandle) handle ).getStartTimestamp();
     }
 }

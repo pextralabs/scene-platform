@@ -3,14 +3,14 @@ package br.ufes.inf.lprm.scene.examples.connectionswitch;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-import br.ufes.inf.lprm.situation.Part;
-import br.ufes.inf.lprm.situation.SituationType;
+import br.ufes.inf.lprm.scene.model.impl.Situation;
+import br.ufes.inf.lprm.situation.annotations.part;
 
-public class SituationSwitch extends SituationType {
+public class SituationSwitch extends Situation {
 	
-	@Part(label = "wlan")
+	@part(label = "wlan")
 	private SituationConnected wlan;
-	@Part(label = "bluetooth")
+	@part(label = "bluetooth")
 	private SituationConnected bluetooth;
 	
 	public SituationConnected getWlan() {
@@ -25,11 +25,6 @@ public class SituationSwitch extends SituationType {
 	public void setBluetooth(SituationConnected bluetooth) {
 		this.bluetooth = bluetooth;
 	}
-	
-	@Override
-	public void setActive() {
-		super.setActive();
-		System.out.println(wlan.getDevice().getId() + " switched from " + wlan.getNetwork().getId() + " to " + bluetooth.getNetwork().getId() + " at " + new SimpleDateFormat("H:mm:ss").format(  new Date( this.getActivation().getTimestamp() ) ) );		
-	}
+
 
 }

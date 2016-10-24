@@ -108,6 +108,7 @@ public class CodeInsert {
         KieContainer kContainer = kServices.newKieContainer(kModule.getReleaseId());
 
         kSession = kContainer.newKieSession(appname + ".session");
+
     }
 
     public void insertData(File file) {

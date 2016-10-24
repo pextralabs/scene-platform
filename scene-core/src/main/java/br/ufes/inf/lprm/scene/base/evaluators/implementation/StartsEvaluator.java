@@ -1,6 +1,6 @@
 package br.ufes.inf.lprm.scene.base.evaluators.implementation;
 
-import br.ufes.inf.lprm.situation.SituationType;
+import br.ufes.inf.lprm.situation.model.Situation;
 import org.drools.core.base.ValueType;
 import org.drools.core.base.evaluators.StartsEvaluatorDefinition;
 import org.drools.core.common.DefaultFactHandle;
@@ -54,11 +54,11 @@ public class StartsEvaluator extends StartsEvaluatorDefinition.StartsEvaluator {
         }
         else {
             Object leftFact =  workingMemory.getObject(leftFH);
-            if (leftFact instanceof SituationType) {
-                leftStartTS = ((SituationType) leftFact).getActivation().getTimestamp();
+            if (leftFact instanceof Situation) {
+                leftStartTS = ((Situation) leftFact).getActivation().getTimestamp();
                 //'during' is not applicable when situationA not finished
-                if (!((SituationType) leftFact).isActive()) {
-                    leftEndTS = ((SituationType) leftFact).getDeactivation().getTimestamp();
+                if (!((Situation) leftFact).isActive()) {
+                    leftEndTS = ((Situation) leftFact).getDeactivation().getTimestamp();
                 }
             }
         }
@@ -71,10 +71,10 @@ public class StartsEvaluator extends StartsEvaluatorDefinition.StartsEvaluator {
         }
         else {
             Object rightFact =  workingMemory.getObject(rightFH);
-            if (rightFact instanceof SituationType) {
-                rightStartTS = ((SituationType) rightFact).getActivation().getTimestamp();
-                if (!((SituationType) rightFact).isActive()) {
-                    rightEndTS = ((SituationType) rightFact).getDeactivation().getTimestamp();
+            if (rightFact instanceof Situation) {
+                rightStartTS = ((Situation) rightFact).getActivation().getTimestamp();
+                if (!((Situation) rightFact).isActive()) {
+                    rightEndTS = ((Situation) rightFact).getDeactivation().getTimestamp();
                 } else return false;
             }
         }
@@ -106,11 +106,11 @@ public class StartsEvaluator extends StartsEvaluatorDefinition.StartsEvaluator {
         }
         else {
             Object leftFact =  workingMemory.getObject(leftFH);
-            if (leftFact instanceof SituationType) {
-                leftStartTS = ((SituationType) leftFact).getActivation().getTimestamp();
+            if (leftFact instanceof Situation) {
+                leftStartTS = ((Situation) leftFact).getActivation().getTimestamp();
                 //'during' is not applicable when situationA not finished
-                if (!((SituationType) leftFact).isActive()) {
-                    leftEndTS = ((SituationType) leftFact).getDeactivation().getTimestamp();
+                if (!((Situation) leftFact).isActive()) {
+                    leftEndTS = ((Situation) leftFact).getDeactivation().getTimestamp();
                 }
             }
         }
@@ -123,10 +123,10 @@ public class StartsEvaluator extends StartsEvaluatorDefinition.StartsEvaluator {
         }
         else {
             Object rightFact =  workingMemory.getObject(rightFH);
-            if (rightFact instanceof SituationType) {
-                rightStartTS = ((SituationType) rightFact).getActivation().getTimestamp();
-                if (!((SituationType) rightFact).isActive()) {
-                    rightEndTS = ((SituationType) rightFact).getDeactivation().getTimestamp();
+            if (rightFact instanceof Situation) {
+                rightStartTS = ((Situation) rightFact).getActivation().getTimestamp();
+                if (!((Situation) rightFact).isActive()) {
+                    rightEndTS = ((Situation) rightFact).getDeactivation().getTimestamp();
                 } else return false;
             }
         }
@@ -159,10 +159,10 @@ public class StartsEvaluator extends StartsEvaluatorDefinition.StartsEvaluator {
         }
         else {
             Object obj1Fact =  workingMemory.getObject(obj1FH);
-            if (obj1Fact instanceof SituationType) {
-                obj1StartTS = ((SituationType) obj1Fact).getActivation().getTimestamp();
-                if (!((SituationType) obj1Fact).isActive()) {
-                    obj1EndTS = ((SituationType) obj1Fact).getDeactivation().getTimestamp();
+            if (obj1Fact instanceof Situation) {
+                obj1StartTS = ((Situation) obj1Fact).getActivation().getTimestamp();
+                if (!((Situation) obj1Fact).isActive()) {
+                    obj1EndTS = ((Situation) obj1Fact).getDeactivation().getTimestamp();
                 } else return false;
             }
         }
@@ -175,10 +175,10 @@ public class StartsEvaluator extends StartsEvaluatorDefinition.StartsEvaluator {
         }
         else {
             Object obj2Fact =  workingMemory.getObject(obj2FH);
-            if (obj2Fact instanceof SituationType) {
-                obj2StartTS = ((SituationType) obj2Fact).getActivation().getTimestamp();
-                if (!((SituationType) obj2Fact).isActive()) {
-                    obj2EndTS = ((SituationType) obj2Fact).getDeactivation().getTimestamp();
+            if (obj2Fact instanceof Situation) {
+                obj2StartTS = ((Situation) obj2Fact).getActivation().getTimestamp();
+                if (!((Situation) obj2Fact).isActive()) {
+                    obj2EndTS = ((Situation) obj2Fact).getDeactivation().getTimestamp();
                 }
             }
         }

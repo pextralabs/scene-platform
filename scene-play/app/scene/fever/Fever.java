@@ -1,14 +1,13 @@
 package scene.fever;
 
-import br.ufes.inf.lprm.situation.Part;
-import br.ufes.inf.lprm.situation.SituationType;
+import br.ufes.inf.lprm.situation.annotations.Part;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.concurrent.TimeUnit;
 
 //@Publish(host="host", port=4040)
-public class Fever extends SituationType {
+public class Fever extends Situation {
 	
 	@Part(label = "f1")
 	private Person febrile;
