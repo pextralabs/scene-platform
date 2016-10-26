@@ -14,6 +14,7 @@ import org.kie.api.KieBase;
 import org.kie.api.definition.KiePackage;
 import org.kie.api.definition.type.FactType;
 import org.kie.api.runtime.KieSession;
+import org.kie.api.runtime.rule.FactHandle;
 
 import java.lang.reflect.Field;
 import java.util.ArrayList;
@@ -77,6 +78,20 @@ public class SceneApplication {
         return parts;
     }
 
+    public String appStatus() {
+        String answer = new String();
+        for (FactHandle fact: ksession.getFactHandles()) {
+            Object obj = ksession.getObject(fact);
+            answer += obj.getClass().getName() + "\n";
+            for (Field field: obj.getClass().getDeclaredFields()) {
+                //TODO How to get the value from field
+                answer += field.getName() + ": " + "\n" ;
+            }
+            answer += "\n";
+        }
+        return answer;
+    }
+
     public void insertCode(String content) {
         context.compileCodeJson(content);
         name = context.getAppname();
@@ -95,5 +110,9 @@ public class SceneApplication {
 
     public void deleteData(String content) {
         context.compileDataJson(content, JsonType.DELETE);
+    }
+
+    public String getName() {
+        return name;
     }
 }

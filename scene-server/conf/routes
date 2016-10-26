@@ -3,8 +3,10 @@
 # ~~~~
 
 # Home page
-GET     /                           controllers.Application.index()
-POST    /run                        controllers.Application.run()
+GET     /                                       controllers.Application.index()
+GET     /app/:appId                             controllers.Application.appstatus(appId: Integer)
+POST    /app                                    controllers.Application.appinsert()
+POST    /app/:appId                             controllers.Application.compiledata(appId: Integer)
 
 
 # Map static resources from the /public folder to the /assets URL path

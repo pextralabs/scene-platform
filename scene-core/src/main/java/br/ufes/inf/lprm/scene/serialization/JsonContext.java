@@ -22,7 +22,8 @@ import org.kie.api.runtime.KieSession;
 import org.kie.api.runtime.conf.ClockTypeOption;
 import org.kie.api.runtime.rule.FactHandle;
 
-import java.io.*;
+import java.io.IOException;
+import java.io.StringReader;
 import java.lang.reflect.Field;
 import java.lang.reflect.Type;
 import java.net.URISyntaxException;
@@ -30,8 +31,6 @@ import java.net.URL;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.*;
-
-import static org.kie.internal.io.ResourceFactory.newUrlResource;
 
 /**
  * Created by hborjaille on 10/24/16.
@@ -78,8 +77,6 @@ public class JsonContext {
         ReleaseId releaseId = kServices.newReleaseId("br.ufes.inf.lprm.scene", appname, (String) map.get("version"));
         kFileSystem.generateAndWritePomXML(releaseId);
 
-        //KieBaseModel sceneBase = kieModuleModel.newKieBaseModel("sceneKieBase");
-        //sceneBase =  kServices.getKieClasspathContainer().getKieBaseModel("sceneKieBase");
         KieBaseModel kieBaseModel = kieModuleModel.newKieBaseModel(appname);
         kieBaseModel.addInclude("sceneKieBase");
 
@@ -151,22 +148,26 @@ public class JsonContext {
             JsonToken token = reader.peek();
             if(token == JsonToken.NAME) {
                 String name = reader.nextName();
-                List list = (List) map.get(name);
-                if(list != null) {
-                    switch (type) {
-                        case INSERT:
-                            tryToInstantiateEveryAvailableData(name, list, isInsertOrUpdate);
-                            break;
-                        case UPDATE:
-                            tryToUpdateEveryAvailableData(name, list);
-                            break;
-                        case DELETE:
-                            tryToDeleteEveryAvailableData(name, list);
-                            break;
-                    }
-
-                } else {
+                if(name.equals("type")) {
                     reader.skipValue();
+                } else {
+                    List list = (List) map.get(name);
+                    if(list != null) {
+                        switch (type) {
+                            case INSERT:
+                                tryToInstantiateEveryAvailableData(name, list, isInsertOrUpdate);
+                                break;
+                            case UPDATE:
+                                tryToUpdateEveryAvailableData(name, list);
+                                break;
+                            case DELETE:
+                                tryToDeleteEveryAvailableData(name, list);
+                                break;
+                        }
+
+                    } else {
+                        reader.skipValue();
+                    }
                 }
             } else if(token == JsonToken.BEGIN_ARRAY) {
                 reader.beginArray();
