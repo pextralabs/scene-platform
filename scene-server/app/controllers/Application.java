@@ -17,7 +17,7 @@ public class Application extends Controller {
     }
 
 
-    public Result appinsert() {
+    public Result appInsert() {
 
         JsonNode node = request().body().asJson();
 
@@ -39,12 +39,20 @@ public class Application extends Controller {
         return scene.newApp(node.toString());
     }
 
-    public Result compiledata(Integer appId) {
+    public Result compileData(Integer appId) {
         return scene.compileData(appId, request().body());
     }
 
-    public Result appstatus(Integer appId) {
-        return scene.appStatus(appId);
+    public Result appStatusSituations(Integer appId) {
+        return scene.appStatusSituations(appId);
+    }
+
+    public Result appModel(Integer appId) {
+        return scene.appModel(appId);
+    }
+
+    public Result appDump(Integer appId) {
+        return scene.appDump(appId);
     }
 
 }

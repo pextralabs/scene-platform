@@ -4,9 +4,13 @@
 
 # Home page
 GET     /                                       controllers.Application.index()
-GET     /app/:appId                             controllers.Application.appstatus(appId: Integer)
-POST    /app                                    controllers.Application.appinsert()
-POST    /app/:appId                             controllers.Application.compiledata(appId: Integer)
+
+POST    /app                                    controllers.Application.appInsert()
+POST    /app/:appId                             controllers.Application.compileData(appId: Integer)
+
+GET     /app/:appId/situations                  controllers.Application.appStatusSituations(appId: Integer)
+GET     /app/:appId/model                       controllers.Application.appModel(appId: Integer)
+GET     /app/:appId/dump                        controllers.Application.appDump(appId: Integer)
 
 
 # Map static resources from the /public folder to the /assets URL path

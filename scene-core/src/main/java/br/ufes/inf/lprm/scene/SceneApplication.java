@@ -2,6 +2,7 @@ package br.ufes.inf.lprm.scene;
 
 
 import br.ufes.inf.lprm.scene.base.listeners.SCENESessionListener;
+import br.ufes.inf.lprm.scene.exceptions.NotInstantiatedException;
 import br.ufes.inf.lprm.scene.model.impl.PartImpl;
 import br.ufes.inf.lprm.scene.model.impl.Situation;
 import br.ufes.inf.lprm.scene.model.impl.SituationTypeImpl;
@@ -14,7 +15,6 @@ import org.kie.api.KieBase;
 import org.kie.api.definition.KiePackage;
 import org.kie.api.definition.type.FactType;
 import org.kie.api.runtime.KieSession;
-import org.kie.api.runtime.rule.FactHandle;
 
 import java.lang.reflect.Field;
 import java.util.ArrayList;
@@ -78,20 +78,6 @@ public class SceneApplication {
         return parts;
     }
 
-    public String appStatus() {
-        String answer = new String();
-        for (FactHandle fact: ksession.getFactHandles()) {
-            Object obj = ksession.getObject(fact);
-            answer += obj.getClass().getName() + "\n";
-            for (Field field: obj.getClass().getDeclaredFields()) {
-                //TODO How to get the value from field
-                answer += field.getName() + ": " + "\n" ;
-            }
-            answer += "\n";
-        }
-        return answer;
-    }
-
     public void insertCode(String content) {
         context.compileCodeJson(content);
         name = context.getAppname();
@@ -100,19 +86,23 @@ public class SceneApplication {
         injectSceneMetamodel();
     }
 
-    public void insertData(String content) {
+    public void insertData(String content) throws NotInstantiatedException {
         context.compileDataJson(content, JsonType.INSERT);
     }
 
-    public void updateData(String content) {
+    public void updateData(String content) throws NotInstantiatedException {
         context.compileDataJson(content, JsonType.UPDATE);
     }
 
-    public void deleteData(String content) {
+    public void deleteData(String content) throws NotInstantiatedException {
         context.compileDataJson(content, JsonType.DELETE);
     }
 
     public String getName() {
         return name;
+    }
+
+    public KieSession getKsession() {
+        return ksession;
     }
 }

@@ -1,5 +1,6 @@
 package br.ufes.inf.lprm.scene.serialization;
 
+import br.ufes.inf.lprm.scene.exceptions.NotInstantiatedException;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.google.gson.stream.JsonReader;
@@ -127,7 +128,7 @@ public class JsonContext {
 
     }
 
-    public void compileDataJson(String content, JsonType type) {
+    public void compileDataJson(String content, JsonType type) throws NotInstantiatedException {
         Gson gson = new Gson();
         Type jsonType = new TypeToken<Map<String, Object>>(){}.getType();
 
@@ -142,7 +143,7 @@ public class JsonContext {
 
     }
 
-    private void readDataJson(JsonReader reader, Map<String, Object> map, JsonType type, boolean isInsertOrUpdate) {
+    private void readDataJson(JsonReader reader, Map<String, Object> map, JsonType type, boolean isInsertOrUpdate) throws NotInstantiatedException {
 
         try {
             JsonToken token = reader.peek();
@@ -192,10 +193,18 @@ public class JsonContext {
         return type;
     }
 
-    private Object tryToInstantiateClass(FactType type) {
+    private Object tryToInstantiateClass(FactType type, int id) {
         Object objClass = null;
         try {
+            Map<Integer, Object> map = objectMap.get(type.getSimpleName());
+            if(map != null) {
+                Object obj = map.get(id);
+                if(obj != null)
+                    return obj;
+
+            }
             objClass = type.newInstance();
+
         } catch (InstantiationException e) {
             System.out.println("Could not instantiate the class " + objClass.getClass());
         } catch (IllegalAccessException e) {
@@ -276,12 +285,13 @@ public class JsonContext {
                 type = getClassByName(classname, pakage);
                 if(type != null) break;
             }
-            Object objClass = tryToInstantiateClass(type);
 
             int id = 0;
             Map<String, Object> objAux = (Map<String, Object>) obj;
 
             id = ((Double)objAux.get("id")).intValue();
+
+            Object objClass = tryToInstantiateClass(type, id);
 
 
             setFields(objAux, objClass, type, chooser);
@@ -292,7 +302,7 @@ public class JsonContext {
         kSession.fireAllRules();
     }
 
-    private void tryToUpdateEveryAvailableData(String classname, List list) {
+    private void tryToUpdateEveryAvailableData(String classname, List list) throws NotInstantiatedException {
         for (Object obj: list) {
             int id = 0;
             FactType type = null;
@@ -304,8 +314,10 @@ public class JsonContext {
             Map<String, Object> objAux = (Map<String, Object>) obj;
             id = ((Double)objAux.get("id")).intValue();
             FactHandle fact = getFact(type.getName(), id);
+            if(fact == null) {
+                throw new NotInstantiatedException("You are trying to update " + type.getSimpleName() + " with id " + id + ", but the Object doesn\'t exist.");
+            }
             Object objClass = kSession.getObject(fact);
-
             setFieldsNull(objClass);
             setFields(objAux, objClass, type, true);
 
@@ -314,7 +326,7 @@ public class JsonContext {
         kSession.fireAllRules();
     }
 
-    private void tryToDeleteEveryAvailableData(String classname, List list) {
+    private void tryToDeleteEveryAvailableData(String classname, List list) throws NotInstantiatedException {
         for (Object obj: list) {
             int id = 0;
             FactType type = null;
@@ -326,6 +338,9 @@ public class JsonContext {
             Map<String, Object> objAux = (Map<String, Object>) obj;
             id = ((Double)objAux.get("id")).intValue();
             FactHandle fact = getFact(type.getName(), id);
+            if(fact == null) {
+                throw new NotInstantiatedException("You are trying to delete " + type.getSimpleName() + " with id " + id + ", but the Object doesn\'t exist.");
+            }
 
             kSession.delete(fact);
             // TODO removeObj(type.getName(), );
@@ -378,6 +393,10 @@ public class JsonContext {
 
     public KieSession getkSession() {
         return kSession;
+    }
+
+    public Map<String, Map<Integer, FactHandle>> getFactHandleMap() {
+        return factHandleMap;
     }
 
 }
