@@ -4,6 +4,7 @@ import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.google.gson.stream.JsonReader;
 import com.google.gson.stream.JsonToken;
+import org.drools.compiler.kproject.models.KieModuleModelImpl;
 import org.drools.core.ClockType;
 import org.kie.api.KieServices;
 import org.kie.api.builder.KieBuilder;
@@ -106,21 +107,27 @@ public class JsonContext {
         KieBuilder kbuilder = kServices.newKieBuilder(kFileSystem);
         ArrayList<Resource> dependencies = new ArrayList();
         try {
-            Enumeration<URL> e = JsonContext.class.getClassLoader().getResources("META-INF/kmodule.xml");
+            Enumeration<URL> e = JsonContext.class.getClassLoader().getResources(KieModuleModelImpl.KMODULE_JAR_PATH);
             while ( e.hasMoreElements() ) {
                 URL url = e.nextElement();
-                Path path = Paths.get(url.toURI());
-                dependencies.add(kServices.getResources().newFileSystemResource(path.getParent().getParent().toString()));
+                String path;
+                if (url.getPath().contains(".jar!")) {
+                    path = url.getPath().replace("!/" + KieModuleModelImpl.KMODULE_JAR_PATH, "");
+                    dependencies.add(kServices.getResources().newUrlResource(path));
+                } else {
+                    path = url.getPath().replace(KieModuleModelImpl.KMODULE_JAR_PATH, "");
+                    dependencies.add(kServices.getResources().newFileSystemResource(path));
+                }
+
             }
         } catch (IOException e1) {
             e1.printStackTrace();
-        } catch (URISyntaxException e) {
-            e.printStackTrace();
         }
+
         kbuilder.setDependencies(dependencies.toArray(new Resource[0]));
         kbuilder.buildAll();
         if (kbuilder.getResults().hasMessages()) {
-            throw new IllegalArgumentException("Coudln't build knowledge module" + kbuilder.getResults());
+            throw new IllegalArgumentException("Couldn't build knowledge module " + kbuilder.getResults());
         }
 
         KieModule kModule = kbuilder.getKieModule();
