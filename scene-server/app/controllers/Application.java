@@ -39,6 +39,10 @@ public class Application extends Controller {
         return scene.newApp(node.toString());
     }
 
+    public Result getApps() {
+        return scene.getApps();
+    }
+
     public Result compileData(Integer appId) {
         return scene.compileData(appId, request().body());
     }

@@ -18,8 +18,16 @@ public class SceneManager {
         return uniqueInstance;
     }
 
-    public void putApp(SceneApplication app) {
-        registry.put(app.getName().hashCode(), app);
+    public int putApp(SceneApplication app, int hashCode) {
+        if(registry.get(hashCode) != null) {
+            return putApp(app, hashCode + 7);
+        }
+        registry.put(hashCode, app);
+        return hashCode;
+    }
+
+    public Map<Integer, SceneApplication> getApps() {
+        return registry;
     }
 
     public void removeApp(int key) {

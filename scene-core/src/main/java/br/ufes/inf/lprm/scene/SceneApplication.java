@@ -2,6 +2,7 @@ package br.ufes.inf.lprm.scene;
 
 
 import br.ufes.inf.lprm.scene.base.listeners.SCENESessionListener;
+import br.ufes.inf.lprm.scene.exceptions.NotCompatibleException;
 import br.ufes.inf.lprm.scene.exceptions.NotInstantiatedException;
 import br.ufes.inf.lprm.scene.model.impl.PartImpl;
 import br.ufes.inf.lprm.scene.model.impl.Situation;
@@ -24,6 +25,7 @@ import java.util.Map;
 public class SceneApplication {
 
     private String name;
+    private String description;
     private KieSession ksession;
     private List<SituationTypeImpl> situationTypeImpls;
     private Map<String, SituationTypeImpl> mappedSituationTypes;
@@ -78,9 +80,10 @@ public class SceneApplication {
         return parts;
     }
 
-    public void insertCode(String content) {
+    public void insertCode(String content) throws NotCompatibleException {
         context.compileCodeJson(content);
         name = context.getAppname();
+        description = context.getDescription();
         ksession = context.getkSession();
         ksession.addEventListener(new SCENESessionListener());
         injectSceneMetamodel();
@@ -100,6 +103,10 @@ public class SceneApplication {
 
     public String getName() {
         return name;
+    }
+
+    public String getDescription() {
+        return description;
     }
 
     public KieSession getKsession() {

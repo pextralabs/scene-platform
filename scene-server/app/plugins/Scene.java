@@ -2,8 +2,11 @@ package plugins;
 
 import br.ufes.inf.lprm.scene.SceneApplication;
 import br.ufes.inf.lprm.scene.SceneManager;
+import br.ufes.inf.lprm.scene.exceptions.NotCompatibleException;
 import br.ufes.inf.lprm.scene.exceptions.NotInstantiatedException;
 import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.node.ArrayNode;
+import com.fasterxml.jackson.databind.node.ObjectNode;
 import play.Environment;
 import play.inject.ApplicationLifecycle;
 import play.libs.F;
@@ -14,6 +17,7 @@ import util.JsonResult;
 
 import javax.inject.Inject;
 import javax.inject.Singleton;
+import java.util.Map;
 
 import static play.mvc.Results.badRequest;
 import static play.mvc.Results.ok;
@@ -34,20 +38,48 @@ public class Scene {
 
     public Result newApp(String content) {
         SceneApplication newApp = new SceneApplication();
-        newApp.insertCode(content);
-        manager.putApp(newApp);
-        return ok(Json.parse("{\"app\": \"" + newApp.getName() + "\",\"id\": \"" + newApp.getName().hashCode() + "\"}"));
+        try {
+            newApp.insertCode(content);
+        } catch (NotCompatibleException e) {
+            return badRequest(e.getMessage());
+        }
+        int hashCode = manager.putApp(newApp, newApp.hashCode());
+        ObjectNode answer = Json.newObject();
+        answer.put("app", newApp.getName());
+        answer.put("id", hashCode);
+        return ok(answer);
+    }
+
+    public Result getApps() {
+        ObjectNode answer = Json.newObject();
+        ArrayNode appArray = answer.putArray("apps");
+        Map<Integer, SceneApplication> map = manager.getApps();
+        for (Integer appId: map.keySet()) {
+            ObjectNode app = Json.newObject();
+            app.put("id", appId);
+            app.put("name", map.get(appId).getName());
+            app.put("description", map.get(appId).getDescription());
+            appArray.add(app);
+        }
+        return ok(answer);
     }
 
     public Result compileData(int key, Http.RequestBody body) {
         SceneApplication app = manager.getApp(key);
 
-        if(app == null)
-            return badRequest("There is no application with key " + key);
+        ObjectNode answer = Json.newObject();
+
+        if(app == null) {
+            answer.put("error", "There is no application with key " + key);
+            return badRequest(answer);
+        }
 
         JsonNode node = body.asJson();
-        if(!node.has("type"))
-            return badRequest("There is no type field.\nHint: insert, update or delete.");
+        if(!node.has("type")) {
+            answer.put("error", "There is no type field.");
+            answer.put("hint", "insert, update or delete.");
+            return badRequest();
+        }
 
         try {
             switch (node.get("type").textValue()) {
@@ -61,20 +93,27 @@ public class Scene {
                     app.deleteData(node.toString());
                     break;
                 default:
-                    return badRequest("Invalid type.\nHint: insert, update or delete.");
+                    answer.put("error", "Invalid type.");
+                    answer.put("hint", "insert, update or delete.");
+                    return badRequest(answer);
             }
         } catch (NotInstantiatedException e) {
-            return badRequest(e.getMessage());
+            answer.put("error", e.getMessage());
+            return badRequest(answer);
         }
 
-        return ok("Data compiled with success!");
+        answer.put("success", node.get("type").textValue() + " with success!");
+        return ok(answer);
     }
 
     public Result appStatusSituations(int key) {
         SceneApplication app = manager.getApp(key);
 
-        if(app == null)
-            return badRequest("There is no application with key " + key);
+        ObjectNode answer = Json.newObject();
+        if(app == null) {
+            answer.put("error", "There is no application with key " + key);
+            return badRequest(answer);
+        }
 
         return ok(JsonResult.appStatusSituations(app));
     }
@@ -82,8 +121,11 @@ public class Scene {
     public Result appModel(int key) {
         SceneApplication app = manager.getApp(key);
 
-        if(app == null)
-            return badRequest("There is no application with key " + key);
+        ObjectNode answer = Json.newObject();
+        if(app == null) {
+            answer.put("error", "There is no application with key " + key);
+            return badRequest(answer);
+        }
 
         return ok(JsonResult.appReturnModel(app));
     }
@@ -91,8 +133,11 @@ public class Scene {
     public Result appDump(int key) {
         SceneApplication app = manager.getApp(key);
 
-        if(app == null)
-            return badRequest("There is no application with key " + key);
+        ObjectNode answer = Json.newObject();
+        if(app == null) {
+            answer.put("error", "There is no application with key " + key);
+            return badRequest(answer);
+        }
 
         return ok(JsonResult.appDumpEveryObject(app));
     }

@@ -1,5 +1,6 @@
 package br.ufes.inf.lprm.scene.serialization;
 
+import br.ufes.inf.lprm.scene.exceptions.NotCompatibleException;
 import br.ufes.inf.lprm.scene.exceptions.NotInstantiatedException;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
@@ -42,6 +43,7 @@ public class JsonContext {
     private ArrayList<String> packages;
     private KieSession kSession;
     private String appname;
+    private String description;
 
     public JsonContext() {
         factHandleMap = new HashMap<>();
@@ -49,14 +51,14 @@ public class JsonContext {
         packages = new ArrayList<>();
     }
 
-    public void compileCodeJson(String content) {
+    public void compileCodeJson(String content) throws NotCompatibleException {
         Gson gson = new Gson();
         Type jsonType = new TypeToken<Map<String, Object>>(){}.getType();
 
         Map<String, Object> myMap = gson.fromJson(content, jsonType);
 
         if(myMap.get("application") == null) {
-            System.out.println("Json format not compatible.");
+            throw new NotCompatibleException("Json format not compatible.");
         } else {
             readCodeJson(myMap);
         }
@@ -74,6 +76,7 @@ public class JsonContext {
         KieModuleModel kieModuleModel = kServices.newKieModuleModel();
 
         appname = refactorAppName((String) map.get("application"));
+        description = (String) map.get("description");
 
         ReleaseId releaseId = kServices.newReleaseId("br.ufes.inf.lprm.scene", appname, (String) map.get("version"));
         kFileSystem.generateAndWritePomXML(releaseId);
@@ -342,8 +345,20 @@ public class JsonContext {
                 throw new NotInstantiatedException("You are trying to delete " + type.getSimpleName() + " with id " + id + ", but the Object doesn\'t exist.");
             }
 
+            Map<Integer, Object> map = objectMap.get(type.getSimpleName());
+
+            for (Integer key: map.keySet()) {
+                Object o = map.get(key);
+                if(o instanceof List) {
+                    List l = (List) o;
+                    if(l.contains(obj)) {
+                        l.remove(obj);
+                    }
+                }
+            }
+
             kSession.delete(fact);
-            // TODO removeObj(type.getName(), );
+            removeObj(type.getSimpleName(), id);
             removeFact(type.getName(), fact);
         }
         kSession.fireAllRules();
@@ -389,6 +404,10 @@ public class JsonContext {
 
     public String getAppname() {
         return appname;
+    }
+
+    public String getDescription() {
+        return description;
     }
 
     public KieSession getkSession() {

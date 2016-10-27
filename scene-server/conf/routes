@@ -8,6 +8,7 @@ GET     /                                       controllers.Application.index()
 POST    /app                                    controllers.Application.appInsert()
 POST    /app/:appId                             controllers.Application.compileData(appId: Integer)
 
+GET     /app                                    controllers.Application.getApps()
 GET     /app/:appId/situations                  controllers.Application.appStatusSituations(appId: Integer)
 GET     /app/:appId/model                       controllers.Application.appModel(appId: Integer)
 GET     /app/:appId/dump                        controllers.Application.appDump(appId: Integer)
