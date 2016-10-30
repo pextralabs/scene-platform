@@ -24,6 +24,7 @@ val `org.drools_drools-core` = "org.drools" % "drools-core" % "6.5.0.Final"
 val `org.kie_kie-api` = "org.kie" % "kie-api" % "6.5.0.Final"
 val `org.slf4j_slf4j-log4j12` = "org.slf4j" % "slf4j-log4j12" % "1.7.21"
 val `org.slf4j_slf4j-api` = "org.slf4j" % "slf4j-api" % "1.7.21"
+val `org.reflections_reflections` = "org.reflections" % "reflections" % "0.9.10"
 
 lazy val `situation-model` = ProjectName("situation-model","situation-model").settings(
   libraryDependencies ++= Seq(`joda-time_joda-time`),
@@ -47,7 +48,8 @@ lazy val `scene-core` = ProjectName("scene-core","scene-core").settings(
    `junit_junit`,
    `org.drools_drools-compiler`,
     `joda-time_joda-time`,
-    `com.google.code.gson_gson`),
+    `com.google.code.gson_gson`,
+    `org.reflections_reflections`),
     name := "scene-core",
     version := "2.0.0",
     organization := "br.ufes.inf.lprm"

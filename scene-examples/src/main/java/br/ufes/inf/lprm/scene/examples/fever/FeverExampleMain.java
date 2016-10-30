@@ -2,6 +2,7 @@ package br.ufes.inf.lprm.scene.examples.fever;
 
 import br.ufes.inf.lprm.scene.SceneApplication;
 import br.ufes.inf.lprm.scene.base.listeners.SCENESessionListener;
+import br.ufes.inf.lprm.scene.examples.fever.entities.Person;
 import org.kie.api.KieServices;
 import org.kie.api.definition.type.FactField;
 import org.kie.api.definition.type.FactType;
@@ -39,9 +40,20 @@ public class FeverExampleMain {
             final RuleEngineThread eng = new RuleEngineThread(kSession);
 			eng.start();
 
-			FactType factType = kSession.getKieBase().getFactType("br.ufes.inf.lprm.scene.examples.fever", "Person");
+			//FactType factType = kSession.getKieBase().getFactType("br.ufes.inf.lprm.scene.examples.fever.entities", "Person");
 
-			Object p1 = factType.newInstance();
+			Person p1 = new Person();
+
+			p1.setId(1);
+			p1.setName("john");
+			p1.setTemperature(37);
+
+			Person p2 = new Person();
+			p2.setId(2);
+			p2.setName("isaac");
+			p2.setTemperature(37);
+
+			/*Object p1 = factType.newInstance();
 			Object p2 = factType.newInstance();
 
 			FactField id = factType.getField("id");
@@ -54,7 +66,7 @@ public class FeverExampleMain {
 
 			id.set(p2, 2);
 			name.set(p2, "isaac");
-			temperature.set(p2, 37);
+			temperature.set(p2, 37); */
 
 			FactHandle fh1 = kSession.insert(p1);
 			FactHandle fh2 = kSession.insert(p2);
@@ -62,50 +74,56 @@ public class FeverExampleMain {
 			while (true) {
 				
 				Thread.sleep(1000);
-				temperature.set(p1, 38);
-				temperature.set(p2, 38);
+				p1.setTemperature(38);
+				p2.setTemperature(38);
 				kSession.update(fh1,  p1);
 				kSession.update(fh2,  p2);
 
 				Thread.sleep(3000);
 
-				temperature.set(p1, 39);
-				temperature.set(p2, 39);
+				p1.setTemperature(39);
+				p2.setTemperature(39);
+
 				kSession.update(fh1,  p1);
 				kSession.update(fh2,  p2);
 
 				Thread.sleep(3000);
 
-				temperature.set(p1, 40);
-				temperature.set(p2, 40);
+				p1.setTemperature(40);
+				p2.setTemperature(40);
+
 				kSession.update(fh1,  p1);
 				kSession.update(fh2,  p2);
 
 				Thread.sleep(3000);
 
-				temperature.set(p1, 39);
-				temperature.set(p2, 39);
+				p1.setTemperature(39);
+				p2.setTemperature(39);
+
 				kSession.update(fh1,  p1);
 				kSession.update(fh2,  p2);
 
 				Thread.sleep(3000);
 
-				temperature.set(p1, 37);
-				temperature.set(p2, 37);
+				p1.setTemperature(37);
+				p2.setTemperature(37);
+
 				kSession.update(fh1,  p1);
 				kSession.update(fh2,  p2);
 
 				Thread.sleep(3000);
 
-				temperature.set(p1, 32);
-				temperature.set(p2, 32);
+				p1.setTemperature(32);
+				p2.setTemperature(32);
+
 				kSession.update(fh1,  p1);
 				kSession.update(fh2,  p2);
 
 				Thread.sleep(3000);
 
-				temperature.set(p1, 31);
-				temperature.set(p2, 31);
+				p1.setTemperature(31);
+				p2.setTemperature(31);
+
 				kSession.update(fh1,  p1);
 				kSession.update(fh2,  p2);
 
