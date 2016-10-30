@@ -2,7 +2,7 @@ import play.sbt.PlayJava
 import play.sbt.routes.RoutesKeys._
 import sbt.Keys._
 
-scalaVersion in Global := "2.11.6"
+scalaVersion in Global := "2.11.7"
 
 def ProjectName(name: String,path:String): Project =  Project(name, file(path))
 
@@ -53,15 +53,14 @@ lazy val `scene-core` = ProjectName("scene-core","scene-core").settings(
     organization := "br.ufes.inf.lprm"
 ).settings().dependsOn(`situation-model`)
 
-lazy val `scene-server` = ProjectName("scene-server","scene-server").enablePlugins(PlayJava).settings(
-  libraryDependencies ++= Seq(`org.slf4j_slf4j-log4j12`,
-    `org.slf4j_slf4j-api`,
-    `org.kie_kie-api`,
-    `org.drools_drools-core`,
-    `org.drools_drools-compiler`),
-  name := "scene-server",
-  version := "2.0.0",
-  organization := "br.ufes.inf.lprm",
-  routesGenerator := InjectedRoutesGenerator
-).settings().dependsOn(`scene-core`)
+lazy val `scene-server` = ProjectName("scene-server","scene-server")
+  .enablePlugins(PlayJava)
+  .disablePlugins(PlayLogback)
+  .settings(
+    libraryDependencies ++= Seq(javaCore, filters),
+    name := "scene-server",
+    version := "2.0.0",
+    organization := "br.ufes.inf.lprm",
+    routesGenerator := InjectedRoutesGenerator
+  ).settings().dependsOn(`scene-core`)
 
