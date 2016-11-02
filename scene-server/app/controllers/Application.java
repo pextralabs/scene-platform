@@ -16,6 +16,12 @@ public class Application extends Controller {
         return ok();
     }
 
+    public Result processResult(JsonNode answer) {
+        if(answer.has("error")) {
+            return badRequest(answer);
+        }
+        return ok(answer);
+    }
 
     public Result appInsert() {
 
@@ -36,27 +42,33 @@ public class Application extends Controller {
                 }
         }
 
-        return scene.newApp(node.toString());
+        JsonNode answer = scene.newApp(node.toString());
+        return processResult(answer);
     }
 
     public Result getApps() {
-        return scene.getApps();
+        JsonNode answer = scene.getApps();
+        return processResult(answer);
     }
 
     public Result compileData(Integer appId) {
-        return scene.compileData(appId, request().body());
+        JsonNode answer = scene.compileData(appId, request().body());
+        return processResult(answer);
     }
 
     public Result appStatusSituations(Integer appId) {
-        return scene.appStatusSituations(appId);
+        JsonNode answer = scene.appStatusSituations(appId);
+        return processResult(answer);
     }
 
     public Result appModel(Integer appId) {
-        return scene.appModel(appId);
+        JsonNode answer = scene.appModel(appId);
+        return processResult(answer);
     }
 
     public Result appDump(Integer appId) {
-        return scene.appDump(appId);
+        JsonNode answer = scene.appDump(appId);
+        return processResult(answer);
     }
 
 }

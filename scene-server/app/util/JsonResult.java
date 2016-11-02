@@ -27,7 +27,7 @@ import java.util.Map;
  */
 public class JsonResult {
 
-    public static JsonNode appStatusSituations(SceneApplication app) {
+    public static ObjectNode appStatusSituations(SceneApplication app) {
         KieSession ksession = app.getKsession();
         ObjectNode answer = Json.newObject();
         ArrayNode sitArray = answer.putArray("situations");
@@ -65,7 +65,7 @@ public class JsonResult {
         return answer;
     }
 
-    public static JsonNode appReturnModel(SceneApplication app) {
+    public static ObjectNode appReturnModel(SceneApplication app) {
         KieSession ksession = app.getKsession();
         ObjectNode answer = Json.newObject();
         ArrayNode modelArray = answer.putArray("model");
@@ -103,7 +103,7 @@ public class JsonResult {
         return answer;
     }
 
-    public static JsonNode appDumpEveryObject(SceneApplication app) {
+    public static ObjectNode appDumpEveryObject(SceneApplication app) {
         KieSession ksession = app.getKsession();
         ObjectNode answer = Json.newObject();
         ArrayNode situations = answer.putArray("situations");
