@@ -1,22 +1,41 @@
 package br.ufes.inf.lprm.scene;
 
+import java.util.HashMap;
 import java.util.Map;
 
 public class SceneManager {
+    private static SceneManager uniqueInstance;
+    private Map<Integer, SceneApplication> registry;
 
-    private Map<Long, SceneApplication> registry;
 
-    /*public SceneApplication getOwner(KieBase kbase) {
-
+    private SceneManager() {
+        registry = new HashMap<>();
     }
 
-    public SituationType getSituationType(KieBase kbase, String typeName) {
+    public static synchronized SceneManager getInstance() {
+        if (uniqueInstance == null)
+            uniqueInstance = new SceneManager();
+        return uniqueInstance;
+    }
 
-        SceneApplication application = getOwner(kbase);
+    public int putApp(SceneApplication app, int hashCode) {
+        if(registry.get(hashCode) != null) {
+            return putApp(app, hashCode + 7);
+        }
+        registry.put(hashCode, app);
+        return hashCode;
+    }
 
-        application.
+    public Map<Integer, SceneApplication> getApps() {
+        return registry;
+    }
 
-        return null;
-    }*/
+    public void removeApp(int key) {
+        registry.remove(key);
+    }
+
+    public SceneApplication getApp(int key) {
+        return registry.get(key);
+    }
 
 }

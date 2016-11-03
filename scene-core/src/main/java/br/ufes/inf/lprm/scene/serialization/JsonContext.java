@@ -1,5 +1,7 @@
 package br.ufes.inf.lprm.scene.serialization;
 
+import br.ufes.inf.lprm.scene.exceptions.NotCompatibleException;
+import br.ufes.inf.lprm.scene.exceptions.NotInstantiatedException;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.google.gson.stream.JsonReader;
@@ -23,7 +25,8 @@ import org.kie.api.runtime.KieSession;
 import org.kie.api.runtime.conf.ClockTypeOption;
 import org.kie.api.runtime.rule.FactHandle;
 
-import java.io.*;
+import java.io.IOException;
+import java.io.StringReader;
 import java.lang.reflect.Field;
 import java.lang.reflect.Type;
 import java.net.URISyntaxException;
@@ -31,8 +34,6 @@ import java.net.URL;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.*;
-
-import static org.kie.internal.io.ResourceFactory.newUrlResource;
 
 /**
  * Created by hborjaille on 10/24/16.
@@ -43,6 +44,7 @@ public class JsonContext {
     private ArrayList<String> packages;
     private KieSession kSession;
     private String appname;
+    private String description;
 
     public JsonContext() {
         factHandleMap = new HashMap<>();
@@ -50,14 +52,14 @@ public class JsonContext {
         packages = new ArrayList<>();
     }
 
-    public void compileCodeJson(String content) {
+    public void compileCodeJson(String content) throws NotCompatibleException {
         Gson gson = new Gson();
         Type jsonType = new TypeToken<Map<String, Object>>(){}.getType();
 
         Map<String, Object> myMap = gson.fromJson(content, jsonType);
 
         if(myMap.get("application") == null) {
-            System.out.println("Json format not compatible.");
+            throw new NotCompatibleException("Json format not compatible.");
         } else {
             readCodeJson(myMap);
         }
@@ -75,12 +77,11 @@ public class JsonContext {
         KieModuleModel kieModuleModel = kServices.newKieModuleModel();
 
         appname = refactorAppName((String) map.get("application"));
+        description = (String) map.get("description");
 
         ReleaseId releaseId = kServices.newReleaseId("br.ufes.inf.lprm.scene", appname, (String) map.get("version"));
         kFileSystem.generateAndWritePomXML(releaseId);
 
-        //KieBaseModel sceneBase = kieModuleModel.newKieBaseModel("sceneKieBase");
-        //sceneBase =  kServices.getKieClasspathContainer().getKieBaseModel("sceneKieBase");
         KieBaseModel kieBaseModel = kieModuleModel.newKieBaseModel(appname);
         kieBaseModel.addInclude("sceneKieBase");
 
@@ -137,7 +138,7 @@ public class JsonContext {
 
     }
 
-    public void compileDataJson(String content, JsonType type) {
+    public void compileDataJson(String content, JsonType type) throws NotInstantiatedException {
         Gson gson = new Gson();
         Type jsonType = new TypeToken<Map<String, Object>>(){}.getType();
 
@@ -152,28 +153,32 @@ public class JsonContext {
 
     }
 
-    private void readDataJson(JsonReader reader, Map<String, Object> map, JsonType type, boolean isInsertOrUpdate) {
+    private void readDataJson(JsonReader reader, Map<String, Object> map, JsonType type, boolean isInsertOrUpdate) throws NotInstantiatedException {
 
         try {
             JsonToken token = reader.peek();
             if(token == JsonToken.NAME) {
                 String name = reader.nextName();
-                List list = (List) map.get(name);
-                if(list != null) {
-                    switch (type) {
-                        case INSERT:
-                            tryToInstantiateEveryAvailableData(name, list, isInsertOrUpdate);
-                            break;
-                        case UPDATE:
-                            tryToUpdateEveryAvailableData(name, list);
-                            break;
-                        case DELETE:
-                            tryToDeleteEveryAvailableData(name, list);
-                            break;
-                    }
-
-                } else {
+                if(name.equals("type")) {
                     reader.skipValue();
+                } else {
+                    List list = (List) map.get(name);
+                    if(list != null) {
+                        switch (type) {
+                            case INSERT:
+                                tryToInstantiateEveryAvailableData(name, list, isInsertOrUpdate);
+                                break;
+                            case UPDATE:
+                                tryToUpdateEveryAvailableData(name, list);
+                                break;
+                            case DELETE:
+                                tryToDeleteEveryAvailableData(name, list);
+                                break;
+                        }
+
+                    } else {
+                        reader.skipValue();
+                    }
                 }
             } else if(token == JsonToken.BEGIN_ARRAY) {
                 reader.beginArray();
@@ -198,10 +203,18 @@ public class JsonContext {
         return type;
     }
 
-    private Object tryToInstantiateClass(FactType type) {
+    private Object tryToInstantiateClass(FactType type, int id) {
         Object objClass = null;
         try {
+            Map<Integer, Object> map = objectMap.get(type.getSimpleName());
+            if(map != null) {
+                Object obj = map.get(id);
+                if(obj != null)
+                    return obj;
+
+            }
             objClass = type.newInstance();
+
         } catch (InstantiationException e) {
             System.out.println("Could not instantiate the class " + objClass.getClass());
         } catch (IllegalAccessException e) {
@@ -282,12 +295,13 @@ public class JsonContext {
                 type = getClassByName(classname, pakage);
                 if(type != null) break;
             }
-            Object objClass = tryToInstantiateClass(type);
 
             int id = 0;
             Map<String, Object> objAux = (Map<String, Object>) obj;
 
             id = ((Double)objAux.get("id")).intValue();
+
+            Object objClass = tryToInstantiateClass(type, id);
 
 
             setFields(objAux, objClass, type, chooser);
@@ -298,7 +312,7 @@ public class JsonContext {
         kSession.fireAllRules();
     }
 
-    private void tryToUpdateEveryAvailableData(String classname, List list) {
+    private void tryToUpdateEveryAvailableData(String classname, List list) throws NotInstantiatedException {
         for (Object obj: list) {
             int id = 0;
             FactType type = null;
@@ -310,8 +324,10 @@ public class JsonContext {
             Map<String, Object> objAux = (Map<String, Object>) obj;
             id = ((Double)objAux.get("id")).intValue();
             FactHandle fact = getFact(type.getName(), id);
+            if(fact == null) {
+                throw new NotInstantiatedException("You are trying to update " + type.getSimpleName() + " with id " + id + ", but the Object doesn\'t exist.");
+            }
             Object objClass = kSession.getObject(fact);
-
             setFieldsNull(objClass);
             setFields(objAux, objClass, type, true);
 
@@ -320,7 +336,7 @@ public class JsonContext {
         kSession.fireAllRules();
     }
 
-    private void tryToDeleteEveryAvailableData(String classname, List list) {
+    private void tryToDeleteEveryAvailableData(String classname, List list) throws NotInstantiatedException {
         for (Object obj: list) {
             int id = 0;
             FactType type = null;
@@ -332,9 +348,24 @@ public class JsonContext {
             Map<String, Object> objAux = (Map<String, Object>) obj;
             id = ((Double)objAux.get("id")).intValue();
             FactHandle fact = getFact(type.getName(), id);
+            if(fact == null) {
+                throw new NotInstantiatedException("You are trying to delete " + type.getSimpleName() + " with id " + id + ", but the Object doesn\'t exist.");
+            }
+
+            Map<Integer, Object> map = objectMap.get(type.getSimpleName());
+
+            for (Integer key: map.keySet()) {
+                Object o = map.get(key);
+                if(o instanceof List) {
+                    List l = (List) o;
+                    if(l.contains(obj)) {
+                        l.remove(obj);
+                    }
+                }
+            }
 
             kSession.delete(fact);
-            // TODO removeObj(type.getName(), );
+            removeObj(type.getSimpleName(), id);
             removeFact(type.getName(), fact);
         }
         kSession.fireAllRules();
@@ -382,8 +413,16 @@ public class JsonContext {
         return appname;
     }
 
+    public String getDescription() {
+        return description;
+    }
+
     public KieSession getkSession() {
         return kSession;
+    }
+
+    public Map<String, Map<Integer, FactHandle>> getFactHandleMap() {
+        return factHandleMap;
     }
 
 }
