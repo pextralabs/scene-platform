@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<kmodule xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xmlns="http://www.drools.org/xsd/kmodule">
+    <kbase name="mqcKieBase" packages="br.ufes.inf.lprm.scene.mqc" includes="sceneKieBase" eventProcessingMode="stream">
+        <ksession name="br.ufes.inf.lprm.scene.mqc.session" type="stateful"/>
+    </kbase>
+</kmodule>

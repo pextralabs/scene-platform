@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <kmodule xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xmlns="http://www.drools.org/xsd/kmodule">
-    <kbase name="sceneKieBase" packages="br.ufes.inf.lprm.scene.base">
+    <kbase name="sceneKieBase" packages="br.ufes.inf.lprm.scene.base" eventProcessingMode="stream">
         <ksession name="br.ufes.inf.lprm.scene.session" type="stateful"/>
     </kbase>
 </kmodule>

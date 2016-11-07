@@ -39,6 +39,13 @@ lazy val `scene-examples` = ProjectName("scene-examples","scene-examples").setti
     organization := "br.ufes.inf.lprm"
 ).settings().dependsOn(`scene-core`)
 
+lazy val `scene-case-study` = ProjectName("scene-case-study","scene-case-study").settings(
+  libraryDependencies ++= Seq(),
+    name := "scene-case-study",
+    version := "1.0.0",
+    organization := "br.ufes.inf.lprm"
+).settings().dependsOn(`scene-core`)
+
 lazy val `scene-core` = ProjectName("scene-core","scene-core").settings(
   libraryDependencies ++= Seq(`org.slf4j_slf4j-log4j12`,
    `org.slf4j_slf4j-api`,

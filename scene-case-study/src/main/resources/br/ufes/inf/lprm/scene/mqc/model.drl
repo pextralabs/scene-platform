@@ -1,0 +1,37 @@
+package br.ufes.inf.lprm.scene.mqc;
+
+import br.ufes.inf.lprm.scene.model.impl.Situation
+import br.ufes.inf.lprm.scene.util.SituationHelper;
+import br.ufes.inf.lprm.situation.annotations.part;
+
+//import accumulate br.ufes.inf.lprm.scene.mqc.VarianceAccumulateFunction variance
+
+declare Sensor
+    id: long
+    label: String
+end
+
+declare SensorReading
+@role( event )
+@timestamp(timestamp)
+@expires(1m)
+    id: long
+    timestamp: long
+    value: double
+    source: Sensor
+end
+
+declare IncreasingValue extends Situation
+    sensor: Sensor @part
+end
+
+rule IncreasingValue
+@role(situation)
+@type(IncreasingValue)
+when
+    sensor: Sensor()
+    Number( doubleValue > 1 )
+            from accumulate( SensorReading( source == sensor, $value: value ) over window:time( 10s ), variance( $value ) )
+then
+    SituationHelper.situationDetected(drools);
+end
