@@ -40,7 +40,11 @@ lazy val `scene-examples` = ProjectName("scene-examples","scene-examples").setti
 ).settings().dependsOn(`scene-core`)
 
 lazy val `scene-case-study` = ProjectName("scene-case-study","scene-case-study").settings(
-  libraryDependencies ++= Seq(),
+  libraryDependencies ++= Seq(
+    `org.drools_drools-core`,
+    `org.drools_drools-compiler`,
+    "org.projectlombok" % "lombok" % "1.16.10"
+  ),
     name := "scene-case-study",
     version := "1.0.0",
     organization := "br.ufes.inf.lprm"

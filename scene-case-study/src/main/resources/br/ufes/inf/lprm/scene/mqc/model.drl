@@ -1,37 +1,98 @@
 package br.ufes.inf.lprm.scene.mqc;
 
-import br.ufes.inf.lprm.scene.model.impl.Situation
+import br.ufes.inf.lprm.scene.model.impl.Situation;
 import br.ufes.inf.lprm.scene.util.SituationHelper;
 import br.ufes.inf.lprm.situation.annotations.part;
 
-//import accumulate br.ufes.inf.lprm.scene.mqc.VarianceAccumulateFunction variance
+import lombok.ToString;
+
+declare Entity
+    id: long
+
+end
+
+
+declare Person extends Entity
+    name: String
+    location: Location
+end
+
+
+declare Freezer extends Entity
+    label: String
+    location: Location
+    owner: Person
+end
+
 
 declare Sensor
     id: long
     label: String
+    type: String
+    bearer: Entity
 end
 
 declare SensorReading
-@role( event )
-@timestamp(timestamp)
-@expires(1m)
     id: long
     timestamp: long
-    value: double
     source: Sensor
 end
 
-declare IncreasingValue extends Situation
-    sensor: Sensor @part
+declare Temperature extends SensorReading
+@role( event )
+@timestamp( timestamp )
+@expires( 10m )
+    value: Double
 end
 
-rule IncreasingValue
+declare Location extends SensorReading
+@role( event )
+@timestamp( timestamp )
+@expires( 30m )
+    latitude: Double
+    longitude: Double
+end
+function Double distance(Location loc1, Location loc2) {
+    Double earthRadius = (6.37814)*Math.pow(10, 6); //earth radius in meters
+    Double dLat = Math.toRadians(loc2.getLatitude() 	- loc1.getLatitude() );
+    Double dLng = Math.toRadians(loc2.getLongitude() - loc1.getLongitude());
+    Double sindLat = Math.sin(dLat / 2);
+    Double sindLng = Math.sin(dLng / 2);
+    Double a = Math.pow(sindLat, 2) + Math.pow(sindLng, 2) * Math.cos(loc1.getLatitude()) * Math.cos(loc2.getLongitude());
+    Double c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
+    Double dist = earthRadius * c;
+    return dist;
+}
+
+declare IncreasingTemperature extends Situation
+    freezer: Freezer @part(label = "$freezer")
+end
+rule IncreasingTemperature
 @role(situation)
-@type(IncreasingValue)
+@type(IncreasingTemperature)
 when
-    sensor: Sensor()
+    $freezer: Freezer()
+    $sensor: Sensor(bearer == $freezer, type == "temperature")
     Number( doubleValue > 1 )
-            from accumulate( SensorReading( source == sensor, $value: value ) over window:time( 10s ), variance( $value ) )
+            from accumulate( Temperature( source == $sensor, $value: value ) over window:time( 3m ), variance( $value ) )
 then
     SituationHelper.situationDetected(drools);
 end
+
+declare IncreasingDistance extends Situation
+    freezer: Freezer @part(label = "$freezer")
+    doctor: Person @part(label = "$doctor")
+end
+rule IncreasingDistance
+@role(situation)
+@type(IncreasingDistance)
+when
+    $doctor: Person(location != null)
+    $freezer: Freezer(owner == $doctor, location != null)
+    $doctorGPS: Sensor(bearer == $doctor, type=="location")
+    Number( doubleValue > 50 )
+            from accumulate( $doctorLoc: Location( source == $doctorGPS ) over window:time( 10m ), variance( distance($doctorLoc, $freezer.getLocation() ) ) )
+then
+    SituationHelper.situationDetected(drools);
+end
+

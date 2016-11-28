@@ -8,6 +8,7 @@ import org.kie.api.definition.type.FactType;
 import org.kie.api.runtime.KieContainer;
 import org.kie.api.runtime.KieSession;
 import org.kie.api.runtime.rule.FactHandle;
+import org.kie.api.time.SessionClock;
 
 /**
  * This is a sample class to launch a rule.
@@ -39,70 +40,88 @@ public class Main {
             final RuleEngineThread eng = new RuleEngineThread(kSession);
             eng.start();
 
+
+            FactType personType = kSession.getKieBase().getFactType("br.ufes.inf.lprm.scene.mqc", "Person");
+            FactType freezerType = kSession.getKieBase().getFactType("br.ufes.inf.lprm.scene.mqc", "Freezer");
             FactType sensorType = kSession.getKieBase().getFactType("br.ufes.inf.lprm.scene.mqc", "Sensor");
-            FactType readingType = kSession.getKieBase().getFactType("br.ufes.inf.lprm.scene.mqc", "SensorReading");
+            FactType temperatureType = kSession.getKieBase().getFactType("br.ufes.inf.lprm.scene.mqc", "Temperature");
+            FactType locationType = kSession.getKieBase().getFactType("br.ufes.inf.lprm.scene.mqc", "Location");
 
-            Object sensor = sensorType.newInstance();
-            sensorType.set(sensor, "id", 1);
-            sensorType.set(sensor, "label", "Sensor 1");
-            kSession.insert(sensor);
+            Object doctor = personType.newInstance();
+            personType.set(doctor, "id", 1);
+            personType.set(doctor, "name", "Doctor");
+            FactHandle doctorFH = kSession.insert(doctor);
 
+            Object freezer = freezerType.newInstance();
+            freezerType.set(freezer, "id", 1);
+            freezerType.set(freezer, "label", "Doctor_Freezer");
+            freezerType.set(freezer, "owner", doctor);
+            FactHandle freezerFH = kSession.insert(freezer);
+
+            Object freezerThermometer = sensorType.newInstance();
+            sensorType.set(freezerThermometer, "id", 1);
+            sensorType.set(freezerThermometer, "label", "Freezer_Thermometer_01");
+            sensorType.set(freezerThermometer, "type", "temperature");
+            sensorType.set(freezerThermometer, "bearer", freezer);
+            kSession.insert(freezerThermometer);
+
+            Object freezerGps = sensorType.newInstance();
+            sensorType.set(freezerGps, "id", 2);
+            sensorType.set(freezerGps, "label", "Freezer_GPS_01");
+            sensorType.set(freezerGps, "type", "location");
+            sensorType.set(freezerGps, "bearer", freezer);
+            kSession.insert(freezerGps);
+
+            Object doctorGps = sensorType.newInstance();
+            sensorType.set(doctorGps, "id", 3);
+            sensorType.set(doctorGps, "label", "Doctor_GPS_01");
+            sensorType.set(doctorGps, "type", "location");
+            sensorType.set(doctorGps, "bearer", doctor);
+            kSession.insert(doctorGps);
+            
             Object reading;
-
             int count = 1;
+
+            SessionClock clock = kSession.getSessionClock();
+            
+            reading = locationType.newInstance();
+            locationType.set(reading, "id", count++);
+            locationType.set(reading, "source", freezerGps);
+            locationType.set(reading, "timestamp", clock.getCurrentTime());
+            locationType.set(reading, "latitude", 38.898556);
+            locationType.set(reading, "longitude", -77.037852);
+
+            kSession.insert(reading);
+
+            freezerType.set(freezer, "location", reading);
+            kSession.update(freezerFH, freezer);
+            
             while (true) {
 
-                reading = readingType.newInstance();
-                readingType.set(reading, "id", count++);
-                readingType.set(reading, "source", sensor);
-                readingType.set(reading, "timestamp", kSession.getSessionClock().getCurrentTime());
-                readingType.set(reading, "value", 1);
+                reading = locationType.newInstance();
+                locationType.set(reading, "id", count++);
+                locationType.set(reading, "source", doctorGps);
+                locationType.set(reading, "timestamp", clock.getCurrentTime());
+                locationType.set(reading, "latitude", 38.898556);
+                locationType.set(reading, "longitude", -77.037852);
+
+                kSession.insert(reading);
+                personType.set(doctor, "location", reading);
+                //kSession.update(doctorFH, doctor);
+
+                Thread.sleep(5000);
+
+                reading = locationType.newInstance();
+                locationType.set(reading, "id", count++);
+                locationType.set(reading, "source", doctorGps);
+                locationType.set(reading, "timestamp", clock.getCurrentTime());
+                locationType.set(reading, "latitude", 38.897147);
+                locationType.set(reading, "longitude", -77.043934);
                 kSession.insert(reading);
 
-                Thread.sleep(3000);
-
-                reading = readingType.newInstance();
-                readingType.set(reading, "id", count++);
-                readingType.set(reading, "source", sensor);
-                readingType.set(reading, "timestamp", kSession.getSessionClock().getCurrentTime());
-                readingType.set(reading, "value", 3);
-                kSession.insert(reading);;
-
-                Thread.sleep(3000);
-
-                reading = readingType.newInstance();
-                readingType.set(reading, "id", count++);
-                readingType.set(reading, "source", sensor);
-                readingType.set(reading, "timestamp", kSession.getSessionClock().getCurrentTime());
-                readingType.set(reading, "value", 5);
                 kSession.insert(reading);
-
-                Thread.sleep(3000);
-
-                reading = readingType.newInstance();
-                readingType.set(reading, "id", count++);
-                readingType.set(reading, "source", sensor);
-                readingType.set(reading, "timestamp", kSession.getSessionClock().getCurrentTime());
-                readingType.set(reading, "value", 6);
-                kSession.insert(reading);
-
-                Thread.sleep(3000);
-
-                reading = readingType.newInstance();
-                readingType.set(reading, "id", count++);
-                readingType.set(reading, "source", sensor);
-                readingType.set(reading, "timestamp", kSession.getSessionClock().getCurrentTime());
-                readingType.set(reading, "value", 5);
-                kSession.insert(reading);
-
-                Thread.sleep(3000);
-
-                reading = readingType.newInstance();
-                readingType.set(reading, "id", count++);
-                readingType.set(reading, "source", sensor);
-                readingType.set(reading, "timestamp", kSession.getSessionClock().getCurrentTime());
-                readingType.set(reading, "value", 4);
-                kSession.insert(reading);
+                personType.set(doctor, "location", reading);
+                //kSession.update(doctorFH, doctor);
 
                 Thread.sleep(3000);
 
