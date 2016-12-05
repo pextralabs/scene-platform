@@ -1,5 +1,6 @@
 package br.ufes.inf.lprm.scene.util;
 
+import br.ufes.inf.lprm.scene.exceptions.SituationTypeNotFound;
 import br.ufes.inf.lprm.scene.model.impl.SituationTypeImpl;
 import br.ufes.inf.lprm.situation.model.Participation;
 import br.ufes.inf.lprm.situation.model.Situation;
@@ -13,8 +14,9 @@ import org.kie.api.runtime.rule.QueryResults;
 import org.kie.api.runtime.rule.QueryResultsRow;
 
 public class SituationHelper {
-
+	
 	public static SituationType getSituationType(KieRuntime runtime, String typeName) {
+
 		QueryResults results = runtime.getQueryResults("SituationType", new Object[] {typeName} );
 		for (QueryResultsRow row: results ) {
 			return (SituationType) row.get( "type" );
@@ -29,6 +31,8 @@ public class SituationHelper {
 		String className = (String) rule.getMetaData().get("type");
 
         SituationType type = getSituationType(khelper.getKieRuntime(), packageName + '.' + className);
+
+		if (type == null) throw new SituationTypeNotFound(packageName + "." + className + " not found");
 
 		OnGoingSituation ongoing = new OnGoingSituation(type,
                                                         khelper.getKieRuntime().getSessionClock().getCurrentTime(),

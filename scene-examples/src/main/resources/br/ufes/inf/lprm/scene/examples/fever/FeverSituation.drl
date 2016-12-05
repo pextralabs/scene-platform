@@ -1,23 +1,16 @@
 package br.ufes.inf.lprm.scene.examples.fever;
 
+import br.ufes.inf.lprm.scene.examples.fever.entities.Person;
+import br.ufes.inf.lprm.scene.examples.fever.situations.NoFever;
+
 import br.ufes.inf.lprm.scene.model.impl.Situation;
 import br.ufes.inf.lprm.situation.annotations.part;
 import br.ufes.inf.lprm.situation.model.Participation;
 import br.ufes.inf.lprm.situation.model.SituationType
 import br.ufes.inf.lprm.scene.util.SituationHelper;
 
-declare Person
-	id: Integer
-	name: String
-	temperature: Integer
-end
-
 declare Fever extends Situation
     febrile: Person @part
-end
-
-declare NoFever extends Situation
-    person: Person @part(label = "f1")
 end
 
 rule "FeverSituation"
@@ -31,7 +24,7 @@ end
 
 rule "NoFeverSituation"
 @role(situation)
-@type(NoFever)
+@type(situations.NoFever)
     when
     	f1: Person(temperature <= 37)
     then
