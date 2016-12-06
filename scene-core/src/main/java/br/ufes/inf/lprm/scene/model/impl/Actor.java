@@ -7,7 +7,7 @@ import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Actor {
+public class Actor implements br.ufes.inf.lprm.situation.model.Actor {
 
     private Field actorId = null;
 

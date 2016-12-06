@@ -3,17 +3,19 @@ package br.ufes.inf.lprm.scene.examples.fever;
 import br.ufes.inf.lprm.scene.examples.fever.entities.Person;
 import br.ufes.inf.lprm.scene.examples.fever.situations.NoFever;
 
-import br.ufes.inf.lprm.scene.model.impl.Situation;
-import br.ufes.inf.lprm.situation.annotations.part;
-import br.ufes.inf.lprm.situation.model.Participation;
-import br.ufes.inf.lprm.situation.model.SituationType
 import br.ufes.inf.lprm.scene.util.SituationHelper;
+
+import br.ufes.inf.lprm.situation.annotations.part;
+import br.ufes.inf.lprm.situation.model.Part;
+import br.ufes.inf.lprm.situation.model.Actor;
+import br.ufes.inf.lprm.situation.model.Participation;
+import br.ufes.inf.lprm.situation.model.SituationType;
+import br.ufes.inf.lprm.scene.model.impl.Situation;
 
 declare Fever extends Situation
     febrile: Person @part
 end
-
-rule "FeverSituation"
+rule "Fever"
 @role(situation)
 @type(Fever)
     when
@@ -22,7 +24,7 @@ rule "FeverSituation"
     	SituationHelper.situationDetected(drools);
 end
 
-rule "NoFeverSituation"
+rule "NoFever"
 @role(situation)
 @type(situations.NoFever)
     when
@@ -31,19 +33,21 @@ rule "NoFeverSituation"
     	SituationHelper.situationDetected(drools);
 end
 
-rule Subscription
-    when
-        $type: SituationType(name == "br.ufes.inf.lprm.scene.examples.fever.Fever")
-        $situation: Situation(type == $type, active)
-        $actor: Person(name == "john")
-        Participation(actor == $actor, situation == $situation)
-    then
-        System.out.println($situation.toString());
+declare Subscription
+    type: SituationType
+    part: Part
+    actor: Actor
 end
 
-/*rule "Test"
+rule Subscription
     when
-    	$f: Fever()
-    then
-        System.out.println($f.getType().getDeclaredFields());
-end*/
+        $sub: Subscription($type: type, $part: this.part, $actor: actor)
+        $sit: Situation($type == null || type == $type)
+        exists (
+            Participation((situation == $sit) &&
+                          ($part == null || this.part == $part) &&
+                          ($actor == null || actor == $actor))
+        )
+then
+    System.out.println($sit);
+end

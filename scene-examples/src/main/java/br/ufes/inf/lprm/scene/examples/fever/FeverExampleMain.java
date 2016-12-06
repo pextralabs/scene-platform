@@ -4,6 +4,7 @@ import br.ufes.inf.lprm.scene.SceneApplication;
 import br.ufes.inf.lprm.scene.base.listeners.SCENESessionListener;
 import br.ufes.inf.lprm.scene.examples.fever.entities.Person;
 import org.kie.api.KieServices;
+import org.kie.api.definition.type.FactType;
 import org.kie.api.runtime.KieContainer;
 import org.kie.api.runtime.KieSession;
 import org.kie.api.runtime.rule.FactHandle;
@@ -31,14 +32,14 @@ public class FeverExampleMain {
 			KieServices ks = KieServices.Factory.get();
 			KieContainer kContainer = ks.getKieClasspathContainer();
 			KieSession kSession = kContainer.newKieSession("br.ufes.inf.lprm.scene.examples.fever.session");
-            kSession.addEventListener(new SCENESessionListener());
+            //kSession.addEventListener(new SCENESessionListener());
 
 			SceneApplication app = new SceneApplication("Fever", kSession);
 
             final RuleEngineThread eng = new RuleEngineThread(kSession);
 			eng.start();
 
-			//FactType factType = kSession.getKieBase().getFactType("br.ufes.inf.lprm.scene.examples.fever.entities", "Person");
+			FactType subscriptionType = kSession.getKieBase().getFactType("br.ufes.inf.lprm.scene.examples.fever", "Subscription");
 
 			Person p1 = new Person();
 
@@ -66,8 +67,15 @@ public class FeverExampleMain {
 			name.set(p2, "isaac");
 			temperature.set(p2, 37); */
 
+
+			Object subscription = subscriptionType.newInstance();
+
+			subscriptionType.set(subscription, "type", null);
+			subscriptionType.set(subscription, "part", null);
+			subscriptionType.set(subscription, "actor", p2);
 			FactHandle fh1 = kSession.insert(p1);
 			FactHandle fh2 = kSession.insert(p2);
+			kSession.insert(subscription);
 
 			while (true) {
 				

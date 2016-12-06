@@ -4,6 +4,7 @@ import br.ufes.inf.lprm.scene.util.SituationCast;
 import br.ufes.inf.lprm.situation.model.Part;
 import br.ufes.inf.lprm.situation.model.Participation;
 import br.ufes.inf.lprm.situation.model.SituationType;
+import br.ufes.inf.lprm.situation.model.Actor;
 import br.ufes.inf.lprm.situation.model.events.Activation;
 import br.ufes.inf.lprm.situation.model.events.Deactivation;
 
@@ -26,7 +27,7 @@ public class Situation implements br.ufes.inf.lprm.situation.model.Situation {
         participations = new ArrayList<Participation>();
 
         for(Part part: type.getParts()) {
-            Object participant = cast.get(part.getLabel());
+            Actor participant = (Actor) cast.get(part.getLabel());
             if (participant != null) {
                 Participation participation = new ParticipationImpl(this, part, participant);
                 participations.add(participation);

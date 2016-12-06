@@ -3,6 +3,7 @@ package br.ufes.inf.lprm.scene.model.impl;
 import br.ufes.inf.lprm.scene.util.SituationCast;
 import br.ufes.inf.lprm.situation.model.Part;
 import br.ufes.inf.lprm.situation.model.Participation;
+import br.ufes.inf.lprm.situation.model.Actor;
 import br.ufes.inf.lprm.situation.model.events.Activation;
 
 import java.lang.reflect.Field;
@@ -65,7 +66,7 @@ public class SituationTypeImpl implements br.ufes.inf.lprm.situation.model.Situa
             List<Participation> participations = new ArrayList<Participation>();
 
             for(Part part: getParts()) {
-                Object participant = cast.get(part.getLabel());
+                Actor participant = (Actor) cast.get(part.getLabel());
                 if (participant != null) {
                     Participation participation = new ParticipationImpl(situation, part, participant);
                     participations.add(participation);
