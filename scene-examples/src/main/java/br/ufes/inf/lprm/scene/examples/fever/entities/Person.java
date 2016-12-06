@@ -1,17 +1,21 @@
 package br.ufes.inf.lprm.scene.examples.fever.entities;
 
-public class Person {
+import br.ufes.inf.lprm.scene.model.impl.Actor;
+import br.ufes.inf.lprm.situation.annotations.id;
 
-    private int id;
+public class Person extends Actor {
+
+    @id
+    private long identifier;
     private String name;
     private int temperature;
 
-    public int getId() {
-        return id;
+    public long getIdentifier() {
+        return identifier;
     }
 
-    public Person setId(int id) {
-        this.id = id;
+    public Person setIdentifier(int id) {
+        this.identifier = id;
         return this;
     }
 

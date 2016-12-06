@@ -4,8 +4,6 @@ import br.ufes.inf.lprm.scene.SceneApplication;
 import br.ufes.inf.lprm.scene.base.listeners.SCENESessionListener;
 import br.ufes.inf.lprm.scene.examples.fever.entities.Person;
 import org.kie.api.KieServices;
-import org.kie.api.definition.type.FactField;
-import org.kie.api.definition.type.FactType;
 import org.kie.api.runtime.KieContainer;
 import org.kie.api.runtime.KieSession;
 import org.kie.api.runtime.rule.FactHandle;
@@ -44,12 +42,12 @@ public class FeverExampleMain {
 
 			Person p1 = new Person();
 
-			p1.setId(1);
+			p1.setIdentifier(1);
 			p1.setName("john");
 			p1.setTemperature(37);
 
 			Person p2 = new Person();
-			p2.setId(2);
+			p2.setIdentifier(2);
 			p2.setName("isaac");
 			p2.setTemperature(37);
 
