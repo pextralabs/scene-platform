@@ -10,7 +10,7 @@
     {
       "name": "rules2.drl",
       "package": "org.ufes.inf.test.test2",
-      "content": "package org.ufes.inf.test.test2;\nimport org.ufes.inf.test.test1.*;\nimport java.util.ArrayList;\ndialect \"mvel\"\ndeclare Person\n\tid: Integer\n\tname: String\n\ttemperature: Float\n\tcars: ArrayList @type(Car)\nend\nrule \"Fever\"\n\twhen\n\t\t$p: Person(temperature > 37)\n\tthen\n\t\tSystem.out.println($p + \" is running a fever.\");\nend\nrule \"Person has car\"\n\twhen\n\t\t$c: Car(name == \"Higor's Car\")\n\t\t$p: Person(cars contains $c)\n\tthen\n\t\tSystem.out.println($p + \" has \" + $c);\nend"
+      "content": "package org.ufes.inf.test.test2;\nimport org.ufes.inf.test.test1.*;\nimport java.util.ArrayList;\ndialect \"mvel\"\ndeclare Person extends Actor\n\tid: Integer\n\tname: String\n\ttemperature: Float\n\tcars: ArrayList @type(Car)\nend\nrule \"Fever\"\n\twhen\n\t\t$p: Person(temperature > 37)\n\tthen\n\t\tSystem.out.println($p + \" is running a fever.\");\nend\nrule \"Person has car\"\n\twhen\n\t\t$c: Car(name == \"Higor's Car\")\n\t\t$p: Person(cars contains $c)\n\tthen\n\t\tSystem.out.println($p + \" has \" + $c);\nend"
     }
   ]
 }

@@ -4,6 +4,7 @@ import com.fasterxml.jackson.databind.JsonNode;
 import play.mvc.Controller;
 import play.mvc.Result;
 import plugins.Scene;
+import play.libs.ws.*;
 
 import javax.inject.Inject;
 
@@ -68,6 +69,17 @@ public class Application extends Controller {
 
     public Result appDump(Integer appId) {
         JsonNode answer = scene.appDump(appId);
+        return processResult(answer);
+    }
+
+    public Result appSubscribe(Integer appId) {
+        JsonNode node = request().body().asJson();
+        JsonNode answer = scene.appSubscribe(appId, node);
+        return processResult(answer);
+    }
+
+    public Result appUnsubscribe(Integer appId, String subscriberId) {
+        JsonNode answer = scene.appUnsubscribe(appId, subscriberId);
         return processResult(answer);
     }
 

@@ -102,8 +102,8 @@ public class SceneApplication {
         return parts;
     }
 
-    public void insertCode(String content) throws NotCompatibleException {
-        context.compileCodeJson(content);
+    public void insertCode(String content, String kbase) throws NotCompatibleException {
+        context.compileCodeJson(content, kbase);
         name = context.getAppname();
         description = context.getDescription();
         ksession = context.getkSession();
@@ -121,6 +121,10 @@ public class SceneApplication {
 
     public void deleteData(String content) throws NotInstantiatedException {
         context.compileDataJson(content, JsonType.DELETE);
+    }
+
+    public JsonContext getContext() {
+        return this.context;
     }
 
     public String getName() {

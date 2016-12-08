@@ -1,5 +1,5 @@
 <kmodule xmlns="http://jboss.org/kie/6.0.0/kmodule">
-    <kbase name="kbase1" packages="scene" includes="sceneKieBase">
-        <ksession name="HelloWorldKS"/>
+    <kbase name="sceneServerKieBase" packages="scene" includes="sceneKieBase">
+        <ksession name="scene.session" type="stateful"/>
     </kbase>
 </kmodule>

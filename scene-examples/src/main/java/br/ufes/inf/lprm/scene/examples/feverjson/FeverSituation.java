@@ -17,7 +17,7 @@ public class FeverSituation {
         String content = null;
         try {
             content = new Scanner(new File(classLoader.getResource("mock/insertfeverapp.json").getFile())).useDelimiter("\\Z").next();
-            app1.insertCode(content);
+            app1.insertCode(content, "sceneKieBase");
 
             content = new Scanner(new File(classLoader.getResource("mock/insertfeverdata.json").getFile())).useDelimiter("\\Z").next();
             app1.insertData(content);
@@ -60,7 +60,7 @@ public class FeverSituation {
 
         try {
             content = new Scanner(new File(classLoader.getResource("mock/insertfeverapp2.json").getFile())).useDelimiter("\\Z").next();
-            app2.insertCode(content);
+            app2.insertCode(content, "sceneKieBase");
 
             content = new Scanner(new File(classLoader.getResource("mock/insertfeverdata.json").getFile())).useDelimiter("\\Z").next();
             app2.insertData(content);

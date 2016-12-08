@@ -59,7 +59,7 @@ lazy val `scene-server` = ProjectName("scene-server","scene-server")
   .enablePlugins(PlayJava)
   .disablePlugins(PlayLogback)
   .settings(
-    libraryDependencies ++= Seq(javaCore, filters),
+    libraryDependencies ++= Seq(javaCore, javaWs, filters),
     name := "scene-server",
     version := "2.0.0",
     organization := "br.ufes.inf.lprm",

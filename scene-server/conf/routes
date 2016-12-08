@@ -13,6 +13,8 @@ GET     /app/:appId/situations                  controllers.Application.appStatu
 GET     /app/:appId/model                       controllers.Application.appModel(appId: Integer)
 GET     /app/:appId/dump                        controllers.Application.appDump(appId: Integer)
 
+POST    /app/:appId/subscriber                  controllers.Application.appSubscribe(appId: Integer)
+DELETE  /app/:appId/subscriber/:subscriberId    controllers.Application.appUnsubscribe(appId: Integer, subscriberId: Long)
 
 # Map static resources from the /public folder to the /assets URL path
 GET     /assets/*file               controllers.Assets.versioned(path="/public", file: Asset)

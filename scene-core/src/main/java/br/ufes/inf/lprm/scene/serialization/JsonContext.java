@@ -52,7 +52,7 @@ public class JsonContext {
         packages = new ArrayList<>();
     }
 
-    public void compileCodeJson(String content) throws NotCompatibleException {
+    public void compileCodeJson(String content, String kbase) throws NotCompatibleException {
         Gson gson = new Gson();
         Type jsonType = new TypeToken<Map<String, Object>>(){}.getType();
 
@@ -61,7 +61,7 @@ public class JsonContext {
         if(myMap.get("application") == null) {
             throw new NotCompatibleException("Json format not compatible.");
         } else {
-            readCodeJson(myMap);
+            readCodeJson(myMap, kbase);
         }
     }
 
@@ -69,7 +69,7 @@ public class JsonContext {
         return name.toLowerCase().replace(" ", "-").replace(".", "-");
     }
 
-    private void readCodeJson(Map<String, Object> map) {
+    private void readCodeJson(Map<String, Object> map, String kbase) {
         // Getting KieServices
         KieServices kServices = KieServices.Factory.get();
         // Instantiating a KieFileSystem and KieModuleModel
@@ -83,7 +83,7 @@ public class JsonContext {
         kFileSystem.generateAndWritePomXML(releaseId);
 
         KieBaseModel kieBaseModel = kieModuleModel.newKieBaseModel(appname);
-        kieBaseModel.addInclude("sceneKieBase");
+        kieBaseModel.addInclude(kbase);
 
         List<Map<String, String>> files = (List<Map<String, String>>) map.get("files");
 
@@ -401,9 +401,9 @@ public class JsonContext {
         }
     }
 
-    private FactHandle getFact(String clazz, int id) {
-        return factHandleMap.get(clazz).get(id);
-    }
+    //private FactHandle getFact(String clazz, int id) {
+    //    return factHandleMap.get(clazz).get(id);
+    //}
 
     private void removeFact(String clazz, FactHandle fact) {
         factHandleMap.get(clazz).remove(fact);
@@ -423,6 +423,16 @@ public class JsonContext {
 
     public Map<String, Map<Integer, FactHandle>> getFactHandleMap() {
         return factHandleMap;
+    }
+
+    public FactHandle getFact(String className, int id) {
+        Map<Integer, FactHandle> factMap = factHandleMap.get(className);
+        return (factMap != null) ? factMap.get(id) :  null;
+    }
+
+    public Object getObject(String className, int id) {
+        Map<Integer, Object> map = objectMap.get(className);
+        return (map != null) ? map.get(id) :  null;
     }
 
 }

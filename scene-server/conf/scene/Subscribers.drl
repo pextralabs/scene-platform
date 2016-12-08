@@ -1,0 +1,35 @@
+package scene;
+
+import br.ufes.inf.lprm.situation.model.Part;
+import br.ufes.inf.lprm.situation.model.Actor;
+import br.ufes.inf.lprm.situation.model.Participation;
+import br.ufes.inf.lprm.situation.model.Situation;
+import br.ufes.inf.lprm.situation.model.SituationType;
+
+import play.libs.ws.*
+import play.libs.Json;
+
+global WSClient ws;
+
+declare Subscription
+    id:      String
+    webhook: String
+    type:    SituationType
+    actor:   Actor
+end
+
+rule Subscription
+    when
+        $sub: Subscription($type: type, $actor: actor)
+        $sit: Situation($type == null || type == $type)
+        exists (
+            Participation((situation == $sit) &&
+                          ($actor == null || actor == $actor))
+        )
+then
+    ws.url($sub.webhook).post(Json.toJson($sit));
+end
+
+query SubscriptionQuery (String subscriptionId)
+	subscription: Subscription(id == subscriptionId)
+end
