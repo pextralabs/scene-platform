@@ -1,12 +1,13 @@
 package br.ufes.inf.lprm.scene.examples.fever.situations;
 
+import org.kie.api.definition.type.Key;
 import br.ufes.inf.lprm.scene.examples.fever.entities.Person;
-import br.ufes.inf.lprm.scene.model.impl.Situation;
-import br.ufes.inf.lprm.situation.annotations.part;
+import br.ufes.inf.lprm.scene.model.Situation;
+import br.ufes.inf.lprm.situation.bindings.part;
 
 public class NoFever extends Situation {
 
-
+    @Key
     @part(label = "f1")
     private Person nonFebrile;
 

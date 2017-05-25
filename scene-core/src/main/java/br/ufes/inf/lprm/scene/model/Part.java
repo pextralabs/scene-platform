@@ -1,21 +1,28 @@
-package br.ufes.inf.lprm.scene.model.impl;
+package br.ufes.inf.lprm.scene.model;
 
-import  br.ufes.inf.lprm.situation.model.Part;
 import  br.ufes.inf.lprm.situation.model.Situation;
 import  java.lang.reflect.Field;
 
-public class PartImpl implements Part {
+public class Part implements br.ufes.inf.lprm.situation.model.bindings.Part {
 
     private String label;
     private Field field;
-    public PartImpl(String label, Field field) {
+    private boolean isKey;
+
+    public Part(String label, Field field, boolean isKey) {
         this.label = label;
         this.field = field;
+        this.isKey = isKey;
     }
 
     @Override
     public String getLabel() {
         return label;
+    }
+
+    @Override
+    public boolean isKey() {
+        return isKey;
     }
 
     public Field getField() {

@@ -1,23 +1,21 @@
-package br.ufes.inf.lprm.scene.model.impl;
+package br.ufes.inf.lprm.scene.model;
 
 import br.ufes.inf.lprm.situation.model.Situation;
-import br.ufes.inf.lprm.situation.model.Part;
-import br.ufes.inf.lprm.situation.model.Participation;
 
-public class ParticipationImpl implements Participation {
+public class Participation implements br.ufes.inf.lprm.situation.model.Participation {
 
     private Object actor;
-    private Part part;
+    private br.ufes.inf.lprm.situation.model.bindings.Part part;
     private Situation situation;
 
-    public ParticipationImpl(Situation situation, Part part, Object actor)  {
+    public Participation(Situation situation, br.ufes.inf.lprm.situation.model.bindings.Part part, Object actor)  {
 
         this.situation = situation;
         this.part = part;
         this.actor = actor;
 
         try {
-            ((PartImpl) part).set(situation, actor);
+            ((Part) part).set(situation, actor);
         } catch (IllegalAccessException e) {
             e.printStackTrace();
         }
@@ -29,7 +27,7 @@ public class ParticipationImpl implements Participation {
     }
 
     @Override
-    public Part getPart() {
+    public br.ufes.inf.lprm.situation.model.bindings.Part getPart() {
         return part;
     }
 

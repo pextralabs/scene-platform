@@ -1,6 +1,7 @@
 package br.ufes.inf.lprm.scene.util;
 
-import br.ufes.inf.lprm.situation.model.Part;
+import br.ufes.inf.lprm.situation.model.bindings.Part;
+import br.ufes.inf.lprm.situation.model.bindings.Snapshot;
 import br.ufes.inf.lprm.situation.model.SituationType;
 import org.drools.core.definitions.rule.impl.RuleImpl;
 import org.drools.core.spi.Activation;
@@ -10,7 +11,7 @@ import java.util.*;
 @SuppressWarnings("serial")
 public class SituationCast extends HashMap<String, Object> {
 	
-	private int hash = 0;
+	private int hash = 17;
 
 	public SituationCast(Activation activation, SituationType type) throws Exception {
 		
@@ -21,10 +22,18 @@ public class SituationCast extends HashMap<String, Object> {
 		List<Part> parts = type.getParts();
 		
 		for(Part p: parts) {
-			put(p.getLabel(), activation.getDeclarationValue(p.getLabel()));
+			put(p.getLabel(), activation.getDeclarationValue(p.getLabel()), p.isKey());
+		}
+
+		List<Snapshot> snapshots = type.getSnapshots();
+
+		for(Snapshot s: snapshots) {
+			put(s.getLabel(), activation.getDeclarationValue(s.getLabel()), false);
+
 		}
 	}	
-	
+
+
 	/*public SituationCast(Situation sit) {
 		List<Field> fields = SituationUtils.getSituationRoleFields(sit.getClass());
 		for(Field field: fields) {
@@ -39,15 +48,29 @@ public class SituationCast extends HashMap<String, Object> {
 	}*/
 
 	@Override
-	public Object put(String key, Object value) {
-		//this.hash = this.hash + (key.hashCode() + value.getClass().hashCode() + ((Entity) value).getEID());
+	public boolean equals(Object obj) {
+		if (obj == null) {
+			return false;
+		}
+		else {
+			if ( !(obj instanceof SituationCast) ) {
+				return false;
+			}
+			else {
+				return this.hashCode() == obj.hashCode();
 
-		this.hash = 17;
-		this.hash = this.hash + (key.hashCode() + value.getClass().hashCode() + value.hashCode());
-		this.hash = 31*this.hash + key.hashCode();
-		this.hash = 31*this.hash + value.getClass().hashCode();
-		this.hash = 31*this.hash + value.hashCode();
+			}
+		}
+	}
 
+	public Object put(String key, Object value, boolean hash) {
+
+		if (hash) {
+			this.hash = this.hash + (key.hashCode() + value.getClass().hashCode() + value.hashCode());
+			this.hash = 31*this.hash + key.hashCode();
+			this.hash = 31*this.hash + value.getClass().hashCode();
+			this.hash = 31*this.hash + value.hashCode();
+		}
 		return super.put(key, value);
 	}
 

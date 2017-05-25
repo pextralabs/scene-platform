@@ -17,12 +17,25 @@ public class SCENESessionListener extends DefaultRuleRuntimeEventListener {
             SCENELogger.logger.debug("SITUATION ACTIVATION - " + in.toString());
         } else if (in instanceof SituationEvent) {
             SCENELogger.logger.debug(in.toString());
-        } else SCENELogger.logger.debug("INSERT - " + in.toString());
+        } else {
+            if (event.getRule() != null) {
+                SCENELogger.logger.debug("INSERT ("+ event.getRule().getName() +") - " + in.toString());
+            } else {
+                SCENELogger.logger.debug("INSERT - " + in.toString());
+            }
+        }
     }
 
     @Override
     public void objectUpdated(ObjectUpdatedEvent event) {
-        SCENELogger.logger.debug("UPDATE - " + event.getObject().toString());
+
+        if (event.getRule() != null) {
+            SCENELogger.logger.debug("UPDATE ("+ event.getRule().getName() +") - " + event.getObject().toString());
+        } else {
+            SCENELogger.logger.debug("UPDATE - " + event.getObject().toString());
+        }
+
+
     }
 
     @Override

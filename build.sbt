@@ -14,14 +14,14 @@ resolvers in Global ++= Seq(Resolver.mavenLocal,
                             "jboss" at "http://repository.jboss.org/nexus/content/groups/public/" ,
                             "repo1" at "http://repo1.maven.org/maven2/" )
 
-lazy val model = ProjectDef("situation-model", "1.0.0").
+lazy val model = ProjectDef("situation-model", "0.10.0").
                     settings(Common.settings: _*).
                     settings(
                       libraryDependencies ++= Dependencies.modelDependencies,
                       publishTo := Common.mavenRepo
                     ).dependsOn()
 
-lazy val core = ProjectDef("scene-core", "1.1.0")
+lazy val core = ProjectDef("scene-core", "0.10.1")
                         .settings(Common.settings: _*)
                         .settings(
                           libraryDependencies ++= Dependencies.coreDependencies,
@@ -29,11 +29,11 @@ lazy val core = ProjectDef("scene-core", "1.1.0")
                           publishTo := Common.mavenRepo
                         ).dependsOn(model)
 
-lazy val examples = ProjectDef("scene-examples", "1.0.0")
+lazy val examples = ProjectDef("scene-examples", "0.10.1")
                       .settings(Common.settings: _*)
                       .dependsOn(core)
 
-lazy val server = ProjectDef("scene-server", "1.0.0")
+lazy val server = ProjectDef("scene-server", "0.1.0")
   .enablePlugins(PlayJava)
   .disablePlugins(PlayLogback)
   .settings(Common.settings: _*)

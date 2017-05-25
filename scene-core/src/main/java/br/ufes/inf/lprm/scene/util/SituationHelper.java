@@ -1,10 +1,9 @@
 package br.ufes.inf.lprm.scene.util;
 
 import br.ufes.inf.lprm.scene.exceptions.SituationTypeNotFound;
-import br.ufes.inf.lprm.scene.model.impl.SituationTypeImpl;
+import br.ufes.inf.lprm.scene.model.SituationType;
 import br.ufes.inf.lprm.situation.model.Participation;
 import br.ufes.inf.lprm.situation.model.Situation;
-import br.ufes.inf.lprm.situation.model.SituationType;
 import br.ufes.inf.lprm.situation.model.events.Activation;
 import br.ufes.inf.lprm.situation.model.events.Deactivation;
 import org.drools.core.definitions.rule.impl.RuleImpl;
@@ -15,11 +14,11 @@ import org.kie.api.runtime.rule.QueryResultsRow;
 
 public class SituationHelper {
 	
-	public static SituationType getSituationType(KieRuntime runtime, String typeName) {
+	public static br.ufes.inf.lprm.situation.model.SituationType getSituationType(KieRuntime runtime, String typeName) {
 
 		QueryResults results = runtime.getQueryResults("SituationType", new Object[] {typeName} );
 		for (QueryResultsRow row: results ) {
-			return (SituationType) row.get( "type" );
+			return (br.ufes.inf.lprm.situation.model.SituationType) row.get( "type" );
 		}
 		return null;
 	}
@@ -30,7 +29,7 @@ public class SituationHelper {
 		String packageName = rule.getPackageName();
 		String className = (String) rule.getMetaData().get("type");
 
-        SituationType type = getSituationType(khelper.getKieRuntime(), packageName + '.' + className);
+        br.ufes.inf.lprm.situation.model.SituationType type = getSituationType(khelper.getKieRuntime(), packageName + '.' + className);
 
 		if (type == null) throw new SituationTypeNotFound(packageName + "." + className + " not found");
 
@@ -41,14 +40,14 @@ public class SituationHelper {
     	khelper.insertLogical(ongoing);
 	}
 	
-	public static Situation activateSituation(KnowledgeHelper khelper, SituationCast cast, SituationType type, long timestamp) {
+	public static Situation activateSituation(KnowledgeHelper khelper, SituationCast cast, br.ufes.inf.lprm.situation.model.SituationType type, long timestamp) {
 
 		KieRuntime runtime = khelper.getKieRuntime();
 
 		long evn_timestamp = runtime.getSessionClock().getCurrentTime();
 		Activation activation = new Activation(evn_timestamp);
 		
-		Situation situation = ((SituationTypeImpl) type).newInstance(activation, cast);
+		Situation situation = ((SituationType) type).newInstance(activation, cast);
         activation.setSituation(situation);
 		runtime.insert(activation);
 		for (Participation participation: situation.getParticipations()) {
@@ -57,6 +56,7 @@ public class SituationHelper {
 		runtime.insert(situation);
 		return situation;
 	}
+
 	
 	public static void deactivateSituation(KnowledgeHelper khelper, Object sit) {
 		long evn_timestamp = khelper.getKieRuntime().getSessionClock().getCurrentTime();

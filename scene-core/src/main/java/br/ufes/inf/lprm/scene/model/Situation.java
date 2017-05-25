@@ -1,8 +1,7 @@
-package br.ufes.inf.lprm.scene.model.impl;
+package br.ufes.inf.lprm.scene.model;
 
 import br.ufes.inf.lprm.scene.util.SituationCast;
-import br.ufes.inf.lprm.situation.model.Part;
-import br.ufes.inf.lprm.situation.model.Participation;
+import br.ufes.inf.lprm.situation.model.bindings.Part;
 import br.ufes.inf.lprm.situation.model.SituationType;
 import br.ufes.inf.lprm.situation.model.events.Activation;
 import br.ufes.inf.lprm.situation.model.events.Deactivation;
@@ -16,19 +15,19 @@ public class Situation implements br.ufes.inf.lprm.situation.model.Situation {
     private Deactivation deactivation;
     private Boolean active;
     private SituationType type;
-    private List<Participation> participations;
+    private List<br.ufes.inf.lprm.situation.model.Participation> participations;
 
     public Situation(SituationType type, Activation activation, SituationCast cast, boolean active) {
         this.type = type;
         this.activation = activation;
         this.active = active;
 
-        participations = new ArrayList<Participation>();
+        participations = new ArrayList<br.ufes.inf.lprm.situation.model.Participation>();
 
         for(Part part: type.getParts()) {
             Object participant = cast.get(part.getLabel());
             if (participant != null) {
-                Participation participation = new ParticipationImpl(this, part, participant);
+                br.ufes.inf.lprm.situation.model.Participation participation = new Participation(this, part, participant);
                 participations.add(participation);
             }
         }
@@ -68,7 +67,7 @@ public class Situation implements br.ufes.inf.lprm.situation.model.Situation {
     }
 
     @Override
-    public List<Participation> getParticipations() {
+    public List<br.ufes.inf.lprm.situation.model.Participation> getParticipations() {
         return participations;
     }
 
