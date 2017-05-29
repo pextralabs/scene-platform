@@ -1,8 +1,8 @@
-package br.ufes.inf.lprm.scene.model.impl;
+package br.ufes.inf.lprm.scene.model;
 
 import br.ufes.inf.lprm.scene.util.SituationCast;
-import br.ufes.inf.lprm.situation.model.Part;
-import br.ufes.inf.lprm.situation.model.Participation;
+import br.ufes.inf.lprm.situation.model.bindings.Part;
+import br.ufes.inf.lprm.situation.model.bindings.Snapshot;
 import br.ufes.inf.lprm.situation.model.events.Activation;
 
 import java.lang.reflect.Field;
@@ -11,18 +11,25 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class SituationTypeImpl implements br.ufes.inf.lprm.situation.model.SituationType {
+public class SituationType implements br.ufes.inf.lprm.situation.model.SituationType {
 
     private Class clazz;
     private List<Part> parts;
+    private List<Snapshot> snapshots;
     private Map<String, Part> mappedParts;
+    private Map<String, Snapshot> mappedSnapshots;
 
-    public SituationTypeImpl(Class<?> clazz, List<Part> parts) {
+    public SituationType(Class<?> clazz, List<Part> parts, List<Snapshot> snapshots) {
         this.clazz = clazz;
         this.parts = parts;
+        this.snapshots = snapshots;
         mappedParts = new HashMap<String, Part>();
         for (Part part: this.parts) {
             mappedParts.put(part.getLabel(), part);
+        }
+        mappedSnapshots = new HashMap<String, Snapshot>();
+        for (Snapshot snapshot: this.snapshots) {
+            mappedSnapshots.put(snapshot.getLabel(), snapshot);
         }
     }
 
@@ -38,6 +45,11 @@ public class SituationTypeImpl implements br.ufes.inf.lprm.situation.model.Situa
     @Override
     public List<Part> getParts() {
         return parts;
+    }
+
+    @Override
+    public List<Snapshot> getSnapshots() {
+        return snapshots;
     }
 
     public Part getPart(String label) {
@@ -62,17 +74,21 @@ public class SituationTypeImpl implements br.ufes.inf.lprm.situation.model.Situa
             fActivation.set(situation, activation);
             fActive.set(situation, true);
 
-            List<Participation> participations = new ArrayList<Participation>();
+            List<br.ufes.inf.lprm.situation.model.Participation> participations = new ArrayList<br.ufes.inf.lprm.situation.model.Participation>();
 
             for(Part part: getParts()) {
                 Object participant = cast.get(part.getLabel());
                 if (participant != null) {
-                    Participation participation = new ParticipationImpl(situation, part, participant);
+                    br.ufes.inf.lprm.situation.model.Participation participation = new Participation(situation, part, participant);
                     participations.add(participation);
                 }
             }
-
             fParticipations.set(situation, participations);
+
+            for(Snapshot snapshot: getSnapshots()) {
+                Object obj = cast.get(snapshot.getLabel());
+                ((br.ufes.inf.lprm.scene.model.Snapshot) snapshot).set(situation, obj);
+            }
 
             fActivation.setAccessible(false);
             fType.setAccessible(false);

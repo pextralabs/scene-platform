@@ -1,4 +1,4 @@
-package br.ufes.inf.lprm.situation.annotations;
+package br.ufes.inf.lprm.situation.bindings;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;

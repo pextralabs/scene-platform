@@ -4,19 +4,23 @@ package br.ufes.inf.lprm.scene;
 import br.ufes.inf.lprm.scene.base.listeners.SCENESessionListener;
 import br.ufes.inf.lprm.scene.exceptions.NotCompatibleException;
 import br.ufes.inf.lprm.scene.exceptions.NotInstantiatedException;
-import br.ufes.inf.lprm.scene.model.impl.PartImpl;
-import br.ufes.inf.lprm.scene.model.impl.Situation;
-import br.ufes.inf.lprm.scene.model.impl.SituationTypeImpl;
+import br.ufes.inf.lprm.scene.model.Part;
+import br.ufes.inf.lprm.scene.model.Snapshot;
+import br.ufes.inf.lprm.scene.model.Situation;
+import br.ufes.inf.lprm.scene.model.SituationType;
 import br.ufes.inf.lprm.scene.serialization.JsonContext;
 import br.ufes.inf.lprm.scene.serialization.JsonType;
-import br.ufes.inf.lprm.situation.annotations.part;
-import br.ufes.inf.lprm.situation.model.Part;
-import br.ufes.inf.lprm.situation.model.SituationType;
+import br.ufes.inf.lprm.situation.bindings.part;
+import br.ufes.inf.lprm.situation.bindings.snapshot;
+import br.ufes.inf.lprm.situation.model.bindings.SnapshotPolicy;
 import org.kie.api.KieBase;
 import org.kie.api.definition.KiePackage;
+import org.kie.api.definition.type.Annotation;
+import org.kie.api.definition.type.FactField;
 import org.kie.api.definition.type.FactType;
 import org.kie.api.runtime.KieSession;
 import org.reflections.Reflections;
+import org.kie.api.definition.type.Key;
 
 import java.lang.reflect.Field;
 import java.util.*;
@@ -26,33 +30,35 @@ public class SceneApplication {
     private String name;
     private String description;
     private KieSession ksession;
-    private List<SituationType> situationTypes;
-    private Map<String, SituationType> mappedSituationTypes;
+    private List<br.ufes.inf.lprm.situation.model.SituationType> situationTypes;
+    private Map<String, br.ufes.inf.lprm.situation.model.SituationType> mappedSituationTypes;
     private JsonContext context;
 
     public SceneApplication(String name, KieSession ksession) {
-        situationTypes = new ArrayList<SituationType>();
-        mappedSituationTypes = new HashMap<String, SituationType>();
+        situationTypes = new ArrayList<br.ufes.inf.lprm.situation.model.SituationType>();
+        mappedSituationTypes = new HashMap<String, br.ufes.inf.lprm.situation.model.SituationType>();
         this.name = name;
         this.ksession = ksession;
         injectSceneMetamodel();
     }
 
     public SceneApplication() {
-        situationTypes = new ArrayList<SituationType>();
-        mappedSituationTypes = new HashMap<String, SituationType>();
+        situationTypes = new ArrayList<br.ufes.inf.lprm.situation.model.SituationType>();
+        mappedSituationTypes = new HashMap<String, br.ufes.inf.lprm.situation.model.SituationType>();
         this.context = new JsonContext();
     }
 
-    private List<SituationType> findSituationTypes(KieBase kbase) {
+    private List<br.ufes.inf.lprm.situation.model.SituationType> findSituationTypes(KieBase kbase) {
 
         for (KiePackage kpackage: kbase.getKiePackages()) {
 
-            //System.out.println(kpackage.toString());
             for (FactType ftype: kpackage.getFactTypes()) {
                 Class clazz = ftype.getFactClass();
                 if (Situation.class.isAssignableFrom(clazz) && clazz != Situation.class) {
-                    SituationTypeImpl situationType = new SituationTypeImpl(clazz, findPartsFromClass(clazz));
+
+                    //findPartsFromFactType(ftype);
+
+                    SituationType situationType = new SituationType(clazz, findPartsFromClass(clazz), findSnapshotsFromClass(clazz));
                     situationTypes.add(situationType);
                     mappedSituationTypes.put(situationType.getName(), situationType);
                 }
@@ -67,7 +73,7 @@ public class SceneApplication {
             for (Class situationClass: situations ) {
                 System.out.println(situationClass.getName());
                 if (mappedSituationTypes.get(situationClass.getName()) == null) {
-                    SituationTypeImpl situationType = new SituationTypeImpl(situationClass, findPartsFromClass(situationClass));
+                    SituationType situationType = new SituationType(situationClass, findPartsFromClass(situationClass), findSnapshotsFromClass(situationClass));
                     situationTypes.add(situationType);
                     mappedSituationTypes.put(situationType.getName(), situationType);
                 }
@@ -77,26 +83,66 @@ public class SceneApplication {
     }
 
     private void injectSceneMetamodel() {
-        List<SituationType> types = findSituationTypes(ksession.getKieBase());
-        for (SituationType type: types) {
-            for(Part part: type.getParts()) {
+        List<br.ufes.inf.lprm.situation.model.SituationType> types = findSituationTypes(ksession.getKieBase());
+        for (br.ufes.inf.lprm.situation.model.SituationType type: types) {
+            for(br.ufes.inf.lprm.situation.model.bindings.Part part: type.getParts()) {
                 ksession.insert(part);
             }
             ksession.insert(type);
         }
     }
 
-    private List<Part> findPartsFromClass(Class clazz) {
-        List<Part> parts = new ArrayList<Part>();
+    private List<br.ufes.inf.lprm.situation.model.bindings.Part> findPartsFromFactType(FactType ftype) {
+        List<br.ufes.inf.lprm.situation.model.bindings.Part> parts = new ArrayList<br.ufes.inf.lprm.situation.model.bindings.Part>();
+
+        for(FactField field: ftype.getFields()) {
+            for (Annotation a: field.getFieldAnnotations()) {
+                System.out.println(field.getName() + ":"  + a);
+            }
+
+            //String meta = (String) field.getFieldAnnotations()
+            System.out.println(field.getName() + ":"  + field.getMetaData().get("part"));
+
+        }
+
+
+
+        //Class clazz = ftype.getFactClass();
+        //findPartsFromClass(clazz);
+        return parts;
+
+    }
+
+    private List<br.ufes.inf.lprm.situation.model.bindings.Snapshot> findSnapshotsFromClass(Class<?> clazz) {
+        List<br.ufes.inf.lprm.situation.model.bindings.Snapshot> snapshots = new ArrayList<br.ufes.inf.lprm.situation.model.bindings.Snapshot>();
+        Class superclazz = clazz.getSuperclass();
+        if (superclazz != null) {
+            snapshots.addAll(findSnapshotsFromClass(superclazz));
+        }
+        for (Field field: clazz.getDeclaredFields()) {
+
+            snapshot p = (snapshot) field.getAnnotation(snapshot.class);
+            if (p != null) {
+                String label = p.label().equals("") ? field.getName() : p.label();
+                snapshots.add(new Snapshot(label, field, SnapshotPolicy.Shallow ));
+            }
+        }
+        return snapshots;
+    }
+
+    private List<br.ufes.inf.lprm.situation.model.bindings.Part> findPartsFromClass(Class<?> clazz) {
+        List<br.ufes.inf.lprm.situation.model.bindings.Part> parts = new ArrayList<br.ufes.inf.lprm.situation.model.bindings.Part>();
         Class superclazz = clazz.getSuperclass();
         if (superclazz != null) {
             parts.addAll(findPartsFromClass(superclazz));
         }
         for (Field field: clazz.getDeclaredFields()) {
+
             part p = (part) field.getAnnotation(part.class);
             if (p != null) {
+                Key key = (Key) field.getAnnotation(Key.class);
                 String label = p.label().equals("") ? field.getName() : p.label();
-                parts.add(new PartImpl(label, field));
+                parts.add(new Part(label, field, key != null ));
             }
         }
         return parts;

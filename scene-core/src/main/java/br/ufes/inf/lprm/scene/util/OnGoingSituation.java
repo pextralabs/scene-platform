@@ -1,21 +1,20 @@
 package br.ufes.inf.lprm.scene.util;
 
-import br.ufes.inf.lprm.scene.model.impl.SituationTypeImpl;
+import br.ufes.inf.lprm.scene.model.SituationType;
 import br.ufes.inf.lprm.situation.model.Situation;
-import br.ufes.inf.lprm.situation.model.SituationType;
 
 public class OnGoingSituation {
 	
 	private int currentId;
 	private SituationCast cast;
-	private SituationType type;
+	private br.ufes.inf.lprm.situation.model.SituationType type;
 	private String typename;
 	private Situation situation;
 	private long timestamp;
 	private int hashcode;
 	
-	public OnGoingSituation(SituationType type, long timestamp, SituationCast cast) {
-		this.currentId = ((SituationTypeImpl) type).getTypeClass().hashCode() + cast.hashCode();
+	public OnGoingSituation(br.ufes.inf.lprm.situation.model.SituationType type, long timestamp, SituationCast cast) {
+		this.currentId = ((SituationType) type).getTypeClass().hashCode() + cast.hashCode();
 		this.hashcode = cast.hashCode();
 		this.cast = cast;
 		this.type = type;
@@ -26,7 +25,7 @@ public class OnGoingSituation {
 	public SituationCast getCast() {
 		return cast;
 	}
-	public SituationType getType() {
+	public br.ufes.inf.lprm.situation.model.SituationType getType() {
 		return type;
 	}
 

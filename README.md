@@ -1,59 +1,36 @@
-# SCENE
 
-* **Developing with Eclipse**
+# SCENE Platform
 
-        $ mvn eclipse:eclipse
+![V](https://api.travis-ci.org/pextralabs/scene-platform.svg) ![core](https://img.shields.io/badge/core-0.10.1-green.svg)
+![model](https://img.shields.io/badge/model-0.10.0-green.svg)
 
-* **Building JAR File**
+*SCENE* is a platform for situation management that leverages on [**JBoss Drools**](https://github.com/droolsjbpm/drools) rule engine and its integrated Complex Event Processing features to natively support rule-based situation-awareness.
 
-        $ mvn package
+A *situation* is a complex event which endures over time as certain conditions involving relevant contexts hold. Such relevant contexts are qualified within a *role* or *part* by the very conditions held by them. Take ***John*** -  an individual whose temperature is being measured over time. Anytime ***John***'s temperature is above 37.5  it qualifies him as a ***febrile*** person.  We can refer the ***fever*** as a situation taking place with ***John*** taking the part of ***febrile*** on it.
 
-* **Using the API**
+<img src="http://i.imgur.com/wv6F1jr.png" width="600px">
 
-	A Situation specification is comprised by two artifats: a *SituationType* child class definition and a *Situation Rule* declaration. The 		*SituationType* definition structures the situation in terms of participant entity types for which individuals will be casted in a 			situation occurrence. The Situation API provides an annotation (@SituationRole) in order to tag the class fields representing entity 			types which play a well-defined part on the situation.
+The fever pattern can be described in DRL (*Drools Rule Language*) as:
 
-	A *situation type* declaration:
+```Java
+declare Person
+	name: String
+	temperature: Double
+end
 
-        public MySituation extends SituationType {
-         
-                @Role(label = "label1")
-                private Entity role1;
-                
-                ...
-                
-                @Role(label = "labelN")
-                private Entity roleN;
-         
-                ... 
-                
-                //GETTERS AND SETTERS
-        }
+declare Fever extends Situation
+	febrile: Person @part @key
+end
 
-* *Situation Rule*
+rule Fever
+@role(situation)
+	when
+		febrile: Person(temperature > 37.5)
+	then
+		SituationHelper.situationDetected(drools)
+end
+```
+In order to fully describe a SCENE situation, one must declare a **`Situation kind`** (Fever) and specify its properties. The **binding classifier** *`@part`* tags a property as a role (e.g. *febrile*) to be matched in a further situation identification. There will be conditions in which an individual fulfill a part and the **`Situation rule`** entails them as patterns (e.g. what it takes to person turn into *febrile*). A property tagged as `@part` in the class must be referred as a binding in the `situation rule` so the engine knows how to assign every individual to the right part its taking in it.
 
-	A *situation rule* defines which conditions must be satisfied in order to establish a situation type occurrence. In its LHS the condition 		patterns must be related to identifiers which represents situation roles as declared on the respective *SituationType* class. The framework 	binds *SituationRole*-annotated fields with Situation Rule's LHS identifiers (label binding) in order to automate situation 	instatiation.
-
-	A *situation rule* declaration:
-
-        rule "MySituationRule"
-			@part(situation)
-			@type(MySituation)
-                when
-                        label1: Entity(<constraint 1>, ... ,<constraint N>)
-                        ...
-						labelN: Entity(<constraint 1'>, ... ,<constraint N'>)
-                then
-                        SituationHelper.situationDetected(drools);
-        end
-
-	In the Situation Rule's consequence (RHS) the *situationDetected* API method must be called passing as argument the correct Situation Type 		class. In addition, the *drools* argument also passed into is a exclusive RHS object which comprises the rule activation context, 			containing, by example, the set of objects (facts) satisfying the rule instance.
-
-* *Situation-Aware KnowledgeSession*
-
-        //create new SituationKnowledgeBuilder
-        KnowledgeBuilder kbuilder = SituationKnowledgeBuilderFactory.newKnowledgeBuilder();
-    
-        // ADD YOUR DRL RESOURCES
-		
-		//create new Situation-Aware Knowledge Base
-        KnowledgeBase kbase = SituationKnowledgeBaseFactory.newKnowledgeBase(kbuilder);		
+### Features
+**SCENE** offers a mean to describe situation patterns with features like **generalization**, **composability**, **aggregation** and **temporal correlation** over situations.

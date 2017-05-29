@@ -1,13 +1,11 @@
 package util;
 
 import br.ufes.inf.lprm.scene.SceneApplication;
-import br.ufes.inf.lprm.scene.model.impl.PartImpl;
-import br.ufes.inf.lprm.scene.model.impl.ParticipationImpl;
-import br.ufes.inf.lprm.scene.model.impl.Situation;
-import br.ufes.inf.lprm.scene.model.impl.SituationTypeImpl;
+import br.ufes.inf.lprm.scene.model.Part;
+import br.ufes.inf.lprm.scene.model.Participation;
+import br.ufes.inf.lprm.scene.model.Situation;
+import br.ufes.inf.lprm.scene.model.SituationType;
 import br.ufes.inf.lprm.scene.util.OnGoingSituation;
-import br.ufes.inf.lprm.situation.model.Part;
-import br.ufes.inf.lprm.situation.model.Participation;
 import br.ufes.inf.lprm.situation.model.events.Activation;
 import br.ufes.inf.lprm.situation.model.events.Deactivation;
 import com.fasterxml.jackson.databind.JsonNode;
@@ -46,7 +44,7 @@ public class JsonResult {
                 }
                 ArrayNode participationsArray = sitNode.putArray("participations");
 
-                for (Participation p: sit.getParticipations()) {
+                for (br.ufes.inf.lprm.situation.model.Participation p: sit.getParticipations()) {
                     ObjectNode participation = Json.newObject();
                     participation.put("kind", p.getActor().getClass().getName());
                     participation.put("label", p.getPart().getLabel());
@@ -72,19 +70,19 @@ public class JsonResult {
 
         for (FactHandle fact: ksession.getFactHandles()) {
             Object obj = ksession.getObject(fact);
-            if(obj instanceof SituationTypeImpl) {
-                SituationTypeImpl objType = (SituationTypeImpl) obj;
+            if(obj instanceof SituationType) {
+                SituationType objType = (SituationType) obj;
 
                 ObjectNode partial = Json.newObject();
                 partial.put("name", objType.getName());
 
                 ArrayNode array = partial.putArray("parts");
 
-                for (Part p : objType.getParts()) {
+                for (br.ufes.inf.lprm.situation.model.bindings.Part p : objType.getParts()) {
                     ObjectNode partsNode = Json.newObject();
                     partsNode.put("label", p.getLabel());
 
-                    PartImpl pi = ((PartImpl) p);
+                    Part pi = ((Part) p);
                     partsNode.put("kind", pi.getField().getType().getSimpleName());
 
                     ArrayNode fieldArray = partsNode.putArray("fields");
@@ -116,10 +114,10 @@ public class JsonResult {
 
         for (FactHandle fact: ksession.getFactHandles()) {
             Object obj = ksession.getObject(fact);
-            if(!(obj instanceof SituationTypeImpl) && !(obj instanceof Situation)
-                    && !(obj instanceof PartImpl) && !(obj instanceof OnGoingSituation)
+            if(!(obj instanceof SituationType) && !(obj instanceof Situation)
+                    && !(obj instanceof Part) && !(obj instanceof OnGoingSituation)
                     && !(obj instanceof Activation) && !(obj instanceof Deactivation)
-                    && !(obj instanceof ParticipationImpl)) {
+                    && !(obj instanceof Participation)) {
 
                 ObjectNode object = Json.newObject();
                 object.put("kind", obj.getClass().getName());
