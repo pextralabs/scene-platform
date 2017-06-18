@@ -3,7 +3,7 @@
 
 [![Slack Status](https://pextraslack.herokuapp.com/badge.svg)](https://pextraslack.herokuapp.com/)
 [![Travis Status](https://travis-ci.org/pextralabs/scene-platform.svg?branch=development)](https://travis-ci.org/pextralabs/scene-platform)
-![core](https://img.shields.io/badge/core-0.10.1-a295d6.svg)
+![core](https://img.shields.io/badge/core-0.10.2-a295d6.svg)
 ![model](https://img.shields.io/badge/model-0.10.0-f0ad4e.svg)
 
 *SCENE* is a platform for situation management that leverages on [**JBoss Drools**](https://github.com/droolsjbpm/drools) rule engine and its integrated Complex Event Processing features to natively support rule-based situation-awareness.
@@ -36,3 +36,24 @@ In order to fully describe a SCENE situation, one must declare a **`Situation ki
 
 ### Features
 **SCENE** offers a mean to describe situation patterns with features like **generalization**, **composability**, **aggregation** and **temporal correlation** over situations.
+
+### Instalation
+
+#### Maven
+
+```xml
+<repositories>
+	...
+	<repository>
+		<id>Scene repo</id>
+		<url>https://mymavenrepo.com/repo/BG5Za6vz3CyY7SaQjMOa/</url>
+	</repository>
+</repositories>```
+
+```xml
+<dependency>
+	<groupId>br.ufes.inf.lprm</groupId>
+	<artifactId>scene-core</artifactId>
+	<version>0.10.2</version>
+</dependency>
+```

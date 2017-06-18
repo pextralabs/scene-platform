@@ -1,24 +1,25 @@
 package br.ufes.inf.lprm.scene.examples.fever;
 
 import br.ufes.inf.lprm.scene.examples.fever.entities.Person;
+import br.ufes.inf.lprm.scene.examples.fever.entities.Temperature;
 import br.ufes.inf.lprm.scene.examples.fever.situations.NoFever;
 
 import br.ufes.inf.lprm.scene.model.Situation;
 import br.ufes.inf.lprm.situation.bindings.*;
 import br.ufes.inf.lprm.situation.model.Participation;
-import br.ufes.inf.lprm.situation.model.SituationType
+import br.ufes.inf.lprm.situation.model.SituationType;
 import br.ufes.inf.lprm.scene.util.SituationHelper;
 
 declare Fever extends Situation
     febrile: Person @part @key
-    temp: int @snapshot
+    temp: Temperature @snapshot
 end
 
 rule "FeverSituation"
 @role(situation)
 @type(Fever)
     when
-    	febrile: Person(temp: temperature, temperature > 37)
+    	febrile: Person(temp: temperature, temperature.value > 37)
     then
     	SituationHelper.situationDetected(drools);
 end
@@ -27,21 +28,7 @@ rule "NoFeverSituation"
 @role(situation)
 @type(situations.NoFever)
     when
-    	f1: Person(temperature <= 37)
+    	f1: Person(temperature.value <= 37)
     then
     	SituationHelper.situationDetected(drools);
 end
-
-rule Subscription
-    when
-        $situation: Situation(active)
-    then
-        System.out.println($situation.toString());
-end
-
-/*rule "Test"
-    when
-    	$f: Fever()
-    then
-        System.out.println($f.getType().getDeclaredFields());
-end*/

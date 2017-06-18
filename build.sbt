@@ -17,13 +17,15 @@ resolvers in Global ++= Seq(Resolver.mavenLocal,
 lazy val model = ProjectDef("situation-model", "0.10.0").
                     settings(Common.settings: _*).
                     settings(
+                      autoScalaLibrary := false,
                       libraryDependencies ++= Dependencies.modelDependencies,
                       publishTo := Common.mavenRepo
                     ).dependsOn()
 
-lazy val core = ProjectDef("scene-core", "0.10.1")
+lazy val core = ProjectDef("scene-core", "0.10.2")
                         .settings(Common.settings: _*)
                         .settings(
+                          autoScalaLibrary := false,
                           libraryDependencies ++= Dependencies.coreDependencies,
                           isSnapshot := true,
                           publishTo := Common.mavenRepo
@@ -38,6 +40,7 @@ lazy val server = ProjectDef("scene-server", "0.1.0")
   .disablePlugins(PlayLogback)
   .settings(Common.settings: _*)
   .settings(
+    autoScalaLibrary := false,
     libraryDependencies ++= Seq(javaCore, filters),
     routesGenerator := InjectedRoutesGenerator
   ).dependsOn(core)
