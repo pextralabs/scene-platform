@@ -99,7 +99,7 @@ public class Snapshot implements br.ufes.inf.lprm.situation.model.bindings.Snaps
             if (policy == SnapshotPolicy.Shallow) {
                 for (Field subfield: fields) {
                     subfield.setAccessible(true);
-                    subfield.set(copy, field.get(src));
+                    subfield.set(copy, subfield.get(src));
                     subfield.setAccessible(false);
                 }
                 field.setAccessible(true);

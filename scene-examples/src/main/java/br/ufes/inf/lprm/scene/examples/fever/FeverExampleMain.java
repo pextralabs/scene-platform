@@ -46,12 +46,12 @@ public class FeverExampleMain {
 
 			p1.setId(1);
 			p1.setName("john");
-			p1.setTemperature(37);
+			p1.getTemperature().setValue(37);
 
 			Person p2 = new Person();
 			p2.setId(2);
 			p2.setName("isaac");
-			p2.setTemperature(37);
+			p2.getTemperature().setValue(37);
 
 			/*Object p1 = factType.newInstance();
 			Object p2 = factType.newInstance();
@@ -74,55 +74,55 @@ public class FeverExampleMain {
 			while (true) {
 				
 				Thread.sleep(1000);
-				p1.setTemperature(38);
-				p2.setTemperature(38);
+				p1.getTemperature().setValue(38);
+				p2.getTemperature().setValue(38);
 				kSession.update(fh1,  p1);
 				kSession.update(fh2,  p2);
 
 				Thread.sleep(3000);
 
-				p1.setTemperature(39);
-				p2.setTemperature(39);
-
-				kSession.update(fh1,  p1);
-				kSession.update(fh2,  p2);
-
-				Thread.sleep(3000);
-
-				p1.setTemperature(40);
-				p2.setTemperature(40);
+				p1.getTemperature().setValue(39);
+				p2.getTemperature().setValue(39);
 
 				kSession.update(fh1,  p1);
 				kSession.update(fh2,  p2);
 
 				Thread.sleep(3000);
 
-				p1.setTemperature(39);
-				p2.setTemperature(39);
+				p1.getTemperature().setValue(40);
+				p2.getTemperature().setValue(40);
 
 				kSession.update(fh1,  p1);
 				kSession.update(fh2,  p2);
 
 				Thread.sleep(3000);
 
-				p1.setTemperature(37);
-				p2.setTemperature(37);
+				p1.getTemperature().setValue(39);
+				p2.getTemperature().setValue(39);
 
 				kSession.update(fh1,  p1);
 				kSession.update(fh2,  p2);
 
 				Thread.sleep(3000);
 
-				p1.setTemperature(32);
-				p2.setTemperature(32);
+				p1.getTemperature().setValue(37);
+				p2.getTemperature().setValue(37);
 
 				kSession.update(fh1,  p1);
 				kSession.update(fh2,  p2);
 
 				Thread.sleep(3000);
 
-				p1.setTemperature(31);
-				p2.setTemperature(31);
+				p1.getTemperature().setValue(32);
+				p2.getTemperature().setValue(32);
+
+				kSession.update(fh1,  p1);
+				kSession.update(fh2,  p2);
+
+				Thread.sleep(3000);
+
+				p1.getTemperature().setValue(31);
+				p2.getTemperature().setValue(31);
 
 				kSession.update(fh1,  p1);
 				kSession.update(fh2,  p2);

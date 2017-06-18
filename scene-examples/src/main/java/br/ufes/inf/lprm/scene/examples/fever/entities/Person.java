@@ -4,7 +4,7 @@ public class Person {
 
     private int id;
     private String name;
-    private int temperature;
+    private Temperature temperature;
 
     public int getId() {
         return id;
@@ -12,6 +12,7 @@ public class Person {
 
     public Person setId(int id) {
         this.id = id;
+        temperature = new Temperature();
         return this;
     }
 
@@ -24,12 +25,8 @@ public class Person {
         return this;
     }
 
-    public int getTemperature() {
+    public Temperature getTemperature() {
         return temperature;
     }
 
-    public Person setTemperature(int temperature) {
-        this.temperature = temperature;
-        return this;
-    }
 }
