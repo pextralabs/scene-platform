@@ -48,7 +48,8 @@ In order to fully describe a SCENE situation, one must declare a **`Situation ki
 		<id>Scene repo</id>
 		<url>https://mymavenrepo.com/repo/BG5Za6vz3CyY7SaQjMOa/</url>
 	</repository>
-</repositories>```
+</repositories>
+```
 
 ```xml
 <dependency>
