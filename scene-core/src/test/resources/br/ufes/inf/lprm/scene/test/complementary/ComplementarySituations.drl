@@ -1,0 +1,36 @@
+package br.ufes.inf.lprm.scene.test.complementary;
+
+import java.util.List;
+
+import br.ufes.inf.lprm.scene.test.model.*;
+
+import br.ufes.inf.lprm.situation.bindings.*;
+
+import br.ufes.inf.lprm.scene.model.Situation;
+import br.ufes.inf.lprm.scene.util.SituationHelper;
+
+declare Alive extends Situation
+  person: Person @part @key
+end
+
+declare Dead extends Situation
+  person: Person @part @key
+end
+
+rule Alive
+@role(situation)
+@type(Alive)
+  when
+    person: Person(heartrate > 0)
+  then
+    SituationHelper.situationDetected(drools);
+end
+
+rule Dead
+@role(situation)
+@type(Dead)
+  when
+    person: Person(heartrate == 0)
+  then
+    SituationHelper.situationDetected(drools);
+end

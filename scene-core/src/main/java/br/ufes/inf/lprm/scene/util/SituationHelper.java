@@ -13,7 +13,9 @@ import org.kie.api.runtime.rule.QueryResults;
 import org.kie.api.runtime.rule.QueryResultsRow;
 
 public class SituationHelper {
-	
+
+	private static final long __ACTIVATION_DELAY = 10;
+
 	public static br.ufes.inf.lprm.situation.model.SituationType getSituationType(KieRuntime runtime, String typeName) {
 
 		QueryResults results = runtime.getQueryResults("SituationType", new Object[] {typeName} );
@@ -45,7 +47,7 @@ public class SituationHelper {
 		KieRuntime runtime = khelper.getKieRuntime();
 
 		long evn_timestamp = runtime.getSessionClock().getCurrentTime();
-		Activation activation = new Activation(evn_timestamp);
+		Activation activation = new Activation(evn_timestamp + __ACTIVATION_DELAY);
 		
 		Situation situation = ((SituationType) type).newInstance(activation, cast);
         activation.setSituation(situation);
@@ -59,14 +61,18 @@ public class SituationHelper {
 
 	
 	public static void deactivateSituation(KnowledgeHelper khelper, Object sit) {
-		long evn_timestamp = khelper.getKieRuntime().getSessionClock().getCurrentTime();
+		deactivateSituation(khelper.getKieRuntime(), sit);
+	}
+
+	public static void deactivateSituation(KieRuntime runtime, Object sit) {
+		long evn_timestamp = runtime.getSessionClock().getCurrentTime();
 		Deactivation deactivation = new Deactivation(evn_timestamp);
 		deactivation.setSituation((Situation) sit);
 
 		((Situation) sit).setDeactivation(deactivation);
-		
-		khelper.getKieRuntime().insert(deactivation);
-		khelper.getKieRuntime().update(khelper.getKieRuntime().getFactHandle(sit), sit);
+
+		runtime.insert(deactivation);
+		runtime.update(runtime.getFactHandle(sit), sit);
 	}
 	
 }

@@ -11,7 +11,6 @@ declare SituationEvent
 end
 
 rule "SituationActivation"
-    salience 1
 	when
 		$act: OnGoingSituation(situation == null, $type: type, $cast: cast, $timestamp: timestamp)
 	then
@@ -19,14 +18,14 @@ rule "SituationActivation"
 		update($act);
 end
 
-rule "SituationDeactivation"
+/*rule "SituationDeactivation"
     salience 999
 	when
 		$sit: Situation(active==true)
 		not (exists OnGoingSituation(situation == $sit))
 	then
 		SituationHelper.deactivateSituation(drools, (Object) $sit);
-end
+end*/
 
 query "OnGoingSituation" (String tp, int hash)
 	curr: OnGoingSituation(this.situation != null, sit: this.situation, this.typename == tp, this.hashcode == hash)

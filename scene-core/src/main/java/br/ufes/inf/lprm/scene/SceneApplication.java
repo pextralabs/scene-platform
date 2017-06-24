@@ -1,6 +1,7 @@
 package br.ufes.inf.lprm.scene;
 
 
+import br.ufes.inf.lprm.scene.base.listeners.DeactivationListener;
 import br.ufes.inf.lprm.scene.base.listeners.SCENESessionListener;
 import br.ufes.inf.lprm.scene.exceptions.NotCompatibleException;
 import br.ufes.inf.lprm.scene.exceptions.NotInstantiatedException;
@@ -39,6 +40,9 @@ public class SceneApplication {
         mappedSituationTypes = new HashMap<String, br.ufes.inf.lprm.situation.model.SituationType>();
         this.name = name;
         this.ksession = ksession;
+
+        ksession.addEventListener( new DeactivationListener() );
+
         injectSceneMetamodel();
     }
 

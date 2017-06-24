@@ -75,57 +75,43 @@ public class FeverExampleMain {
 				
 				Thread.sleep(1000);
 				p1.getTemperature().setValue(38);
-				p2.getTemperature().setValue(38);
 				kSession.update(fh1,  p1);
-				kSession.update(fh2,  p2);
 
 				Thread.sleep(3000);
 
 				p1.getTemperature().setValue(39);
-				p2.getTemperature().setValue(39);
 
 				kSession.update(fh1,  p1);
-				kSession.update(fh2,  p2);
 
 				Thread.sleep(3000);
 
 				p1.getTemperature().setValue(40);
-				p2.getTemperature().setValue(40);
 
 				kSession.update(fh1,  p1);
-				kSession.update(fh2,  p2);
 
 				Thread.sleep(3000);
 
 				p1.getTemperature().setValue(39);
-				p2.getTemperature().setValue(39);
 
 				kSession.update(fh1,  p1);
-				kSession.update(fh2,  p2);
 
 				Thread.sleep(3000);
 
 				p1.getTemperature().setValue(37);
-				p2.getTemperature().setValue(37);
 
 				kSession.update(fh1,  p1);
-				kSession.update(fh2,  p2);
 
 				Thread.sleep(3000);
 
 				p1.getTemperature().setValue(32);
-				p2.getTemperature().setValue(32);
 
 				kSession.update(fh1,  p1);
-				kSession.update(fh2,  p2);
 
 				Thread.sleep(3000);
 
 				p1.getTemperature().setValue(31);
-				p2.getTemperature().setValue(31);
 
 				kSession.update(fh1,  p1);
-				kSession.update(fh2,  p2);
 
 			}
 						

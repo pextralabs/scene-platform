@@ -28,14 +28,11 @@ public class SCENESessionListener extends DefaultRuleRuntimeEventListener {
 
     @Override
     public void objectUpdated(ObjectUpdatedEvent event) {
-
         if (event.getRule() != null) {
             SCENELogger.logger.debug("UPDATE ("+ event.getRule().getName() +") - " + event.getObject().toString());
         } else {
             SCENELogger.logger.debug("UPDATE - " + event.getObject().toString());
         }
-
-
     }
 
     @Override
