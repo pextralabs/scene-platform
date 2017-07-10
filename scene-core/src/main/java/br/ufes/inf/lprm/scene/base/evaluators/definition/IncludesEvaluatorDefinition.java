@@ -8,9 +8,6 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 
-/**
- * Created by hborjaille on 9/8/16.
- */
 public class IncludesEvaluatorDefinition extends org.drools.core.base.evaluators.IncludesEvaluatorDefinition {
 
     private Map<String, br.ufes.inf.lprm.scene.base.evaluators.implementation.IncludesEvaluator> cache = Collections.emptyMap();
@@ -22,6 +19,7 @@ public class IncludesEvaluatorDefinition extends org.drools.core.base.evaluators
                                   final String parameterText,
                                   final Target left,
                                   final Target right ) {
+
         if ( this.cache == Collections.EMPTY_MAP ) {
             this.cache = new HashMap<String, br.ufes.inf.lprm.scene.base.evaluators.implementation.IncludesEvaluator>();
         }

@@ -14,7 +14,7 @@ import org.kie.api.runtime.rule.QueryResultsRow;
 
 public class SituationHelper {
 
-	private static final long __ACTIVATION_DELAY = 10;
+	private static final long __ACTIVATION_DELAY = 0;
 
 	public static br.ufes.inf.lprm.situation.model.SituationType getSituationType(KieRuntime runtime, String typeName) {
 

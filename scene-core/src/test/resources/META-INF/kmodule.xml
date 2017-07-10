@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <kmodule xmlns="http://www.drools.org/xsd/kmodule">
-    <kbase name="complementary-test" default="true" includes="sceneKieBase"/>
+    <kbase name="complementary-test" default="true" packages="br.ufes.inf.lprm.scene.test.complementary" includes="sceneKieBase"/>
+    <kbase name="temporal-operators" packages="br.ufes.inf.lprm.scene.test.temporal" includes="sceneKieBase"/>
 </kmodule>

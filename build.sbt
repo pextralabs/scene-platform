@@ -22,7 +22,7 @@ lazy val model = ProjectDef("situation-model", "0.10.0").
                       publishTo := Common.mavenRepo
                     ).dependsOn()
 
-lazy val core = ProjectDef("scene-core", "0.10.2")
+lazy val core = ProjectDef("scene-core", "0.10.3")
                         .settings(Common.settings: _*)
                         .settings(
                           autoScalaLibrary := false,

@@ -7,6 +7,7 @@ import org.drools.core.common.DefaultFactHandle;
 import org.drools.core.common.EventFactHandle;
 import org.drools.core.common.InternalFactHandle;
 import org.drools.core.common.InternalWorkingMemory;
+import org.drools.core.rule.VariableRestriction;
 import org.drools.core.rule.VariableRestriction.VariableContextEntry;
 import org.drools.core.rule.VariableRestriction.ObjectVariableContextEntry;
 import org.drools.core.spi.FieldValue;
@@ -41,96 +42,66 @@ public class CoincidesEvaluator extends CoincidesEvaluatorDefinition.CoincidesEv
 
     @Override
     public boolean evaluateCachedRight(InternalWorkingMemory workingMemory, VariableContextEntry context, InternalFactHandle left) {
-        if ( context.rightNull ) {
+        if ( context.rightNull ||
+                context.declaration.getExtractor().isNullValue( workingMemory, left.getObject() )) {
             return false;
         }
-        long leftStartTS = -1;
-        long leftEndTS = -1;
-        long rightStartTS = -1;
-        long rightEndTS = -1;
 
-        DefaultFactHandle leftFH = (DefaultFactHandle) left;
+        long rightStartTS, rightEndTS;
+        long leftStartTS, leftEndTS;
 
-        if (leftFH instanceof EventFactHandle) {
-            leftStartTS = ((EventFactHandle) leftFH).getStartTimestamp();
-            leftEndTS = ((EventFactHandle) leftFH).getEndTimestamp();
-        }
-        else {
-            Object leftFact =  workingMemory.getObject(leftFH);
-            if (leftFact instanceof Situation) {
-                leftStartTS = ((Situation) leftFact).getActivation().getTimestamp();
-                //'started' is not applicable when situationB not finished
-                if (!((Situation) leftFact).isActive()) {
-                    leftEndTS = ((Situation) leftFact).getDeactivation().getTimestamp();
-                }  else return false;
+        rightStartTS = ((VariableRestriction.TemporalVariableContextEntry) context).startTS;
+        rightEndTS = ((VariableRestriction.TemporalVariableContextEntry) context).endTS;
+
+        if ( context.declaration.getExtractor().isSelfReference() ) {
+            if (left.getObject() instanceof Situation) {
+                Situation sit = (Situation) left.getObject();
+                if (sit.isActive()) return false;
+                leftStartTS = sit.getActivation().getTimestamp();
+                leftEndTS   = sit.getDeactivation().getTimestamp();
+            } else {
+                leftStartTS = ((EventFactHandle) left).getStartTimestamp();
+                leftEndTS = ((EventFactHandle) left).getEndTimestamp();
             }
-        }
-
-        DefaultFactHandle rightFH = (DefaultFactHandle) ((ObjectVariableContextEntry) context).right;
-
-        if (rightFH instanceof EventFactHandle) {
-            rightStartTS = ((EventFactHandle) rightFH).getStartTimestamp();
-            rightEndTS = ((EventFactHandle) rightFH).getEndTimestamp();
-        }
-        else {
-            Object rightFact =  workingMemory.getObject(rightFH);
-            if (rightFact instanceof Situation) {
-                rightStartTS = ((Situation) rightFact).getActivation().getTimestamp();
-                if (!((Situation) rightFact).isActive()) {
-                    rightEndTS = ((Situation) rightFact).getDeactivation().getTimestamp();
-                } else return false;
-            }
+        } else {
+            leftStartTS = context.declaration.getExtractor().getLongValue( workingMemory, left.getObject() );
+            leftEndTS = leftStartTS;
         }
 
         long distStart = Math.abs( rightStartTS - leftStartTS );
         long distEnd = Math.abs( rightEndTS - leftEndTS );
         return this.getOperator().isNegated() ^ (distStart <= this.startDev && distEnd <= this.endDev);
+
     }
 
     @Override
     public boolean evaluateCachedLeft(InternalWorkingMemory workingMemory, VariableContextEntry context, InternalFactHandle right) {
-        if ( context.extractor.isNullValue( workingMemory,
-                right ) ) {
+        if ( context.leftNull ||
+                context.extractor.isNullValue( workingMemory, right.getObject() ) ) {
             return false;
         }
 
-        long leftStartTS = -1;
-        long leftEndTS = -1;
-        long rightStartTS = -1;
-        long rightEndTS = -1;
+        long rightStartTS, rightEndTS;
+        long leftStartTS, leftEndTS;
 
-        DefaultFactHandle leftFH = (DefaultFactHandle) ((ObjectVariableContextEntry) context).left;
-
-        if (leftFH instanceof EventFactHandle) {
-            leftStartTS = ((EventFactHandle) leftFH).getStartTimestamp();
-            leftEndTS = ((EventFactHandle) leftFH).getEndTimestamp();
-        }
-        else {
-            Object leftFact =  workingMemory.getObject(leftFH);
-            if (leftFact instanceof Situation) {
-                leftStartTS = ((Situation) leftFact).getActivation().getTimestamp();
-                //'coincides' is not applicable when situationB not finished
-                if (!((Situation) leftFact).isActive()) {
-                    leftEndTS = ((Situation) leftFact).getDeactivation().getTimestamp();
-                }  else return false;
+        if ( context.extractor.isSelfReference() ) {
+            if (right.getObject() instanceof Situation) {
+                Situation sit = (Situation) right.getObject();
+                if (sit.isActive()) return false;
+                rightStartTS  = sit.getActivation().getTimestamp();
+                rightEndTS = sit.getDeactivation().getTimestamp();
             }
-        }
-
-        DefaultFactHandle rightFH = (DefaultFactHandle) right;
-
-        if (rightFH instanceof EventFactHandle) {
-            rightStartTS = ((EventFactHandle) rightFH).getStartTimestamp();
-            rightEndTS = ((EventFactHandle) rightFH).getEndTimestamp();
-        }
-        else {
-            Object rightFact =  workingMemory.getObject(rightFH);
-            if (rightFact instanceof Situation) {
-                rightStartTS = ((Situation) rightFact).getActivation().getTimestamp();
-                if (!((Situation) rightFact).isActive()) {
-                    rightEndTS = ((Situation) rightFact).getDeactivation().getTimestamp();
-                } else return false;
+            else {
+                rightStartTS = ((EventFactHandle) right).getStartTimestamp();
+                rightEndTS = ((EventFactHandle) right).getEndTimestamp();
             }
+        } else {
+            rightStartTS = context.extractor.getLongValue( workingMemory, right.getObject() );
+            rightEndTS = rightStartTS;
         }
+
+        leftStartTS = ((VariableRestriction.TemporalVariableContextEntry) context).startTS;
+        leftEndTS = ((VariableRestriction.TemporalVariableContextEntry) context).endTS;
 
         long distStart = Math.abs( rightStartTS - leftStartTS );
         long distEnd = Math.abs( rightEndTS - leftEndTS );
@@ -138,51 +109,40 @@ public class CoincidesEvaluator extends CoincidesEvaluatorDefinition.CoincidesEv
     }
 
     @Override
-    public boolean evaluate(InternalWorkingMemory workingMemory, InternalReadAccessor leftExtractor, InternalFactHandle left, InternalReadAccessor rightExtractor, InternalFactHandle right) {
-        if ( leftExtractor.isNullValue( workingMemory,
-                left ) ) {
+    public boolean evaluate(InternalWorkingMemory workingMemory,
+                            final InternalReadAccessor leftExtractor,
+                            final InternalFactHandle left,
+                            final InternalReadAccessor rightExtractor,
+                            final InternalFactHandle right) {
+
+        if ( leftExtractor.isNullValue( workingMemory, left.getObject() ) ||
+                rightExtractor.isNullValue( workingMemory, right.getObject() ) ) {
             return false;
         }
 
-        long obj1StartTS = -1;
-        long obj1EndTS = -1;
-        long obj2StartTS = -1;
-        long obj2EndTS = -1;
+        long rightStartTS, rightEndTS;
+        long leftStartTS, leftEndTS;
 
-        DefaultFactHandle obj1FH = (DefaultFactHandle) left;
-
-        if (obj1FH instanceof EventFactHandle) {
-            obj1StartTS = ((EventFactHandle) obj1FH).getStartTimestamp();
-            obj1EndTS = ((EventFactHandle) obj1FH).getEndTimestamp();
-        }
-        else {
-            Object obj1Fact =  workingMemory.getObject(obj1FH);
-            if (obj1Fact instanceof Situation) {
-                obj1StartTS = ((Situation) obj1Fact).getActivation().getTimestamp();
-                if (!((Situation) obj1Fact).isActive()) {
-                    obj1EndTS = ((Situation) obj1Fact).getDeactivation().getTimestamp();
-                } else return false;
-            }
+        if ( leftExtractor.isSelfReference() ) {
+            rightStartTS = ((EventFactHandle) left).getStartTimestamp();
+            rightEndTS = ((EventFactHandle) left).getEndTimestamp();
+        } else {
+            rightStartTS = leftExtractor.getLongValue( workingMemory, left.getObject() );
+            rightEndTS = rightStartTS;
         }
 
-        DefaultFactHandle obj2FH = (DefaultFactHandle) right;
-
-        if (obj2FH instanceof EventFactHandle) {
-            obj2StartTS = ((EventFactHandle) obj2FH).getStartTimestamp();
-            obj2EndTS = ((EventFactHandle) obj2FH).getEndTimestamp();
-        }
-        else {
-            Object obj2Fact =  workingMemory.getObject(obj2FH);
-            if (obj2Fact instanceof Situation) {
-                obj2StartTS = ((Situation) obj2Fact).getActivation().getTimestamp();
-                if (!((Situation) obj2Fact).isActive()) {
-                    obj2EndTS = ((Situation) obj2Fact).getDeactivation().getTimestamp();
-                } else return false;
-            }
+        if ( rightExtractor.isSelfReference() ) {
+            leftStartTS = ((EventFactHandle) right).getStartTimestamp();
+            leftEndTS = ((EventFactHandle) right).getEndTimestamp();
+        } else {
+            leftStartTS = rightExtractor.getLongValue( workingMemory, right.getObject() );
+            leftEndTS = leftStartTS;
         }
 
-        long distStart = Math.abs( obj1StartTS - obj2StartTS );
-        long distEnd = Math.abs( obj1EndTS - obj2EndTS);
+        long distStart = Math.abs( rightStartTS - leftStartTS );
+        long distEnd = Math.abs( rightEndTS - leftEndTS );
         return this.getOperator().isNegated() ^ (distStart <= this.startDev && distEnd <= this.endDev);
+
     }
+
 }
