@@ -1,0 +1,250 @@
+package br.ufes.inf.lprm.scene.test.temporal;
+
+import java.util.Map;
+import java.util.List;
+
+import br.ufes.inf.lprm.scene.test.temporal.model.event.Event;
+import br.ufes.inf.lprm.scene.test.temporal.model.situation.Situation;
+import br.ufes.inf.lprm.scene.test.temporal.model.TemporalRelation;
+import br.ufes.inf.lprm.scene.test.temporal.model.TemporalRelation.Type;
+import br.ufes.inf.lprm.scene.test.temporal.model.TemporalEntity;
+import br.ufes.inf.lprm.scene.util.SituationHelper;
+
+global java.util.Map relations;
+
+function Map addRelation(Map relationsMap, TemporalRelation relation) {
+    List list = (List) relationsMap.get(relation.getType());
+
+    if (!list.contains(relation)) {
+        list.add(relation);
+    }
+
+    return relationsMap;
+}
+
+rule Situation
+@role(situation)
+@type(model.situation.Situation)
+    when
+        event: Event(!finished)
+    then
+    	SituationHelper.situationDetected(drools);
+end
+
+rule BeforeE
+    when
+        b: Event()
+        a: Event(this before b)
+    then
+        addRelation(relations, new TemporalRelation(Type.BEFORE, a, b));
+end
+
+rule BeforeS
+    when
+        b: Situation()
+        a: Situation(this before b)
+    then
+        addRelation(relations, new TemporalRelation(Type.BEFORE, a, b));
+end
+
+rule AfterE
+    when
+        b: Event()
+        a: Event(this after b)
+    then
+        addRelation(relations, new TemporalRelation(Type.AFTER, a, b));
+end
+
+rule AfterS
+    when
+        b: Situation()
+        a: Situation(this after b)
+    then
+        addRelation(relations, new TemporalRelation(Type.AFTER, a, b));
+end
+
+rule MeetsE
+    when
+        b: Event()
+        a: Event(this meets b)
+    then
+        addRelation(relations, new TemporalRelation(Type.MEETS, a, b));
+end
+
+rule MeetS
+    when
+        b: Situation()
+        a: Situation(this meets b)
+    then
+        addRelation(relations, new TemporalRelation(Type.MEETS, a, b));
+end
+
+rule MetByE
+    when
+        b: Event()
+        a: Event(this metby b)
+    then
+        addRelation(relations, new TemporalRelation(Type.MET_BY, a, b));
+end
+
+
+rule MetByS
+    when
+        b: Situation()
+        a: Situation(this metby b)
+    then
+        addRelation(relations, new TemporalRelation(Type.MET_BY, a, b));
+end
+
+rule OverlapsE
+    when
+        b: Event()
+        a: Event(this overlaps b)
+    then
+        addRelation(relations, new TemporalRelation(Type.OVERLAPS, a, b));
+end
+
+
+rule OverlapsS
+    when
+        b: Situation()
+        a: Situation(this overlaps b)
+    then
+        addRelation(relations, new TemporalRelation(Type.OVERLAPS, a, b));
+end
+
+rule OverlappedByE
+    when
+        b: Event()
+        a: Event(this overlappedby b)
+    then
+        addRelation(relations, new TemporalRelation(Type.OVERLAPPED_BY, a, b));
+end
+
+
+rule OverlappedByS
+    when
+        b: Situation()
+        a: Situation(this overlappedby b)
+    then
+        addRelation(relations, new TemporalRelation(Type.OVERLAPPED_BY, a, b));
+end
+
+rule StartsE
+    when
+        b: Event()
+        a: Event(this starts b)
+    then
+        addRelation(relations, new TemporalRelation(Type.STARTS, a, b));
+end
+
+
+rule StartsS
+    when
+        b: Situation()
+        a: Situation(this starts b)
+    then
+        addRelation(relations, new TemporalRelation(Type.STARTS, a, b));
+end
+
+rule StartedByE
+    when
+        b: Event()
+        a: Event(this startedby b)
+    then
+        addRelation(relations, new TemporalRelation(Type.STARTED_BY, a, b));
+end
+
+
+rule StartedByS
+    when
+        b: Situation()
+        a: Situation(this startedby b)
+    then
+        addRelation(relations, new TemporalRelation(Type.STARTED_BY, a, b));
+end
+
+rule DuringE
+    when
+        b: Event()
+        a: Event(this during b)
+    then
+        addRelation(relations, new TemporalRelation(Type.DURING, a, b));
+end
+
+
+rule DuringS
+    when
+        b: Situation()
+        a: Situation(this during b)
+    then
+        addRelation(relations, new TemporalRelation(Type.DURING, a, b));
+end
+
+rule IncludesE
+    when
+        b: Event()
+        a: Event(this includes b)
+    then
+        addRelation(relations, new TemporalRelation(Type.INCLUDES, a, b));
+end
+
+
+rule IncludesS
+    when
+        b: Situation()
+        a: Situation(this includes b)
+    then
+        addRelation(relations, new TemporalRelation(Type.INCLUDES, a, b));
+end
+
+rule FinishesE
+    when
+        b: Event()
+        a: Event(this finishes b)
+    then
+        addRelation(relations, new TemporalRelation(Type.FINISHES, a, b));
+end
+
+
+rule FinishesS
+    when
+        b: Situation()
+        a: Situation(this finishes b)
+    then
+        addRelation(relations, new TemporalRelation(Type.FINISHES, a, b));
+end
+
+rule FinishedByE
+    when
+        b: Event()
+        a: Event(this finishes b)
+    then
+        addRelation(relations, new TemporalRelation(Type.FINISHED_BY, a, b));
+end
+
+
+rule FinishedByS
+    when
+        b: Situation()
+        a: Situation(this finishes b)
+    then
+        addRelation(relations, new TemporalRelation(Type.FINISHED_BY, a, b));
+end
+
+rule CoincidesE
+    when
+        b: Event()
+        a: Event(a != b, this coincides b)
+    then
+        addRelation(relations, new TemporalRelation(Type.COINCIDES, a, b));
+end
+
+
+rule CoincidesS
+    when
+        b: Situation()
+        a: Situation(a != b, this coincides b)
+    then
+        addRelation(relations, new TemporalRelation(Type.COINCIDES, a, b));
+end

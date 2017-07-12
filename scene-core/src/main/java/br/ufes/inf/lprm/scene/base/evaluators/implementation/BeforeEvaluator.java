@@ -29,18 +29,20 @@ public class BeforeEvaluator extends org.drools.core.base.evaluators.BeforeEvalu
     protected long getLeftTimestamp( InternalFactHandle handle ) {
         Object obj = handle.getObject();
         if (obj instanceof Situation) {
+            return ((Situation) obj).getActivation().getTimestamp();
+        } else return ( (EventFactHandle) handle ).getStartTimestamp();
+    }
+
+    @Override
+    protected long getRightTimestamp( InternalFactHandle handle ) {
+
+        Object obj = handle.getObject();
+        if (obj instanceof Situation) {
             if(((Situation) obj).isActive()) {
                 return Long.MAX_VALUE;
             }
             return ((Situation) obj).getDeactivation().getTimestamp();
         } else return ( (EventFactHandle) handle ).getEndTimestamp();
-    }
 
-    @Override
-    protected long getRightTimestamp( InternalFactHandle handle ) {
-        Object obj = handle.getObject();
-        if (obj instanceof Situation) {
-            return ((Situation) obj).getActivation().getTimestamp();
-        } else return ( (EventFactHandle) handle ).getStartTimestamp();
     }
 }

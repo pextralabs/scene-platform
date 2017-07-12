@@ -32,3 +32,28 @@ rule "NoFeverSituation"
     then
     	SituationHelper.situationDetected(drools);
 end
+
+rule "FeverAfterNoFever"
+    when
+    	no: NoFever()
+    	fever: Fever(this after no)
+    then
+    	System.out.println("fever after no fever!");
+    	if (!no.isActive()) {
+    	    System.out.println("NO FEVER:" + no.getActivation().getTimestamp() + " - " + no.getDeactivation().getTimestamp());
+    	} else {
+    	    System.out.println("NO FEVER:" + no.getActivation().getTimestamp() + " - ???");
+    	}
+        System.out.println("FEVER:" + fever.getActivation().getTimestamp() + " - ???");
+end
+
+/*rule "NoFeverBeforeFever"
+    when
+    	fever: Fever()
+    	no: NoFever(this before fever)
+    then
+    	System.out.println("no fever before fever!");
+        System.out.println("NO FEVER:" + no.getActivation().getTimestamp() + " - " + no.isActive());
+        System.out.println("FEVER:" + fever.getActivation().getTimestamp() + " - ???");
+
+end*/

@@ -11,10 +11,10 @@ import org.drools.core.rule.VariableRestriction.VariableContextEntry;
 import org.drools.core.spi.FieldValue;
 import org.drools.core.spi.InternalReadAccessor;
 
-/**
- * Created by hborjaille on 10/12/16.
- */
+import java.lang.reflect.Field;
+
 public class MetByEvaluator extends MetByEvaluatorDefinition.MetByEvaluator {
+
     private long              finalRange;
 
     public MetByEvaluator(final ValueType type,
@@ -25,6 +25,18 @@ public class MetByEvaluator extends MetByEvaluatorDefinition.MetByEvaluator {
                 isNegated,
                 parameters,
                 paramText);
+        extractParams();
+    }
+
+
+    private void extractParams() {
+        try {
+            Field finalRange   = this.getClass().getSuperclass().getDeclaredField("finalRange");
+            finalRange.setAccessible(true);
+            this.finalRange = finalRange.getLong(this);
+        } catch (Exception e) {
+            throw new RuntimeException( e.getMessage() );
+        }
     }
 
     @Override
@@ -44,17 +56,21 @@ public class MetByEvaluator extends MetByEvaluatorDefinition.MetByEvaluator {
             return false;
         }
 
-        long rightStartTS = ((LeftEndRightStartContextEntry)context).timestamp;
-        long dist = 0;
-        if(left instanceof EventFactHandle) {
-            dist = Math.abs( rightStartTS - ((EventFactHandle) left).getEndTimestamp() );
-        } else {
-            Object leftFact =  workingMemory.getObject(left);
-            if (leftFact instanceof Situation) {
-                dist = Math.abs( rightStartTS - ((Situation) leftFact).getDeactivation().getTimestamp());
-            }
+        long leftEndTS, rightStartTS;
+
+        rightStartTS = ((LeftEndRightStartContextEntry)context).timestamp;
+
+        if (left.getObject() instanceof Situation) {
+            Situation sit = (Situation) left.getObject();
+            //if (sit.isActive()) return false;
+            leftEndTS = !sit.isActive() ? sit.getDeactivation().getTimestamp() : Long.MAX_VALUE;
         }
-        return this.getOperator().isNegated() ^ (dist <= this.finalRange);
+        else {
+            leftEndTS = ((EventFactHandle) left).getEndTimestamp();
+        }
+
+        long dist = Math.abs( rightStartTS - leftEndTS );
+        return this.getOperator().isNegated() ^ ( dist <= this.finalRange );
     }
 
     @Override
@@ -66,51 +82,49 @@ public class MetByEvaluator extends MetByEvaluatorDefinition.MetByEvaluator {
             return false;
         }
 
-        long rightStartTS = 0;
-        if(right instanceof EventFactHandle) {
-            rightStartTS = ((EventFactHandle) right).getStartTimestamp();
-        } else {
-            Object leftFact =  workingMemory.getObject(right);
-            if (leftFact instanceof Situation) {
-                rightStartTS = ((Situation) leftFact).getActivation().getTimestamp();
-            }
-        }
-        long dist = Math.abs( rightStartTS - ((LeftEndRightStartContextEntry)context).timestamp );
+        long rightStartTS;
 
+        if (right.getObject() instanceof Situation) {
+            Situation sit = (Situation) right.getObject();
+            rightStartTS = sit.getActivation().getTimestamp();
+        }
+        else {
+            rightStartTS = ((EventFactHandle) right).getStartTimestamp();
+        }
+
+        long dist = Math.abs( rightStartTS - ((LeftEndRightStartContextEntry)context).timestamp );
         return this.getOperator().isNegated() ^ ( dist <= this.finalRange );
     }
 
     @Override
     public boolean evaluate(InternalWorkingMemory workingMemory,
-                            final InternalReadAccessor extractor1,
-                            final InternalFactHandle handle1,
-                            final InternalReadAccessor extractor2,
-                            final InternalFactHandle handle2) {
-        if ( extractor1.isNullValue( workingMemory, handle1.getObject() ) ||
-                extractor2.isNullValue( workingMemory, handle2.getObject() ) ) {
+                            final InternalReadAccessor leftExtractor,
+                            final InternalFactHandle left,
+                            final InternalReadAccessor rightExtractor,
+                            final InternalFactHandle right) {
+        if ( leftExtractor.isNullValue( workingMemory, left.getObject() ) ||
+                rightExtractor.isNullValue( workingMemory, right.getObject() ) ) {
             return false;
         }
 
-        long obj1StartTS = -1;
-        if(handle2 instanceof EventFactHandle) {
-            obj1StartTS = ((EventFactHandle) handle1).getStartTimestamp();
+        long leftStartTS, rightEndTS;
+
+        if (left.getObject() instanceof Situation) {
+            Situation sit = (Situation) left.getObject();
+            if (sit.isActive()) return false;
+            leftStartTS = sit.getActivation().getTimestamp();
         } else {
-            Object obj2Fact =  workingMemory.getObject(handle1);
-            if (obj2Fact instanceof Situation) {
-                obj1StartTS = ((Situation) obj2Fact).getActivation().getTimestamp();
-            }
+            leftStartTS = ((EventFactHandle) left).getStartTimestamp();
         }
 
-        long dist = 0;
-        if (handle1 instanceof EventFactHandle) {
-            dist = Math.abs( obj1StartTS - ((EventFactHandle) handle2).getEndTimestamp() );
+        if (right.getObject() instanceof Situation) {
+            Situation sit = (Situation) right.getObject();
+            rightEndTS   = !sit.isActive() ? sit.getDeactivation().getTimestamp() : Long.MAX_VALUE;
         } else {
-            Object obj2Fact = workingMemory.getObject(handle2);
-            if (obj2Fact instanceof Situation) {
-                dist = Math.abs( obj1StartTS - ((Situation) obj2Fact).getDeactivation().getTimestamp());
-            }
+            rightEndTS = ((EventFactHandle) right).getEndTimestamp();
         }
 
+        long dist = Math.abs( leftStartTS - rightEndTS );
         return this.getOperator().isNegated() ^ ( dist <= this.finalRange );
     }
 }
