@@ -1,16 +1,15 @@
 package br.ufes.inf.lprm.situation.model;
 
-import br.ufes.inf.lprm.situation.model.events.Activation;
-import br.ufes.inf.lprm.situation.model.events.Deactivation;
+import br.ufes.inf.lprm.situation.model.events.SituationEvent;
 
 import java.util.List;
 
 public interface Situation {
 
     public long getUID();
-    public Activation getActivation();
-    public Deactivation getDeactivation();
-    public void setDeactivation(Deactivation deactivation);
+    public SituationEvent getActivation();
+    public SituationEvent getDeactivation();
+    public void setDeactivation(SituationEvent deactivation);
     public boolean isActive();
     public List<Participation> getParticipations();
     public SituationType getType();

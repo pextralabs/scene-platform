@@ -153,15 +153,13 @@ public class SceneApplication {
     private Map<String, br.ufes.inf.lprm.situation.model.SituationType> mappedSituationTypes;
     private JsonContext context;
 
-    public SceneApplication(String name, KieSession ksession) {
+    public SceneApplication(ClassPool pool, KieSession ksession, String name) {
         situationTypes = new ArrayList<br.ufes.inf.lprm.situation.model.SituationType>();
         mappedSituationTypes = new HashMap<String, br.ufes.inf.lprm.situation.model.SituationType>();
         this.name = name;
         this.ksession = ksession;
 
         ksession.addEventListener( new DeactivationListener() );
-
-        ClassPool pool = ClassPool.getDefault();
 
         CtMethod getTimestampFromTuple, getTimestampFromFactHandle, updateFromTuple, updateFromFactHandle;
 

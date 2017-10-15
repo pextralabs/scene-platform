@@ -14,7 +14,7 @@ resolvers in Global ++= Seq(Resolver.mavenLocal,
                             "jboss" at "http://repository.jboss.org/nexus/content/groups/public/" ,
                             "repo1" at "http://repo1.maven.org/maven2/" )
 
-lazy val model = ProjectDef("situation-model", "0.10.0").
+lazy val model = ProjectDef("situation-model", "0.10.1").
                     settings(Common.settings: _*).
                     settings(
                       autoScalaLibrary := false,
@@ -22,7 +22,7 @@ lazy val model = ProjectDef("situation-model", "0.10.0").
                       publishTo := Common.mavenRepo
                     ).dependsOn()
 
-lazy val core = ProjectDef("scene-core", "0.10.3")
+lazy val core = ProjectDef("scene-core", "0.10.5")
                         .settings(Common.settings: _*)
                         .settings(
                           autoScalaLibrary := false,

@@ -1,5 +1,4 @@
-package br.ufes.inf.lprm.situation.model.events;
-
+package br.ufes.inf.lprm.scene.model.events;
 
 import org.joda.time.DateTime;
 import org.joda.time.format.DateTimeFormat;

@@ -43,7 +43,7 @@ public class IncludesEvaluator extends IncludesEvaluatorDefinition.IncludesEvalu
 
             this.startMinDev = startMinDev.getLong(this);
             this.startMaxDev = startMaxDev.getLong(this);
-            this.endMinDev = endMinDev.getLong(this);
+            this.endMinDev = 0;//endMinDev.getLong(this);
             this.endMaxDev = endMaxDev.getLong(this);
 
         } catch (Exception e) {
@@ -97,9 +97,8 @@ public class IncludesEvaluator extends IncludesEvaluatorDefinition.IncludesEvalu
 
         if (right.getObject() instanceof Situation) {
             Situation sit = (Situation) right.getObject();
-            if (sit.isActive()) return false;
             rightStartTS = sit.getActivation().getTimestamp();
-            rightEndTS   = sit.getDeactivation().getTimestamp();
+            rightEndTS   = !sit.isActive() ? sit.getDeactivation().getTimestamp() : Long.MAX_VALUE;
         } else {
             rightStartTS = ((EventFactHandle) right).getStartTimestamp();
             rightEndTS = ((EventFactHandle) right).getEndTimestamp();
@@ -125,9 +124,8 @@ public class IncludesEvaluator extends IncludesEvaluatorDefinition.IncludesEvalu
 
         if (left.getObject() instanceof Situation) {
             Situation sit = (Situation) left.getObject();
-            if (sit.isActive()) return false;
             leftStartTS = sit.getActivation().getTimestamp();
-            leftEndTS   = sit.getDeactivation().getTimestamp();
+            leftEndTS   = !sit.isActive() ? sit.getDeactivation().getTimestamp() : Long.MAX_VALUE;
         } else {
             leftStartTS = ((EventFactHandle) left).getStartTimestamp();
             leftEndTS = ((EventFactHandle) left).getEndTimestamp();
@@ -135,7 +133,6 @@ public class IncludesEvaluator extends IncludesEvaluatorDefinition.IncludesEvalu
 
         if (right.getObject() instanceof Situation) {
             Situation sit = (Situation) right.getObject();
-            if (sit.isActive()) return false;
             rightStartTS = sit.getActivation().getTimestamp();
             rightEndTS   = !sit.isActive() ? sit.getDeactivation().getTimestamp() : Long.MAX_VALUE;
         } else {

@@ -63,7 +63,6 @@ public class StartedByEvaluator extends StartedByEvaluatorDefinition.StartedByEv
 
         if (left.getObject() instanceof Situation) {
             Situation sit = (Situation) left.getObject();
-            if (sit.isActive()) return false;
             leftStartTS = sit.getActivation().getTimestamp();
             leftEndTS   = !sit.isActive() ? sit.getDeactivation().getTimestamp() : Long.MAX_VALUE;
         } else {

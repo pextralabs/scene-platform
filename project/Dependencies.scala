@@ -5,7 +5,7 @@ object Dependencies {
 
   val `junit-version`       = "4.8.1"
   val `slf4j-version`       = "1.7.22"
-  val `drools-version`      = "6.5.0.Final"
+  val `drools-version`      = "7.0.0.Final"
   val `reflections-version` = "0.9.10"
   val `joda-time-version`   = "2.3"
   val `gson-version`        = "2.7"

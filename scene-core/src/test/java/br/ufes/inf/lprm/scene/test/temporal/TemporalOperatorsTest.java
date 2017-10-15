@@ -4,6 +4,7 @@ import br.ufes.inf.lprm.scene.SceneApplication;
 import br.ufes.inf.lprm.scene.test.temporal.model.TemporalEntity;
 import br.ufes.inf.lprm.scene.test.temporal.model.TemporalRelation;
 import br.ufes.inf.lprm.scene.test.temporal.model.event.Event;
+import javassist.ClassPool;
 import org.drools.core.time.SessionPseudoClock;
 import org.junit.Assert;
 import org.junit.Test;
@@ -95,7 +96,7 @@ public class TemporalOperatorsTest {
         LOG.info("Creating kieSession");
         KieSession session = kieBase.newKieSession(pseudoConfig, null);
 
-        new SceneApplication("test", session);
+        new SceneApplication(ClassPool.getDefault(), session, "test");
 
         return session;
     }
@@ -193,11 +194,11 @@ public class TemporalOperatorsTest {
         FactHandle fhb = session.insert(b);
         session.fireAllRules();
         clock.advanceTime(1, TimeUnit.MINUTES);
-        session.update(fha, a.setFinished(true));
-        session.fireAllRules();
+        //session.update(fha, a.setFinished(true));
+        //session.fireAllRules();
         clock.advanceTime(59, TimeUnit.MINUTES);
-        session.update(fhb, b.setFinished(true));
-        session.fireAllRules();
+        //session.update(fhb, b.setFinished(true));
+        //session.fireAllRules();
 
         logRelations(temporalRelations);
 

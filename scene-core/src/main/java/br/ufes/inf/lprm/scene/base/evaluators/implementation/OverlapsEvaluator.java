@@ -64,7 +64,6 @@ public class OverlapsEvaluator extends OverlapsEvaluatorDefinition.OverlapsEvalu
 
         if (left.getObject() instanceof Situation) {
             Situation sit = (Situation) left.getObject();
-            if (sit.isActive()) return false;
             leftStartTS = sit.getActivation().getTimestamp();
             leftEndTS   = !sit.isActive() ? sit.getDeactivation().getTimestamp() : Long.MAX_VALUE;
         } else {
@@ -74,7 +73,7 @@ public class OverlapsEvaluator extends OverlapsEvaluatorDefinition.OverlapsEvalu
 
         long dist = rightEndTS - leftStartTS;
         return this.getOperator().isNegated() ^ (   rightStartTS < leftStartTS &&
-                                                    rightEndTS < leftEndTS &&
+                                                    rightEndTS <= leftEndTS &&
                                                     dist >= this.minDev && dist <= this.maxDev );
     }
 
@@ -102,7 +101,7 @@ public class OverlapsEvaluator extends OverlapsEvaluatorDefinition.OverlapsEvalu
 
         long dist = rightEndTS - leftStartTS;
         return this.getOperator().isNegated() ^ (   rightStartTS < leftStartTS &&
-                                                    rightEndTS < leftEndTS &&
+                                                    rightEndTS <= leftEndTS &&
                                                     dist >= this.minDev && dist <= this.maxDev );
 
     }
@@ -138,7 +137,7 @@ public class OverlapsEvaluator extends OverlapsEvaluatorDefinition.OverlapsEvalu
 
         long dist = leftEndTS - rightStartTS;
         return this.getOperator().isNegated() ^ (   leftStartTS < rightStartTS &&
-                                                    leftEndTS < rightEndTS &&
+                                                    leftEndTS <= rightEndTS &&
                                                     dist >= this.minDev && dist <= this.maxDev );
 
     }

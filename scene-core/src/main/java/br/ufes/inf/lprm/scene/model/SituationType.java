@@ -1,9 +1,9 @@
 package br.ufes.inf.lprm.scene.model;
 
+import br.ufes.inf.lprm.scene.model.events.Activation;
 import br.ufes.inf.lprm.scene.util.SituationCast;
 import br.ufes.inf.lprm.situation.model.bindings.Part;
 import br.ufes.inf.lprm.situation.model.bindings.Snapshot;
-import br.ufes.inf.lprm.situation.model.events.Activation;
 
 import java.lang.reflect.Field;
 import java.util.ArrayList;

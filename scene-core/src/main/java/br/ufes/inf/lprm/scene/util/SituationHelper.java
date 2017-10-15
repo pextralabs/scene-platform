@@ -2,10 +2,10 @@ package br.ufes.inf.lprm.scene.util;
 
 import br.ufes.inf.lprm.scene.exceptions.SituationTypeNotFound;
 import br.ufes.inf.lprm.scene.model.SituationType;
+import br.ufes.inf.lprm.scene.model.events.Activation;
+import br.ufes.inf.lprm.scene.model.events.Deactivation;
 import br.ufes.inf.lprm.situation.model.Participation;
 import br.ufes.inf.lprm.situation.model.Situation;
-import br.ufes.inf.lprm.situation.model.events.Activation;
-import br.ufes.inf.lprm.situation.model.events.Deactivation;
 import org.drools.core.definitions.rule.impl.RuleImpl;
 import org.drools.core.spi.KnowledgeHelper;
 import org.kie.api.runtime.KieRuntime;

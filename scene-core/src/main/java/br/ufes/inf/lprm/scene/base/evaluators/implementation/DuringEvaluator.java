@@ -47,7 +47,7 @@ public class DuringEvaluator extends org.drools.core.base.evaluators.DuringEvalu
 
             this.startMinDev = startMinDev.getLong(this);
             this.startMaxDev = startMaxDev.getLong(this);
-            this.endMinDev = endMinDev.getLong(this);
+            this.endMinDev = 0;//endMinDev.getLong(this);
             this.endMaxDev = endMaxDev.getLong(this);
 
         } catch (Exception e) {
@@ -73,7 +73,6 @@ public class DuringEvaluator extends org.drools.core.base.evaluators.DuringEvalu
 
         if (left.getObject() instanceof Situation) {
             Situation sit = (Situation) left.getObject();
-            if (sit.isActive()) return false;
             leftStartTS = sit.getActivation().getTimestamp();
             leftEndTS   = !sit.isActive() ? sit.getDeactivation().getTimestamp() : Long.MAX_VALUE;
         } else {
@@ -126,7 +125,6 @@ public class DuringEvaluator extends org.drools.core.base.evaluators.DuringEvalu
 
         if (left.getObject() instanceof Situation) {
             Situation sit = (Situation) left.getObject();
-            if (sit.isActive()) return false;
             leftStartTS = sit.getActivation().getTimestamp();
             leftEndTS   = !sit.isActive() ? sit.getDeactivation().getTimestamp() : Long.MAX_VALUE;
         } else {

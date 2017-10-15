@@ -1,10 +1,11 @@
 package br.ufes.inf.lprm.scene.model;
 
+import br.ufes.inf.lprm.scene.model.events.Activation;
+import br.ufes.inf.lprm.scene.model.events.Deactivation;
 import br.ufes.inf.lprm.scene.util.SituationCast;
 import br.ufes.inf.lprm.situation.model.bindings.Part;
 import br.ufes.inf.lprm.situation.model.SituationType;
-import br.ufes.inf.lprm.situation.model.events.Activation;
-import br.ufes.inf.lprm.situation.model.events.Deactivation;
+import br.ufes.inf.lprm.situation.model.events.SituationEvent;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -47,17 +48,17 @@ public class Situation implements br.ufes.inf.lprm.situation.model.Situation {
     }
 
     @Override
-    public Activation getActivation() {
+    public SituationEvent getActivation() {
         return activation;
     }
 
     @Override
-    public Deactivation getDeactivation() {
+    public SituationEvent getDeactivation() {
         return deactivation;
     }
 
-    public void setDeactivation(Deactivation deactivation) {
-        this.deactivation = deactivation;
+    public void setDeactivation(SituationEvent deactivation) {
+        this.deactivation = (Deactivation) deactivation;
         this.active = false;
     }
 
