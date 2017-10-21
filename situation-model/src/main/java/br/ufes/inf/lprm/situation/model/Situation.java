@@ -11,6 +11,6 @@ public interface Situation {
     public SituationEvent getDeactivation();
     public void setDeactivation(SituationEvent deactivation);
     public boolean isActive();
-    public List<Participation> getParticipations();
+    public List<? extends Participation> getParticipations();
     public SituationType getType();
 }

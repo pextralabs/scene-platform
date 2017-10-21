@@ -8,8 +8,8 @@ import java.util.List;
 
 public interface SituationType extends Type {
     public String getName();
-    public List<Part> getParts();
+    public List<? extends Part> getParts();
     //public List<Bind> getBinds();
-    public List<Snapshot> getSnapshots();
+    public List<? extends Snapshot> getSnapshots();
 
 }

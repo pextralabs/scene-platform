@@ -12,6 +12,7 @@ import java.util.List;
 
 public class Situation implements br.ufes.inf.lprm.situation.model.Situation {
 
+    private int runningId;
     private Activation activation;
     private Deactivation deactivation;
     private Boolean active;
@@ -19,6 +20,8 @@ public class Situation implements br.ufes.inf.lprm.situation.model.Situation {
     private List<br.ufes.inf.lprm.situation.model.Participation> participations;
 
     public Situation(SituationType type, Activation activation, SituationCast cast, boolean active) {
+
+        this.runningId = ((br.ufes.inf.lprm.scene.model.SituationType) type).getTypeClass().hashCode() + cast.hashCode();
         this.type = type;
         this.activation = activation;
         this.active = active;
@@ -44,7 +47,7 @@ public class Situation implements br.ufes.inf.lprm.situation.model.Situation {
 
     @Override
     public long getUID() {
-        return 0;
+        return runningId;
     }
 
     @Override
