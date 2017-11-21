@@ -65,9 +65,9 @@ public class FeverExampleMain {
 			kSession.update(fh1, p1);
 
 
-			while (true);
+			//while (true);
 
-			/*while (true) {
+			while (true) {
 				
 				Thread.sleep(1000);
 				p1.getTemperature().setValue(38);
@@ -109,7 +109,7 @@ public class FeverExampleMain {
 
 				kSession.update(fh1,  p1);
 
-			}*/
+			}
 						
         } catch (Throwable t) {
             t.printStackTrace();

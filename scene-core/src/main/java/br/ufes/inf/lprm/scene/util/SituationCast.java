@@ -19,15 +19,13 @@ public class SituationCast extends HashMap<String, Object> {
 		String 	roleLabel;
 		Object 	obj;
 		RuleImpl rule = activation.getRule();
-		List<Part> parts = type.getParts();
+		//List<Part> parts = type.getParts();
 		
-		for(Part p: parts) {
+		for(Part p: type.getParts()) {
 			put(p.getLabel(), activation.getDeclarationValue(p.getLabel()), p.isKey());
 		}
 
-		List<Snapshot> snapshots = type.getSnapshots();
-
-		for(Snapshot s: snapshots) {
+		for(Snapshot s: type.getSnapshots()) {
 			put(s.getLabel(), activation.getDeclarationValue(s.getLabel()), false);
 
 		}

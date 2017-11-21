@@ -58,11 +58,13 @@ public class SituationType implements br.ufes.inf.lprm.situation.model.Situation
 
     public Situation newInstance(Activation activation, SituationCast cast) {
         try {
+            Field fRunningId        = Situation.class.getDeclaredField("runningId");
             Field fActivation       = Situation.class.getDeclaredField("activation");
             Field fType             = Situation.class.getDeclaredField("type");
             Field fParticipations   = Situation.class.getDeclaredField("participations");
             Field fActive           = Situation.class.getDeclaredField("active");
 
+            fRunningId.setAccessible(true);
             fActivation.setAccessible(true);
             fType.setAccessible(true);
             fParticipations.setAccessible(true);
@@ -70,6 +72,7 @@ public class SituationType implements br.ufes.inf.lprm.situation.model.Situation
 
             Situation situation = (Situation) clazz.newInstance();
 
+            fRunningId.setInt(situation, this.getTypeClass().hashCode() + cast.hashCode());
             fType.set(situation, this);
             fActivation.set(situation, activation);
             fActive.set(situation, true);
@@ -90,6 +93,7 @@ public class SituationType implements br.ufes.inf.lprm.situation.model.Situation
                 ((br.ufes.inf.lprm.scene.model.Snapshot) snapshot).set(situation, obj);
             }
 
+            fRunningId.setAccessible(false);
             fActivation.setAccessible(false);
             fType.setAccessible(false);
             fParticipations.setAccessible(false);
