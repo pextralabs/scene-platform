@@ -80,6 +80,7 @@ public class TemporalOperatorsTest {
 
         KieContainer kContainer = kieServices.getKieClasspathContainer();
         Results verifyResults = kContainer.verify();
+
         for (Message m : verifyResults.getMessages()) LOG.info("{}", m);
 
         LOG.info("Creating kieBase");

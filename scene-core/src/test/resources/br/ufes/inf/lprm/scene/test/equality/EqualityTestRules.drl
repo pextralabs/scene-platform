@@ -1,0 +1,33 @@
+package br.ufes.inf.lprm.scene.test.equality;
+
+import br.ufes.inf.lprm.scene.test.equality.model.*;
+
+import br.ufes.inf.lprm.scene.model.Situation;
+import br.ufes.inf.lprm.situation.bindings.*;
+import br.ufes.inf.lprm.situation.model.Participation;
+import br.ufes.inf.lprm.situation.model.SituationType;
+import br.ufes.inf.lprm.scene.util.SituationHelper;
+import br.ufes.inf.lprm.scene.model.events.Activation;
+
+global java.util.List situations;
+global org.slf4j.Logger logger;
+
+declare Fever extends Situation
+    febrile: Person @part
+end
+
+rule "FeverSituation"
+@role(situation)
+@type(Fever)
+    when
+    	febrile: Person(temperature > 37.5)
+    then
+    	SituationHelper.situationDetected(drools);
+end
+
+rule "Situation"
+    when
+    	fev: Fever()
+    then
+    	situations.add(fev);
+end

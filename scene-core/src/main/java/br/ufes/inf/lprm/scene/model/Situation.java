@@ -6,12 +6,16 @@ import br.ufes.inf.lprm.scene.util.SituationCast;
 import br.ufes.inf.lprm.situation.model.bindings.Part;
 import br.ufes.inf.lprm.situation.model.SituationType;
 import br.ufes.inf.lprm.situation.model.events.SituationEvent;
+import org.kie.api.definition.type.Key;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
+//@Entity
 public class Situation implements br.ufes.inf.lprm.situation.model.Situation {
-
+    @Key
+    private String internalKey;
     private int runningId;
     private Activation activation;
     private Deactivation deactivation;
@@ -26,7 +30,7 @@ public class Situation implements br.ufes.inf.lprm.situation.model.Situation {
         this.activation = activation;
         this.active = active;
 
-        participations = new ArrayList<br.ufes.inf.lprm.situation.model.Participation>();
+        participations = new ArrayList<>();
 
         for(Part part: type.getParts()) {
             Object participant = cast.get(part.getLabel());
@@ -39,6 +43,7 @@ public class Situation implements br.ufes.inf.lprm.situation.model.Situation {
 
     public Situation() {
         this.active = true;
+        this.internalKey = UUID.randomUUID().toString();
     }
 
     public Situation(SituationType type, SituationCast cast, Activation activation) {
@@ -80,5 +85,7 @@ public class Situation implements br.ufes.inf.lprm.situation.model.Situation {
         return type;
     }
 
-
+    public String getInternalKey() {
+        return internalKey;
+    }
 }

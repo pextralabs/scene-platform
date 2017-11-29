@@ -22,7 +22,7 @@ lazy val model = ProjectDef("situation-model", "0.10.2").
                       publishTo := Common.mavenRepo
                     ).dependsOn()
 
-lazy val core = ProjectDef("scene-core", "0.10.7")
+lazy val core = ProjectDef("scene-core", "0.10.8-rc1")
                         .settings(Common.settings: _*)
                         .settings(
                           autoScalaLibrary := false,
@@ -35,7 +35,7 @@ lazy val examples = ProjectDef("scene-examples", "0.10.1")
                       .settings(Common.settings: _*)
                       .dependsOn(core)
 
-lazy val server = ProjectDef("scene-server", "0.1.0")
+/*lazy val server = ProjectDef("scene-server", "0.1.0")
   .enablePlugins(PlayJava)
   .disablePlugins(PlayLogback)
   .settings(Common.settings: _*)
@@ -43,4 +43,4 @@ lazy val server = ProjectDef("scene-server", "0.1.0")
     autoScalaLibrary := false,
     libraryDependencies ++= Seq(javaCore, filters),
     routesGenerator := InjectedRoutesGenerator
-  ).dependsOn(core)
+  ).dependsOn(core)*/
