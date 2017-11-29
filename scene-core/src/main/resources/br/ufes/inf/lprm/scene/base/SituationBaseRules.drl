@@ -10,16 +10,6 @@ declare SituationEvent
 	@timestamp(timestamp)
 end
 
-rule "SituationDeactivation"
-    salience 99
-	when
-		$sit: Situation(active==true)
-		not (exists OnGoingSituation(situation == $sit))
-	then
-		System.out.println("SituationDeactivation");
-		SituationHelper.deactivateSituation(drools, (Object) $sit);
-end
-
 rule "SituationActivation"
 	when
 		$act: OnGoingSituation(situation == null, $type: type, $cast: cast, $timestamp: timestamp)
@@ -44,3 +34,7 @@ end
 query "SituationType" (String typeName)
 	type: SituationType(name == typeName)
 end
+
+/*query "isParticipating" (String part, Object )
+	type: SituationType(name == typeName)
+end*/

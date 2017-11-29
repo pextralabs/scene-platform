@@ -6,10 +6,7 @@ import br.ufes.inf.lprm.situation.model.bindings.Part;
 import br.ufes.inf.lprm.situation.model.bindings.Snapshot;
 
 import java.lang.reflect.Field;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public class SituationType implements br.ufes.inf.lprm.situation.model.SituationType {
 
@@ -58,12 +55,14 @@ public class SituationType implements br.ufes.inf.lprm.situation.model.Situation
 
     public Situation newInstance(Activation activation, SituationCast cast) {
         try {
+            //Field fInternalKey      = Situation.class.getDeclaredField("internalKey");
             Field fRunningId        = Situation.class.getDeclaredField("runningId");
             Field fActivation       = Situation.class.getDeclaredField("activation");
             Field fType             = Situation.class.getDeclaredField("type");
             Field fParticipations   = Situation.class.getDeclaredField("participations");
             Field fActive           = Situation.class.getDeclaredField("active");
 
+            //fInternalKey.setAccessible(true);
             fRunningId.setAccessible(true);
             fActivation.setAccessible(true);
             fType.setAccessible(true);
@@ -72,6 +71,7 @@ public class SituationType implements br.ufes.inf.lprm.situation.model.Situation
 
             Situation situation = (Situation) clazz.newInstance();
 
+            //fInternalKey.set(situation, UUID.randomUUID().toString());
             fRunningId.setInt(situation, this.getTypeClass().hashCode() + cast.hashCode());
             fType.set(situation, this);
             fActivation.set(situation, activation);
@@ -93,6 +93,7 @@ public class SituationType implements br.ufes.inf.lprm.situation.model.Situation
                 ((br.ufes.inf.lprm.scene.model.Snapshot) snapshot).set(situation, obj);
             }
 
+            //fInternalKey.setAccessible(false);
             fRunningId.setAccessible(false);
             fActivation.setAccessible(false);
             fType.setAccessible(false);

@@ -297,9 +297,9 @@ public class SceneApplication {
 
             part p = (part) field.getAnnotation(part.class);
             if (p != null) {
-                Key key = (Key) field.getAnnotation(Key.class);
+                //Key key = (Key) field.getAnnotation(Key.class);
                 String label = p.label().equals("") ? field.getName() : p.label();
-                parts.add(new Part(label, field, key != null ));
+                parts.add(new Part(label, field, true));
             }
         }
         return parts;
